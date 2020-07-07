@@ -1,0 +1,1713 @@
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_AFBwomen.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_AsthEcz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_VoiceDeepened.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Hayfever.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Menarche.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_AstEczRhi.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_NEBwomen.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_ADHDv3.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_NEBmen.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_ADHDv2.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AstEczRhi_2020_03_13 
+Set directory toSet directory to  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_NEBmen_2020_03_13/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Hayfever_2020_03_13  
+
+Found 1 files to process 
+[1] "CLEANED.23andMe_AstEczRhi.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AstEczRhi_2020_03_13[1]Set directory to "2020-03-13" 
+/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_ADHDv2_2020_03_13 
+-----------------------------------------
+
+FoundFound Loading reference file:  /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+11  files to process 
+files to process 
+[1][1] "CLEANED.23andMe_Hayfever.gz" "CLEANED.23andMe_NEBmen.gz"
+
+-----------------------------------------
+-----------------------------------------
+QC Step 2 for QC Step 2 for/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Hayfever_2020_03_13 /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_NEBmen_2020_03_13[1][1] "2020-03-13"
+ "2020-03-13"
+-----------------------------------------
+-----------------------------------------
+
+
+Loading reference file: Loading reference file:/var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt  /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt
+ 
+Found 1 files to process 
+[1] "CLEANED.23andMe_ADHDv2.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_ADHDv2_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_NEBwomen_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_NEBwomen.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_NEBwomen_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory toSet directory to  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Menarche_2020_03_13/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_ADHDv3_2020_03_13  
+
+Found 1 files to process 
+[1] "CLEANED.23andMe_ADHDv3.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_ADHDv3_2020_03_13[1] "2020-03-13"
+Found Set directory to1  files to process 
+/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AsthEcz_2020_03_13 
+-----------------------------------------
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_VoiceDeepened_2020_03_13 
+[1] "CLEANED.23andMe_Menarche.gz"
+
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Menarche_2020_03_13Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AFBwomen_2020_03_13 
+Found 1 files to process 
+Found 1 files to process 
+[1] "CLEANED.23andMe_AsthEcz.gz"
+[1] "CLEANED.23andMe_VoiceDeepened.gz"
+-----------------------------------------
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AsthEcz_2020_03_13QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_VoiceDeepened_2020_03_13[1] "2020-03-13"
+[1] "2020-03-13"
+-----------------------------------------
+-----------------------------------------
+
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Found 1 files to process 
+[1] "CLEANED.23andMe_AFBwomen.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AFBwomen_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Loading GWAS data CLEANED.23andMe_NEBmen.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_NEBmen.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_AsthEcz.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_AsthEcz.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Menarche.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Menarche.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_VoiceDeepened.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_VoiceDeepened.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_NEBwomen.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_NEBwomen.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_AFBwomen.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_AFBwomen.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_ADHDv2.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_ADHDv2.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_ADHDv3.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_ADHDv3.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_AstEczRhi.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_AstEczRhi.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Hayfever.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Hayfever.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0105774 -0.0010053 -0.0007377 -0.0002206  0.0269530 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.411735   0.000167    8452   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.001928 on 199999 degrees of freedom
+Multiple R-squared:  0.9972,	Adjusted R-squared:  0.9972 
+F-statistic: 7.144e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.109975 -0.003678 -0.002322 -0.000545  0.309603 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 4.4630847  0.0009639    4630   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.01062 on 199999 degrees of freedom
+Multiple R-squared:  0.9908,	Adjusted R-squared:  0.9908 
+F-statistic: 2.144e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0097975 -0.0005034  0.0000427  0.0005134  0.0095435 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 2.118567   0.008675   244.2   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.002064 on 49 degrees of freedom
+  (199950 observations deleted due to missingness)
+Multiple R-squared:  0.9992,	Adjusted R-squared:  0.9992 
+F-statistic: 5.964e+04 on 1 and 49 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.049075 -0.004162 -0.002990 -0.000839  0.138171 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 5.6200731  0.0006664    8433   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.008322 on 199999 degrees of freedom
+Multiple R-squared:  0.9972,	Adjusted R-squared:  0.9972 
+F-statistic: 7.112e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.004295 -0.000299 -0.000214 -0.000156  0.036211 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.8770649  0.0002209    3970   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.001054 on 199999 degrees of freedom
+Multiple R-squared:  0.9875      Min        1Q    Median        3Q       Max 
+-0.031548 -0.001048 -0.000724 -0.000342  0.050395 
+
+Coefficients:
+,	Adjusted R-squared:  0.9875 
+F-statistic: 1.576e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 3.8550432  0.0005697    6767   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.003022 on 199999 degrees of freedom
+Multiple R-squared:  0.9957,	Adjusted R-squared:  0.9957 
+F-statistic: 4.58e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0098696 -0.0009105 -0.0006754 -0.0002107  0.0233613 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.378050   0.000167    8250   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.001732 on 199999 degrees of freedom
+Multiple R-squared:  0.9971,	Adjusted R-squared:  0.9971 
+F-statistic: 6.807e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0049471  0.0002263  0.0004052  0.0011319  0.0037197 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg  2.17119    0.02292   94.74   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.001439 on 41 degrees of freedom
+  (199958 observations deleted due to missingness)
+Multiple R-squared:  0.9955,	Adjusted R-squared:  0.9953 
+F-statistic:  8975 on 1 and 41 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.003034 -0.000391 -0.000280 -0.000208  0.053135 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.9384179  0.0002716    3456   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.00152 on 199999 degrees of freedom
+Multiple R-squared:  0.9835,	Adjusted R-squared:  0.9835 
+F-statistic: 1.194e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 199950 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.038743 -0.001196 -0.000826 -0.000099  0.038729 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 2.3454191  0.0003095    7578   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.003051 on 199999 degrees of freedom
+Multiple R-squared:  0.9965,	Adjusted R-squared:  0.9965 
+F-statistic: 5.743e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 199958 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 139680 rows containing missing values (geom_point). 
+Warning message:
+Removed 139903 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Plotting Manhattan SE ... 
+Warning message:
+NAs introduced by coercion 
+Plotting Manhattan SE ... 
+Warning message:
+NAs introduced by coercion 
+Plotting Manhattan SE ... 
+Plotting Manhattan SE ... 
+Plotting Manhattan SE ... 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 60270 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+NAs introduced by coercion 
+Warning message:
+Removed 60055 rows containing missing values (geom_point). 
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Depression.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Morning.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_SelfHealth.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_AllergyCat.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_AllergyPollen.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Adventure.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_RhiEcz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_AllergyDust.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_AstRhi.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_StartedReading.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+grep: /homes/nber/aokbay/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk: No such file or directory
+Warning message:
+In fread(strFread, sep = "\t", header = TRUE, stringsAsFactors = FALSE,  :
+  File '/tmp/RtmpBb4kJA/file81927802df43' has size 0. Returning a NULL data.table.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_SelfHealth_2020_03_13 
+FoundSet directory to Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Morning_2020_03_13 
+1 files to process 
+ Set directory to/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AstRhi_2020_03_13  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_RhiEcz_2020_03_13
+ 
+[1] "CLEANED.23andMe_SelfHealth.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_SelfHealth_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+FoundLoading reference file:  /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 1
+ files to process 
+[1] "CLEANED.23andMe_RhiEcz.gz"
+-----------------------------------------
+Found 1 files to process 
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_RhiEcz_2020_03_13[1] "CLEANED.23andMe_Morning.gz"
+Found -----------------------------------------
+1 files to process 
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Morning_2020_03_13[1] "CLEANED.23andMe_AstRhi.gz"
+[1] "2020-03-13"
+-----------------------------------------
+-----------------------------------------
+
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AstRhi_2020_03_13Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+[1] "2020-03-13"
+-----------------------------------------
+
+[1] "2020-03-13"
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt -----------------------------------------
+
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Depression_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_Depression.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Depression_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AllergyPollen_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_AllergyPollen.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AllergyPollen_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AllergyCat_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_AllergyCat.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AllergyCat_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Adventure_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_Adventure.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Adventure_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AllergyDust_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_AllergyDust.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AllergyDust_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_StartedReading_2020_03_13 
+Error: No files found that match 'CLEANED...gz'. 
+Execution halted
+Loading GWAS data CLEANED.23andMe_Depression.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Depression.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_RhiEcz.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_RhiEcz.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_AllergyCat.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_AllergyCat.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Morning.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Morning.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_SelfHealth.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_SelfHealth.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_AllergyPollen.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_AllergyPollen.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_AstRhi.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_AstRhi.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_AllergyDust.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_AllergyDust.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Adventure.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Adventure.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0074474 -0.0008015 -0.0006032 -0.0001889  0.0285217 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.1933954  0.0001306    9136   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.001544 on 199999 degrees of freedom
+Multiple R-squared:  0.9976,	Adjusted R-squared:  0.9976 
+F-statistic: 8.346e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-6.914e-04  2.871e-05  5.917e-05  1.191e-04  3.163e-04 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 2.356205   0.004848     486   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.0001504 on 41 degrees of freedom
+  (199958 observations deleted due to missingness)
+Multiple R-squared:  0.9998,	Adjusted R-squared:  0.9998 
+F-statistic: 2.362e+05 on 1 and 41 DF,  p-value: < 2.2e-16
+
+       Min         1Q     Median         3Q        Max 
+-0.0043344 -0.0004464 -0.0003356 -0.0001178  0.0087528 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 2.2021593  0.0002177   10117   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.0008801 on 199999 degrees of freedom
+Multiple R-squared:  0.998,	Adjusted R-squared:  0.998 
+F-statistic: 1.024e+08 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0065616 -0.0007258 -0.0005509 -0.0001768  0.0182785 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.3288428  0.0001427    9309   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.001359 on 199999 degrees of freedom
+Multiple R-squared:  0.9977,	Adjusted R-squared:  0.9977 
+F-statistic: 8.666e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 199958 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0099053 -0.0008078 -0.0006060 -0.0001817  0.0223801 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.1984237  0.0001284    9336   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.001565 on 199999 degrees of freedom
+Multiple R-squared:  0.9977,	Adjusted R-squared:  0.9977 
+F-statistic: 8.717e+07 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 139609 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0269081 -0.0003254  0.0014526  0.0040796  0.0094441 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg  3.88661    0.08036   48.36   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.006593 on 38 degrees of freedom
+  (199961 observations deleted due to missingness)
+Multiple R-squared:  0.984,	Adjusted R-squared:  0.9836 
+F-statistic:  2339 on 1 and 38 DF,  p-value: < 2.2e-16
+
+Plotting Manhattan SE ... 
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.150e-04 -1.604e-06  3.003e-05  3.670e-05  7.810e-05 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg  1.18481    0.00138   858.3   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4.104e-05 on 28 degrees of freedom
+  (199971 observations deleted due to missingness)
+Multiple R-squared:      1,	Adjusted R-squared:      1 
+F-statistic: 7.366e+05 on 1 and 28 DF,  p-value: < 2.2e-16
+
+Warning message:
+NAs introduced by coercion 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 199961 rows containing missing values (geom_point). 
+Warning message:
+Removed 60349 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 199971 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Plotting Manhattan SE ... 
+Warning message:
+NAs introduced by coercion 
+Warning message:
+Removed 139644 rows containing missing values (geom_point). 
+Warning message:
+Removed 139604 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.017559  0.001039  0.001314  0.002640  0.018300 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg  2.92154    0.04969   58.79   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.005088 on 37 degrees of freedom
+  (199962 observations deleted due to missingness)
+Multiple R-squared:  0.9894,	Adjusted R-squared:  0.9891 
+F-statistic:  3456 on 1 and 37 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 199962 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-5.548e-05 -8.693e-06 -6.349e-06 -4.815e-06  5.829e-05 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.9300703  0.0006473    1437   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.262e-05 on 25 degrees of freedom
+  (199974 observations deleted due to missingness)
+Multiple R-squared:      1,	Adjusted R-squared:      1 
+F-statistic: 2.065e+06 on 1 and 25 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 199974 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 139462 rows containing missing values (geom_point). 
+Warning message:
+Removed 60327 rows containing missing values (geom_point). 
+Warning message:
+Removed 60500 rows containing missing values (geom_point). 
+Warning message:
+Removed 139869 rows containing missing values (geom_point). 
+Warning message:
+Removed 60105 rows containing missing values (geom_point). 
+Warning message:
+Removed 60357 rows containing missing values (geom_point). 
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Risk.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Agreeable.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Narcissism.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Neuro.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_SelfMath.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_LS.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Extravert.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Religious.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Conscientious.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_LeftOut.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_HighMath.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Set directory toSet directory to  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Agreeable_2020_03_13/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_SelfMath_2020_03_13  
+
+Found 1 files to process 
+Found 1 files to process 
+[1] "CLEANED.23andMe_Agreeable.gz"
+[1] "CLEANED.23andMe_SelfMath.gz"
+-----------------------------------------
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Agreeable_2020_03_13QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_SelfMath_2020_03_13[1] "2020-03-13"
+[1] "2020-03-13"
+-----------------------------------------
+-----------------------------------------
+
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_LeftOut_2020_03_13 
+Set directory to Set directory to/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Neuro_2020_03_13  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Risk_2020_03_13
+ 
+Found 1 files to process 
+[1] "CLEANED.23andMe_LeftOut.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_LeftOut_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Found 1 files to process 
+[1] "CLEANED.23andMe_Risk.gz"
+Found 1 files to process 
+-----------------------------------------
+[1]QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Risk_2020_03_13 "CLEANED.23andMe_Neuro.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Neuro_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+[1] "2020-03-13"
+-----------------------------------------
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Conscientious_2020_03_13 
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Religious_2020_03_13 
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Narcissism_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_Conscientious.gz"
+Found -----------------------------------------
+1 files to process 
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Conscientious_2020_03_13[1] "CLEANED.23andMe_Religious.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Religious_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+Found 1 files to process 
+
+[1] "CLEANED.23andMe_Narcissism.gz"
+[1] "2020-03-13"
+-----------------------------------------
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Narcissism_2020_03_13Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_LS_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_LS.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_LS_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_HighMath_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_HighMath.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_HighMath_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Extravert_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_Extravert.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Extravert_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Loading GWAS data CLEANED.23andMe_SelfMath.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_SelfMath.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_HighMath.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_HighMath.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Extravert.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Extravert.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Conscientious.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Conscientious.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_LS.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_LS.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Neuro.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Neuro.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_LeftOut.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_LeftOut.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Risk.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Risk.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Narcissism.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Narcissism.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Religious.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Religious.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Agreeable.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Agreeable.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-4.723e-05 -1.227e-05 -5.432e-06  1.224e-05  8.305e-05 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.8236922  0.0008786    2076   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.836e-05 on 29 degrees of freedom
+  (199970 observations deleted due to missingness)
+Multiple R-squared:      1,	Adjusted R-squared:      1 
+F-statistic: 4.308e+06 on 1 and 29 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-3.032e-05 -2.880e-06  7.660e-07  3.597e-06  2.824e-05 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.9653551  0.0003406    2834   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.151e-05 on 39 degrees of freedom
+  (199960 observations deleted due to missingness)
+Multiple R-squared:      1,	Adjusted R-squared:      1 
+F-statistic: 8.033e+06 on 1 and 39 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-2.762e-04 -6.559e-05  1.384e-05  3.683e-05  1.344e-04 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.0895214  0.0001952    5582   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 6.689e-05 on 2629 degrees of freedom
+  (197370 observations deleted due to missingness)
+Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+F-statistic: 3.116e+07 on 1 and 2629 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.01297 -0.00350 -0.00249 -0.00193  0.68401 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 7.600063   0.003325    2286   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.01804 on 199999 degrees of freedom
+Multiple R-squared:  0.9631,	Adjusted R-squared:  0.9631 
+F-statistic: 5.225e+06 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 199970 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 199960 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.04117 -0.00388 -0.00275 -0.00215  0.69500 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 8.281053   0.003697    2240   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.02009 on 199999 degrees of freedom
+Multiple R-squared:  0.9617,	Adjusted R-squared:  0.9617 
+F-statistic: 5.016e+06 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.02131 -0.00319 -0.00227 -0.00176  0.60676 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 6.857350   0.003005    2282   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.01633 on 199999 degrees of freedom
+Multiple R-squared:  0.963,	Adjusted R-squared:  0.963 
+F-statistic: 5.208e+06 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 197370 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-4.765e-05 -1.643e-05 -2.539e-06  1.159e-05  4.682e-05 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.3766111  0.0006267    2196   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.237e-05 on 25 degrees of freedom
+  (199974 observations deleted due to missingness)
+Multiple R-squared:      1,	Adjusted R-squared:      1 
+F-statistic: 4.825e+06 on 1 and 25 DF,  p-value: < 2.2e-16
+
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-2.216e-04 -4.420e-05 -2.309e-05  2.551e-05  1.340e-04 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.955540   0.001655   577.4   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 6.82e-05 on 25 degrees of freedom
+  (199974 observations deleted due to missingness)
+Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+F-statistic: 3.334e+05 on 1 and 25 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 139310 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.764e-04 -2.945e-05  3.889e-06  1.905e-05  5.304e-05 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.770892   0.001301   592.6   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 4.517e-05 on 28 degrees of freedom
+  (199971 observations deleted due to missingness)
+Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+F-statistic: 3.512e+05 on 1 and 28 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 139808 rows containing missing values (geom_point). 
+Warning message:
+Removed 199974 rows containing missing values (geom_point). 
+Warning message:
+Removed 138241 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 199974 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 199971 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.04202 -0.00286 -0.00203 -0.00156  0.50949 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 6.310327   0.002624    2405   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.01423 on 199999 degrees of freedom
+Multiple R-squared:  0.9666,	Adjusted R-squared:  0.9666 
+F-statistic: 5.785e+06 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 60660 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 139694 rows containing missing values (geom_point). 
+Warning message:
+Removed 139436 rows containing missing values (geom_point). 
+Warning message:
+Removed 139540 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 60152 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 59129 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-5.872e-05 -1.332e-05  2.850e-06  2.273e-05  6.492e-04 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 1.119e+00  9.251e-05   12093   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 2.702e-05 on 2700 degrees of freedom
+  (197299 observations deleted due to missingness)
+Multiple R-squared:      1,	Adjusted R-squared:      1 
+F-statistic: 1.463e+08 on 1 and 2700 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 197299 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 60538 rows containing missing values (geom_point). 
+Warning message:
+Removed 60280 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 138562 rows containing missing values (geom_point). 
+Warning message:
+Removed 60431 rows containing missing values (geom_point). 
+Warning message:
+Removed 58737 rows containing missing values (geom_point). 
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: Cairo
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: plotrix
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Loading required package: data.table
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Cannabis.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_AUDIT.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Activity.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_DelayDisc.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Recharge.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_EmpathyMen.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_EmpathyWomen.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Open.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_ActivityOld.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Nearsighted.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Migraine.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.23andMe_Empathy.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('grep -v '#' ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map.lnk') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Taking input= as a system command ('gunzip -c ~/tmp.HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz.lnk | grep -v '#'') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_ActivityOld_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_ActivityOld.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_ActivityOld_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory toSet directory to  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AUDIT_2020_03_13/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Empathy_2020_03_13  
+
+Set directory toSet directory to  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_EmpathyWomen_2020_03_13 /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Activity_2020_03_13
+ 
+Found 1 files to process 
+Found 1 files to process 
+[1] "CLEANED.23andMe_Empathy.gz"
+[1] "CLEANED.23andMe_AUDIT.gz"
+-----------------------------------------
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Empathy_2020_03_13QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_AUDIT_2020_03_13[1] "2020-03-13"
+[1] "2020-03-13"
+-----------------------------------------
+-----------------------------------------
+
+
+Found 1 files to process 
+FoundLoading reference file:  /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt1  
+files to process 
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+[1] "CLEANED.23andMe_EmpathyWomen.gz"
+[1] "CLEANED.23andMe_Activity.gz"
+-----------------------------------------
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_EmpathyWomen_2020_03_13QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Activity_2020_03_13[1] "2020-03-13"
+[1] "2020-03-13"
+-----------------------------------------
+-----------------------------------------
+
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory toSet directory to  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Nearsighted_2020_03_13/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Open_2020_03_13  
+
+Found 1 files to process 
+FoundSet directory to  /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Recharge_2020_03_131  
+files to process 
+[1] "CLEANED.23andMe_Nearsighted.gz"
+[1] "CLEANED.23andMe_Open.gz"
+-----------------------------------------
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Nearsighted_2020_03_13QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Open_2020_03_13[1] "2020-03-13"
+[1] "2020-03-13"
+-----------------------------------------
+-----------------------------------------
+
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Found 1 files to process 
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+[1] "CLEANED.23andMe_Recharge.gz"
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Recharge_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Set directory to Set directory to/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Cannabis_2020_03_13  
+/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_EmpathyMen_2020_03_13 Set directory to
+ /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Migraine_2020_03_13 
+Set directory to /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_DelayDisc_2020_03_13 
+Found 1 files to process 
+[1] "CLEANED.23andMe_EmpathyMen.gz"
+Found 1 files to process 
+Found 1 files to process 
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_EmpathyMen_2020_03_13[1] "CLEANED.23andMe_Cannabis.gz"
+[1] "CLEANED.23andMe_Migraine.gz"
+-----------------------------------------
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Cannabis_2020_03_13QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_Migraine_2020_03_13[1] "2020-03-13"
+-----------------------------------------
+Found 1 files to process 
+
+[1][1] "CLEANED.23andMe_DelayDisc.gz"
+ "2020-03-13"
+[1] "2020-03-13"
+-----------------------------------------
+-----------------------------------------
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+
+
+-----------------------------------------
+QC Step 2 for /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_DelayDisc_2020_03_13Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+[1] "2020-03-13"
+-----------------------------------------
+
+Loading reference file: /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt 
+Loading GWAS data CLEANED.23andMe_Cannabis.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Cannabis.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Activity.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Activity.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_EmpathyWomen.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_EmpathyWomen.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Nearsighted.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Nearsighted.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_EmpathyMen.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_EmpathyMen.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_AUDIT.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_AUDIT.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_DelayDisc.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_DelayDisc.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Migraine.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Migraine.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Open.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Open.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Recharge.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Recharge.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_Empathy.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_Empathy.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Loading GWAS data CLEANED.23andMe_ActivityOld.gz 
+Taking input= as a system command ('gzip -cd CLEANED.23andMe_ActivityOld.gz') and a variable has been used in the expression passed to `input=`. Please use fread(cmd=...). There is a security concern if you are creating an app, and the app could have a malicious user, and the app is not running in a secure environment; e.g. the app is running as root. Please read item 5 in the NEWS file for v1.11.6 for more information and for the option to suppress this message.
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0009326 -0.0003931 -0.0001265  0.0011700  0.0070102 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.786558   0.001058   743.2   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.001167 on 2186 degrees of freedom
+  (197813 observations deleted due to missingness)
+Multiple R-squared:  0.9961,	Adjusted R-squared:  0.9961 
+F-statistic: 5.524e+05 on 1 and 2186 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.972e-04 -9.178e-06  2.115e-05  3.781e-05  1.030e-04 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.321039   0.000374   858.3   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.018e-05 on 46 degrees of freedom
+  (199953 observations deleted due to missingness)
+Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+F-statistic: 7.367e+05 on 1 and 46 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-4.567e-04 -7.563e-05 -3.954e-05 -2.376e-05  6.036e-04 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 2.027602   0.001584    1280   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.0001623 on 52 degrees of freedom
+  (199947 observations deleted due to missingness)
+Multiple R-squared:      1,	Adjusted R-squared:      1 
+F-statistic: 1.639e+06 on 1 and 52 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-5.149e-05 -1.778e-05  2.165e-05  2.954e-05  5.455e-05 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.668192   0.001304   512.4   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 3.187e-05 on 31 degrees of freedom
+  (199968 observations deleted due to missingness)
+Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+F-statistic: 2.626e+05 on 1 and 31 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 197813 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-3.035e-04 -3.871e-05  4.633e-05  9.554e-05  2.759e-04 
+
+Coefficients:
+        Estimate Std. Error t value Pr(>|t|)    
+SE_reg 0.7220188  0.0007378   978.6   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.0001254 on 50 degrees of freedom
+  (199949 observations deleted due to missingness)
+Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+F-statistic: 9.577e+05 on 1 and 50 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+Warning message:
+Removed 199947 rows containing missing values (geom_point). 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.058114 -0.005381 -0.004181 -0.003433  0.030854 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 13.80966    0.04483   308.1   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.01274 on 40 degrees of freedom
+  (199959 observations deleted due to missingness)
+Multiple R-squared:  0.9996,	Adjusted R-squared:  0.9996 
+F-statistic: 9.491e+04 on 1 and 40 DF,  p-value: < 2.2e-16
+
+     Min       1Q   Median       3Q      Max 
+-0.02069 -0.00304 -0.00216 -0.00168  0.55364 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 6.573333   0.002886    2278   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.01564 on 199999 degrees of freedom
+Multiple R-squared:  0.9629,	Adjusted R-squared:  0.9629 
+F-statistic: 5.187e+06 on 1 and 199999 DF,  p-value: < 2.2e-16
+
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-0.0005153 -0.0001748 -0.0001444 -0.0001165  0.0008141 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 2.683013   0.004574   586.6   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.0002471 on 53 degrees of freedom
+  (199946 observations deleted due to missingness)
+Multiple R-squared:  0.9998,	Adjusted R-squared:  0.9998 
+F-statistic: 3.441e+05 on 1 and 53 DF,  p-value: < 2.2e-16
+
+Plotting Manhattan SE ... 
+Warning message:
+Removed 199953 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 199968 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 138709 rows containing missing values (geom_point). 
+Warning message:
+Removed 199946 rows containing missing values (geom_point). 
+Warning message:
+Removed 199959 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 139503 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 199949 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 139486 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.019554 -0.002989 -0.001502 -0.001001  0.026268 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 12.56675    0.02309   544.2   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.006527 on 49 degrees of freedom
+  (199950 observations deleted due to missingness)
+Multiple R-squared:  0.9998,	Adjusted R-squared:  0.9998 
+F-statistic: 2.962e+05 on 1 and 49 DF,  p-value: < 2.2e-16
+
+Plotting Manhattan SE ... 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-8.948e-04 -3.347e-04 -1.346e-04 -2.375e-05  1.586e-03 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 2.062384   0.002206   934.9   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.0004371 on 57 degrees of freedom
+  (199942 observations deleted due to missingness)
+Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+F-statistic: 8.741e+05 on 1 and 57 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 139894 rows containing missing values (geom_point). 
+Warning message:
+Removed 199950 rows containing missing values (geom_point). 
+Warning message:
+Removed 139718 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 139473 rows containing missing values (geom_point). 
+Warning message:
+Removed 139695 rows containing missing values (geom_point). 
+Warning message:
+Removed 199942 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 139744 rows containing missing values (geom_point). 
+Warning message:
+Removed 60467 rows containing missing values (geom_point). 
+Warning message:
+Removed 60444 rows containing missing values (geom_point). 
+Warning message:
+Removed 59104 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.011862 -0.002357 -0.001649 -0.001272  0.012726 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg 13.15865    0.02925   449.8   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.004022 on 53 degrees of freedom
+  (199946 observations deleted due to missingness)
+Multiple R-squared:  0.9997,	Adjusted R-squared:  0.9997 
+F-statistic: 2.024e+05 on 1 and 53 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 60206 rows containing missing values (geom_point). 
+Warning message:
+Removed 139772 rows containing missing values (geom_point). 
+Warning message:
+Removed 60170 rows containing missing values (geom_point). 
+Warning message:
+Removed 60052 rows containing missing values (geom_point). 
+Warning message:
+Removed 60250 rows containing missing values (geom_point). 
+Warning message:
+Removed 199946 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 60254 rows containing missing values (geom_point). 
+Warning message:
+Removed 60486 rows containing missing values (geom_point). 
+Warning message:
+Removed 139461 rows containing missing values (geom_point). 
+Plotting SEN ... 
+
+Call:
+lm(formula = SE ~ 0 + SE_reg, data = datasample)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.369e-04 -4.238e-05 -1.339e-05  6.207e-05  2.423e-04 
+
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+SE_reg  0.97914    0.00154   635.8   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 7.743e-05 on 35 degrees of freedom
+  (199964 observations deleted due to missingness)
+Multiple R-squared:  0.9999,	Adjusted R-squared:  0.9999 
+F-statistic: 4.043e+05 on 1 and 35 DF,  p-value: < 2.2e-16
+
+Warning message:
+Removed 199964 rows containing missing values (geom_point). 
+Plotting Manhattan SE ... 
+Warning message:
+Removed 60485 rows containing missing values (geom_point). 
+Warning message:
+Removed 139633 rows containing missing values (geom_point). 
+Warning message:
+Removed 60331 rows containing missing values (geom_point). 
+rm: cannot remove ‘/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/Results/EasyQC_rep.txt’: No such file or directory
+cat: /disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/OLD/*.rep: No such file or directory
+cp: cannot stat ‘/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/OLD/*.png’: No such file or directory
+cp: cannot stat ‘/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/3_QCd/23andMe/QC_23andMe_StartedReading_2020_03_13/*.png’: No such file or directory

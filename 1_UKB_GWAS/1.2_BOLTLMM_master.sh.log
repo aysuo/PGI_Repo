@@ -1,0 +1,42 @@
+----------------------------------------------------------------------
+Running GWAS for phenotype: AFB
+GWAS started atSun Mar 22 10:51:36 EDT 2020
+
+WARNING: No genetic map provided; using physical positions only
+WARNING: No genetic map provided; using physical positions only
+WARNING: No genetic map provided; using physical positions only
+NOTE: Using all-1s vector (constant term) in addition to specified covariates
+NOTE: Using all-1s vector (constant term) in addition to specified covariates
+NOTE: Using all-1s vector (constant term) in addition to specified covariates
+NOTE: Using all-1s vector (constant term) in addition to specified covariates
+NOTE: Using all-1s vector (constant term) in addition to specified covariates
+NOTE: Using all-1s vector (constant term) in addition to specified covariates
+1.2_BOLTLMM_master.sh: line 95: 34157 Terminated              nohup ${bolt_path}/bolt --lmm --LDscoresFile=${bolt_path}/tables/LDSCORE.1000G_EUR.tab.gz --fam=${genotype_plink_fam} --bed=${genotype_plink_bed} --bim=${genotype_plink_bim} --bgenFile=${genotype_bgen} --sampleFile=${genotype_sample} --numThreads=${num_Threads} --bgenMinMAF=${bgen_MAF} --bgenMinINFO=${bgen_INFO} --phenoFile=${pheno_file} --phenoCol=${pheno_col} --statsFile=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM_plink --statsFileBgenSnps=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM > ${WD}/logs/${pheno}/UKB_${pheno}_part${j}_BOLTLMM.log
+1.2_BOLTLMM_master.sh: line 95: 34158 Terminated              nohup ${bolt_path}/bolt --lmm --LDscoresFile=${bolt_path}/tables/LDSCORE.1000G_EUR.tab.gz --fam=${genotype_plink_fam} --bed=${genotype_plink_bed} --bim=${genotype_plink_bim} --bgenFile=${genotype_bgen} --sampleFile=${genotype_sample} --numThreads=${num_Threads} --bgenMinMAF=${bgen_MAF} --bgenMinINFO=${bgen_INFO} --phenoFile=${pheno_file} --phenoCol=${pheno_col} --statsFile=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM_plink --statsFileBgenSnps=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM > ${WD}/logs/${pheno}/UKB_${pheno}_part${j}_BOLTLMM.log
+1.2_BOLTLMM_master.sh: line 95: 34159 Terminated              nohup ${bolt_path}/bolt --lmm --LDscoresFile=${bolt_path}/tables/LDSCORE.1000G_EUR.tab.gz --fam=${genotype_plink_fam} --bed=${genotype_plink_bed} --bim=${genotype_plink_bim} --bgenFile=${genotype_bgen} --sampleFile=${genotype_sample} --numThreads=${num_Threads} --bgenMinMAF=${bgen_MAF} --bgenMinINFO=${bgen_INFO} --phenoFile=${pheno_file} --phenoCol=${pheno_col} --statsFile=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM_plink --statsFileBgenSnps=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM > ${WD}/logs/${pheno}/UKB_${pheno}_part${j}_BOLTLMM.log
+
+Script finished atMon Mar 23 06:05:51 EDT 2020
+
+Running GWAS for AFB took 1154 minutes.
+-----------------------------------------------------
+
+----------------------------------------------------------------------
+Running GWAS for phenotype: ASTECZRHI
+GWAS started atMon Mar 23 06:05:51 EDT 2020
+
+WARNING: No genetic map provided; using physical positions only
+WARNING: No genetic map provided; using physical positions only
+WARNING: No genetic map provided; using physical positions only
+1.2_BOLTLMM_master.sh: line 95: 30534 Terminated              nohup ${bolt_path}/bolt --lmm --LDscoresFile=${bolt_path}/tables/LDSCORE.1000G_EUR.tab.gz --fam=${genotype_plink_fam} --bed=${genotype_plink_bed} --bim=${genotype_plink_bim} --bgenFile=${genotype_bgen} --sampleFile=${genotype_sample} --numThreads=${num_Threads} --bgenMinMAF=${bgen_MAF} --bgenMinINFO=${bgen_INFO} --phenoFile=${pheno_file} --phenoCol=${pheno_col} --statsFile=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM_plink --statsFileBgenSnps=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM > ${WD}/logs/${pheno}/UKB_${pheno}_part${j}_BOLTLMM.log
+1.2_BOLTLMM_master.sh: line 95: 30535 Terminated              nohup ${bolt_path}/bolt --lmm --LDscoresFile=${bolt_path}/tables/LDSCORE.1000G_EUR.tab.gz --fam=${genotype_plink_fam} --bed=${genotype_plink_bed} --bim=${genotype_plink_bim} --bgenFile=${genotype_bgen} --sampleFile=${genotype_sample} --numThreads=${num_Threads} --bgenMinMAF=${bgen_MAF} --bgenMinINFO=${bgen_INFO} --phenoFile=${pheno_file} --phenoCol=${pheno_col} --statsFile=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM_plink --statsFileBgenSnps=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM > ${WD}/logs/${pheno}/UKB_${pheno}_part${j}_BOLTLMM.log
+1.2_BOLTLMM_master.sh: line 95: 30536 Terminated              nohup ${bolt_path}/bolt --lmm --LDscoresFile=${bolt_path}/tables/LDSCORE.1000G_EUR.tab.gz --fam=${genotype_plink_fam} --bed=${genotype_plink_bed} --bim=${genotype_plink_bim} --bgenFile=${genotype_bgen} --sampleFile=${genotype_sample} --numThreads=${num_Threads} --bgenMinMAF=${bgen_MAF} --bgenMinINFO=${bgen_INFO} --phenoFile=${pheno_file} --phenoCol=${pheno_col} --statsFile=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM_plink --statsFileBgenSnps=${WD}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM > ${WD}/logs/${pheno}/UKB_${pheno}_part${j}_BOLTLMM.log
+
+Script finished atMon Mar 23 06:06:12 EDT 2020
+
+Running GWAS for ASTECZRHI took 0 minutes.
+-----------------------------------------------------
+
+----------------------------------------------------------------------
+Running GWAS for phenotype: ASTHMA
+GWAS started atMon Mar 23 06:06:12 EDT 2020
+

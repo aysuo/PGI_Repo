@@ -1,0 +1,3 @@
+/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/2_Formatted/public/DEP-UKBGERA.txt
+/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/2_Formatted/public/NEBmen-Barban.txt
+/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/2_Formatted/public/NEBpooled-Barban.txt
