@@ -294,6 +294,51 @@ ER2_table() {
     done  
 }
 
+ER2_table_full() {
+    fileList=$1
+    dirIn=$2
+    single=$3
+
+    phenoList=$(cut -f1 $fileList)
+
+    echo -e "Study\tTrait Nr\t#SNPs MTAG\tMeanChi2\t#SNPs ldsc\th2\tSE\tGWAS equivalent N\tE(R2)" > ER2_table_full.txt
+
+
+    for pheno in ${phenoList}; do
+        phenoDir=$(echo $pheno |  sed 's/[1-9]//g')
+        numSumstats=$(ls $dirIn/${pheno}/*_formatted.txt | wc -l)
+        maxh2=0
+
+        for (( i=1; i<=$numSumstats; i++ )); do        
+            if [[ $single == 1  && $numSumstats == 1 ]]; then
+                eval tag="trait"
+            else
+                eval tag="trait_$i"
+            fi    
+
+            h2log=${phenoDir}/h2/h2_${pheno}_${tag}.log
+            h2=$(grep "Total Observed scale h2" $h2log | cut -d":" -f2 | cut -d" " -f2)
+            
+            if [[ $h2 > $maxh2 ]]; then
+                maxh2=$h2
+                maxh2tag=$tag
+                maxh2index=$i
+            fi
+        done
+
+        gwasN=$(grep -A $maxh2index "GWAS equiv. (max) N" $dirIn/${pheno}/${pheno}.log | tail -1  | awk '{print $NF}')
+        SNPsMTAG=$(grep -A $maxh2index "GWAS equiv. (max) N" $dirIn/${pheno}/${pheno}.log | tail -1  | awk '{print $3}')
+        MeanChi2=$(grep -A $maxh2index "GWAS equiv. (max) N" $dirIn/${pheno}/${pheno}.log | tail -1  | awk '{print $7}')
+        study=${pheno}_${maxh2tag}
+		SNPsLDSC=$(grep "After merging with regression SNP LD" ${phenoDir}/h2/h2_${pheno}_${maxh2tag}.log | cut -d" " -f7)
+		h2_SE=$(grep "Total Observed scale h2" ${phenoDir}/h2/h2_${pheno}_${maxh2tag}.log | cut -d":" -f2 | cut -d" " -f3 | sed 's/(//g' | sed 's/)//g')
+        ER2=$(awk -v h2=$maxh2 -v N=$gwasN 'BEGIN{print h2/(1+(60000/(h2*N)))}')
+
+        echo -e "${pheno}\t$maxh2index\t${SNPsMTAG}\t${MeanChi2}\t${SNPsLDSC}\t${maxh2}\t${h2_SE}\t${gwasN}\t${ER2}" >> ER2_table_full.txt
+    done  
+}
+
+
 
 rg_table(){
     fileList=$1

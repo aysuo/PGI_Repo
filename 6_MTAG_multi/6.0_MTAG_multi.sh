@@ -63,9 +63,9 @@ checkStatus(){
 }
 
 main(){
-    #awk -F"\t" 'NR==1{for (i=1;i<=NF;i++) pheno[i]=$i;next}\
-    #    {group=""; for (i=2;i<=NF;i++) if ($i>=0.6 || $i<=-0.6) group=pheno[i]","group} \
-    #    group != "" {print $1,group}' OFS="\t" $rgmatrix | sed 's/,$//g' > $dirCode/mtag_groups.txt
+    awk -F"\t" 'NR==1{for (i=1;i<=NF;i++) pheno[i]=$i;next}\
+        {group=""; for (i=2;i<=NF;i++) if ($i>=0.6 || $i<=-0.6) group=pheno[i]","group} \
+        group != "" {print $1,group}' OFS="\t" $rgmatrix | sed 's/,$//g' > $dirCode/mtag_groups.txt
 
     checkStatus $dirCode/mtag_groups_all_versions.txt
 
@@ -91,7 +91,7 @@ main(){
             MTAG_multi $pheno $ss &
             let j+=1
 
-            if [[ $j == 20 ]]; then
+            if [[ $j == 10 ]]; then
                 wait
                 j=0
             fi

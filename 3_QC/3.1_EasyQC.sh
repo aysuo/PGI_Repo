@@ -781,7 +781,6 @@ echo "ADJUSTALLELES --colInA1 ${EA_out}
     --blnRemoveMismatch 1
     --blnRemoveInvalid 1
     --blnWriteMismatch 1
-    --blnRemoveMismatch 1
     --blnWriteInvalid 1" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 ## All mismatches will be removed (e.g. A/T in input, A/C in reference) 
 

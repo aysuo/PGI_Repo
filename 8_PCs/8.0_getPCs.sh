@@ -3,21 +3,20 @@
 dirCode="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code/8_PCs"
 dirOut="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/8_PCs"
 
-gf_WLS="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/WLS/plink2/WLS_chr[1:22]"
-sample_WLS="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/WLS/sampleQC/WLS_EUR_FID_IID.txt"
-
-gf_HRS2="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/HRS2/plink2/HRS2_chr[1:22]"
-sample_HRS2="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/HRS2/sampleQC/HRS2_EUR_FID_IID.txt"
-
+for cohort in EGCUT HRS3 AH MCTFR Texas STRyatssstage STRpsych STRtwge ELSA HRS2 WLS Dunedin ERisk; do
+    declare gf_${cohort}="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/${cohort}/plink2/${cohort}_chr[1:22]"
+    declare sample_${cohort}="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/${cohort}/sampleQC/${cohort}_EUR_FID_IID.txt"
+done
 
 info_HRS2="/disk/genetics/dbgap/data/HRS_Jun19_2018/HRS/files/62567/PhenoGenotypeFiles/RootStudyConsentSet_phs000428.CIDR_Aging_Omni1.v2.p2.c1.NPR/GenotypeFiles/phg000515.v1.HRS_phase123_imputation.genotype-imputed-data.c1/metrics/HRS2_chr[1:22].metrics.gz"
 info_WLS="/disk/genetics/WLS_DBGAP/derived/gen/WLS_chr[1:22].info"
+info_Dunedin="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/genotype_data/Dunedin/imputed/vcf/chr[1:22].info.gz"
+info_ERisk="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/genotype_data/ERisk/imputed/vcf/chr[1:22].info.gz"
 
 
 filterInfo(){
     cohort=$1
 
-    mkdir -p $dirOut/$cohort
     eval info='$'info_${cohort}
 
     rm -f $dirOut/${cohort}/${cohort}_info70.snps
@@ -25,10 +24,10 @@ filterInfo(){
         infoChr=$(echo "$info" | sed "s/\[1:22\]/$chr/g")
         if [[ $infoChr == *.gz ]]; then 
             zcat $infoChr | awk 'NR==1{for(i=1;i<=NF;i++) {ix[$i]=i}} \
-                NR>1 && $ix["info"]>0.7 {print $ix["rs_id"]}' >> $dirOut/${cohort}/${cohort}_info70.snps 
-        else 
+                    NR>1 && $ix["info"]>0.7 {print $ix["rs_id"]}' >> $dirOut/${cohort}/${cohort}_info70.snps 
+        else
             awk 'NR==1{for(i=1;i<=NF;i++) {ix[$i]=i}} \
-                NR>1 && $ix["info"]>0.7 {print $ix["rs_id"]}' $infoChr >> $dirOut/${cohort}/${cohort}_info70.snps
+                NR>1 && $ix["info"]>0.7 {print $ix["rs_id"]}' $infoChr >> $dirOut/${cohort}/${cohort}_info70.snps                  
         fi
     done
 }
@@ -39,17 +38,37 @@ prune(){
     eval gf='$'gf_${cohort}
     eval sampleKeep='$'sample_${cohort}
 
+    if [[ $cohort == HRS2 || $cohort == WLS ]]; then
         for chr in {1..22}; do
-        gfChr=$(echo "$gf" | sed "s/\[1:22\]/$chr/g")
-        plink2 --pfile $gfChr \
-            --exclude $dirCode/exclusion_regions_hg19.txt \
-            --maf 0.01 \
-            --rm-dup force-first \
-            --extract $dirOut/${cohort}/${cohort}_info70.snps \
-            --keep $sampleKeep \
-            --indep-pairwise 1000 5 0.1 \
-            --out $dirOut/$cohort/${cohort}_EUR_maf01_info70_highLDexcluded_chr${chr} &
-    done
+            gfChr=$(echo "$gf" | sed "s/\[1:22\]/$chr/g")
+            plink2 --pfile $gfChr \
+                --exclude $dirCode/exclusion_regions_hg19.txt \
+                --maf 0.01 \
+                --rm-dup force-first \
+                --extract $dirOut/${cohort}/${cohort}_info70.snps \
+                --keep $sampleKeep \
+                --indep-pairwise 1000 5 0.1 \
+                --out $dirOut/$cohort/${cohort}_EUR_maf01_info70_highLDexcluded_chr${chr} &
+        done
+    else
+        if [[ $cohort == "EGCUT" ]]; then
+            info=AR2
+        else
+            info=R2
+        fi
+
+        for chr in {1..22}; do
+            gfChr=$(echo "$gf" | sed "s/\[1:22\]/$chr/g")
+            plink2 --pfile $gfChr \
+                --exclude $dirCode/exclusion_regions_hg19.txt \
+                --maf 0.01 \
+                --rm-dup force-first \
+                --extract-if-info $info '>'= 0.7 \
+                --keep $sampleKeep \
+                --indep-pairwise 1000 5 0.1 \
+                --out $dirOut/$cohort/${cohort}_EUR_maf01_info70_highLDexcluded_chr${chr} &
+        done
+    fi
     wait
 
     rm -f  $dirOut/$cohort/mergelist
@@ -117,12 +136,19 @@ PCs(){
 
 main(){
     for cohort in WLS HRS2; do
+        mkdir -p $dirOut/$cohort
         filterInfo $cohort
         prune $cohort
         subset_unrelated $cohort
         PCs $cohort
     done
 
+    for cohort in HRS3 EGCUT AH MCTFR Texas STRyatssstage STRpsych STRtwge ELSA Dunedin ERisk; do
+        mkdir -p $dirOut/$cohort
+        prune $cohort
+        subset_unrelated $cohort
+        PCs $cohort
+    done
 }
 
 main

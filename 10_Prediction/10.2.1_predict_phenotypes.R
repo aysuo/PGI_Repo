@@ -32,34 +32,42 @@ setwd("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction")
 ###################### Data paths ######################
 ########################################################
 
-# phenos
+# Phenotype directory
 pheno_wd <- paste0("input/",cohort)
+
+# Phenotype files
 pheno_files <- list.files(pheno_wd)
+
+# Phenotype names
 pheno_names <- gsub(".pheno", "", pheno_files)
 
+# Score types: Public, single-trait, multi-trait
 score_types=c("public","single","multi")
 
+# Loop over score types
 for(i in score_types){
+    # Set directory containing scores for the score type
     assign(paste0(i,"_score_wd"), paste0("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/9_Scores/",i,"/scores/"))
     assign(paste0(i,"_score_files"), list.files(eval(parse(text=paste0(i,"_score_wd")))))
     
-    # score files
+    # Get list of all score files for the score type
     score_files <- eval(parse(text=paste0(i,"_score_files")))
 
-    # Score files for input cohort
+    # Get list of score files for input cohort
     assign(paste0(cohort,"_",i,"_score_files"),score_files[grep(cohort, score_files)])
 
     # Score names for input cohort
     assign(paste0(i,"_score_names"), gsub(paste0("PGS_",cohort,"_"), "", gsub("_LDpred_p1.txt", "", 
         gsub("-.*", "",eval(parse(text=paste0(cohort,"_",i,"_score_files")))))))
 
-    # Overlapping names (both pheno and score)
+    # Overlapping names (both pheno and score available)
     assign(paste0("predict_",i), pheno_names[pheno_names %in% eval(parse(text=paste0(i,"_score_names")))])
 }
 
 # List of phenotypes for which there's at least one score
 pheno_names <- union(predict_single, predict_multi)
 
+# If cohort is HRS, need pheno-geno crosswalk
 if ( cohort == "HRS2" ){
     # Scores-phenos crosswalk
     score_pheno_crosswalk_path <- "/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/prediction_phenotypes/HRS/HRS_GENOTYPEV2_XREF.dta"
@@ -70,12 +78,19 @@ if ( cohort == "HRS2" ){
 }
 
 # PCs
-PCs_path <- paste0("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
-PCs_oldnames <- paste0("V", 3:22)
-PCs_newnames <- paste0("pc", 1:20)
-PCs_data <- fread(PCs_path) %>%
-  rename(IID = V2) %>%
-  rename_at(vars(PCs_oldnames), ~ PCs_newnames)
+if ( cohort == "UKB3" ){
+    PCs_path <- "input/UKB3/PC_BATCHdum.txt"
+    PCs_data <- fread(PCs_path)
+} else {
+    PCs_path <- paste0("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
+    PCs_oldnames <- paste0("V", 3:22)
+    PCs_newnames <- paste0("pc", 1:20)
+    PCs_data <- fread(PCs_path) %>%
+    rename(IID = V2) %>%
+    rename_at(vars(PCs_oldnames), ~ PCs_newnames)
+}
+
+
 
 ### empty data frame with r^2
 df <- data.frame(phenotype = character())
@@ -87,9 +102,11 @@ bootstrap_df <- data.frame(
   inc_r2_multi = numeric()
 )
 #####################################################3
-# options for prediction loop
+
+# Set number of iterations for bootstrapping
 iterations <- 1000
 
+# Loop over phenotypes
 for (i in 1:length(pheno_names)){
 
     local_df <- data.frame(phenotype = character(1))
@@ -101,6 +118,7 @@ for (i in 1:length(pheno_names)){
     pheno_data <- fread(pheno_path)
 
     score_data <- NULL
+    # Loop over score types (single, multi, public) available for the phenotype
     for (i in score_types) {
         score_files <- eval(parse(text=paste0(cohort,"_",i,"_score_files")))   
 
@@ -118,6 +136,7 @@ for (i in 1:length(pheno_names)){
             local_score_data <- fread(score_path)
             names(local_score_data)[5] <- paste0("score_",i)
     
+            # Merge with other score types
             if ( is.null(score_data) ) {
                 score_data <- local_score_data
             } else {
@@ -128,14 +147,16 @@ for (i in 1:length(pheno_names)){
         }
     }  
 
+    # Merge with pheno and PC data
+    # HRS
     if ( cohort == "HRS2" ){
         if ("hhidpn" %in% colnames(pheno_data)){ # if needing to join on hhidpn variables
-        score_pheno_crosswalk_data <- score_pheno_crosswalk_data %>% mutate(hhidpn = (1000 * HHID) + PN)
+            score_pheno_crosswalk_data <- score_pheno_crosswalk_data %>% mutate(hhidpn = (1000 * HHID) + PN)
         
-        data <- inner_join(score_data, score_pheno_crosswalk_data, by="IID") %>%
-            inner_join(pheno_data, by="hhidpn") %>%
-            inner_join(PCs_data, by="IID") %>%
-            drop_na(phenotype,pc1)
+            data <- inner_join(score_data, score_pheno_crosswalk_data, by="IID") %>%
+                inner_join(pheno_data, by="hhidpn") %>%
+                inner_join(PCs_data, by="IID") %>%
+                drop_na(phenotype,pc1)
             
         } else { # else, if joining on hhid and pn
             if ("hhid" %in% colnames(pheno_data)) {
@@ -146,17 +167,29 @@ for (i in 1:length(pheno_names)){
                 inner_join(PCs_data, by="IID") %>%
                 drop_na(phenotype,pc1)
         }
-    } else {
+    } else if ( cohort == "WLS" ){
+        # WLS
         score_data <- score_data %>%
             mutate(id = as.numeric(IID))
         data <- pheno_data %>%
             inner_join(score_data, by="id") %>%
             inner_join(PCs_data, by="IID") %>%
             drop_na(phenotype,pc1)
+    } else {
+        # UKB3
+        data <- pheno_data %>%
+            inner_join(score_data, by="IID") %>%
+            inner_join(PCs_data, by="IID") %>%
+            drop_na(phenotype,PC1)
     }
-    
-    # regress with and without scores, extract r^2
+
+    # Regress with and without scores, extract r^2
     PCs <- str_c(paste0("pc", 1:10), collapse=" + ")
+    if ( cohort == "UKB3" ){
+        PCs <- str_c(paste0("PC",1:20),collapse=" + ")
+        BATCH <- str_c(paste0("batch",1:106),collapse=" + ")
+        PCs <- paste(PCs,BATCH,sep=" + ")
+    }
     formula_no_score <- as.formula(paste0("phenotype ~ ", PCs))
     formula_with_public_score <- as.formula(paste0("phenotype ~ score_public + ", PCs))
     formula_with_single_score <- as.formula(paste0("phenotype ~ score_single + ", PCs))
@@ -187,7 +220,7 @@ for (i in 1:length(pheno_names)){
     local_df$r2_diff_multi_public  <- local_df$r2_with_multi_score - local_df$r2_with_public_score
     local_df$r2_diff_multi_single  <- local_df$r2_with_multi_score - local_df$r2_with_single_score
 
-    # bootstrap
+    # Vectors for bootstrapping data
     r2_inc_public_list <- c()
     r2_inc_single_list <- c()
     r2_inc_multi_list <- c()
@@ -195,8 +228,10 @@ for (i in 1:length(pheno_names)){
     r2_diff_multi_public_list <- c()
     r2_diff_multi_single_list <- c()
 
-
+    # Start bootstrapping R2's
     for (j in 1:iterations) {
+        set.seed(j)
+        
         # print iteration and phenotype
         if (j %% 100 == 0){
             print(paste0("Iteration: ", j, ". Phenotype: ", pheno, "."))
@@ -234,7 +269,6 @@ for (i in 1:length(pheno_names)){
         phenotype = pheno
     )
     
-
     local_bootstrap_df$inc_r2_public <- r2_inc_public_list
     local_bootstrap_df$inc_r2_single <- r2_inc_single_list
     local_bootstrap_df$inc_r2_multi <- r2_inc_multi_list
@@ -275,7 +309,6 @@ for (i in 1:length(pheno_names)){
     print(paste0("Diff R^2 multi - public (95% CI): ", r2_diff_multi_public_mean, " [", r2_diff_multi_public_low, " : ", r2_diff_multi_public_high, "]"))
     print(paste0("Diff R^2 multi - single (95% CI): ", r2_diff_multi_single_mean, " [", r2_diff_multi_single_low, " : ", r2_diff_multi_single_high, "]"))
 
-    ### bootstrap function
     local_df$r2_inc_public_lower <- r2_inc_public_low
     local_df$r2_inc_public_upper <- r2_inc_public_high
 

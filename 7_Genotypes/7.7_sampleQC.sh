@@ -4,16 +4,26 @@ dirCode="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code/7_Genotypes"
 pop1000G="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/ref_data/1000G_ph3/igsr_samples.tsv"
 
 dirOut="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes"
-gf_HRS2="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/HRS2/plink/HM3/HRS2_HM3"
-gf_WLS="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/WLS/plink/HM3/WLS_HM3"
-gf_1000G="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3"
+
+for cohort in AH Dunedin EGCUT ERisk ELSA HRS2 HRS3 MCTFR STRpsych STRtwge STRyatssstage Texas WLS; do
+    declare gf_$cohort="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/$cohort/plink/HM3/${cohort}_HM3"
+done
+
+gf_1000G_rs="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3"
+gf_1000G_chrpos="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3_chrpos"
+
+
+
 #---------------------------------------------------------------------------------------#
 
 
 PCA(){
     cohort=$1
     sampleKeep=$2
+    snpid=$3
+
     eval gf='$'gf_${cohort}
+    eval gf_1000G='$'gf_1000G_${snpid}
 
     mkdir -p $dirOut/$cohort/sampleQC
 
@@ -114,13 +124,35 @@ extractEUR(){
 
 
 main(){
-    for cohort in WLS HRS2; do
-        PCA $cohort "NA"
+    for cohort in HRS3 Texas STRpsych STRyatssstage STRtwge MCTFR EGCUT ELSA AH Dunedin ERisk WLS HRS2; do
+        mkdir -p $dirOut/$cohort/sampleQC
+        PCA $cohort "NA" chrpos
         plotPCs $cohort $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec $dirOut/$cohort/sampleQC/${cohort}_PCA.pdf
+    done
 
-        extractEUR WLS -0.01 0 -0.005 0.005 -0.01 0.01 -0.01 0.01 
-        extractEUR HRS2 -0.01 0 0 0.01 -0.008 0.01 -0.005 0.01
+    for cohort in WLS HRS2; do
+        mkdir -p $dirOut/$cohort/sampleQC
+        PCA $cohort "NA" rs
+        plotPCs $cohort $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec $dirOut/$cohort/sampleQC/${cohort}_PCA.pdf
+    done
 
+    extractEUR WLS -0.01 0 -0.005 0.005 -0.01 0.01 -0.01 0.01 
+    #extractEUR HRS2 -0.01 0 0 0.01 -0.008 0.01 -0.005 0.01
+    extractEUR HRS2 -0.01 -0.0025 0 0.01 -0.006 0.005 -0.01 0
+    extractEUR EGCUT -0.005 1 -1 0.005 -0.013 0.005 -0.01 0.01
+    extractEUR ELSA -1 1 -0.005 1 -0.01 1 -1 1
+    extractEUR MCTFR -1 0 0 1 -0.005 0.005 -0.005 0.01
+    extractEUR STRtwge -1 1 -0.003 1 -1 1 -1 1
+    extractEUR STRyatssstage -1 0.0025 -0.005 1 -0.01 1 -1 0.005
+    extractEUR STRpsych  
+    extractEUR Texas -1 1 0.015 1 0 0.015 -1 -0.005
+    extractEUR Dunedin -1 1 0.01 1 -1 1 -1 1
+    extractEUR ERisk 0 1 -1 -0.005 -0.005 0.01 -1 0
+    extractEUR STRpsych -1 0.003 -1 0.005 -0.008 1 -0.005 0.005
+    extractEUR AH -1 1 -1 1 -1 1 -1 1
+    extractEUR HRS3 -1 1 -1 1 -1 1 -1 1
+        
+    for cohort in HRS3 AH ERisk Dunedin Texas STRyatssstage STRtwge MCTFR ELSA EGCUT HRS2 WLS; do
         plotPCs $cohort $dirOut/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec $dirOut/$cohort/sampleQC/${cohort}_EUR_PCA.pdf
     done
 }

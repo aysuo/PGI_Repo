@@ -286,7 +286,7 @@ main(){
   if ! [[ -f TMP/SNPstats_v${annot_version}.txt ]]
   then
     
-    if [ "${annot_version}" = "7.0" ]
+    if [ "${annot_version}" = "7.0" || "${annot_version}" = "6.1" ]
     then
       im_cols="im.data.id,rsq"
     else

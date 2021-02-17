@@ -237,31 +237,31 @@ residualise.average.save(data=AFM, average=FALSE, age_residualise=FALSE, nosex=T
 ########## Construct phenotype: agreeableness ##########
 ########################################################
 
-agree <- data %>%
-  select(id_old,
-         id,
-         respondent_type,
-         yob,
-         contains("age"),
-         male,
-         african_american,
-         contains("agree")) %>%
-  select(-contains("phone"), -contains("nanswered")) %>%
-  select(-contains("1957"), -contains("1975")) %>%
-  gather(key = "wave", value = "value",
-                               paste0("agree_", c(1993, 2004, 2011)),
-                               paste0("age_",   c(1993, 2004, 2011))) %>%
-  separate("wave", c("var", "wave")) %>%
-  spread("var", "value") %>%
-  mutate(age2 = age^2,
-         male_age = male * age,
-         male_age2 = male * age2,
-         pheno = agree) %>%
-  select(id, respondent_type, wave, pheno, age, age2, male, male_age, male_age2) %>%
-  drop_na()
+#agree <- data %>%
+#  select(id_old,
+#         id,
+#         respondent_type,
+#         yob,
+#         contains("age"),
+#         male,
+#         african_american,
+#         contains("agree")) %>%
+#  select(-contains("phone"), -contains("nanswered")) %>%
+#  select(-contains("1957"), -contains("1975")) %>%
+#  gather(key = "wave", value = "value",
+#                               paste0("agree_", c(1993, 2004, 2011)),
+#                               paste0("age_",   c(1993, 2004, 2011))) %>%
+#  separate("wave", c("var", "wave")) %>%
+#  spread("var", "value") %>%
+#  mutate(age2 = age^2,
+#         male_age = male * age,
+#         male_age2 = male * age2,
+#         pheno = agree) %>%
+#  select(id, respondent_type, wave, pheno, age, age2, male, male_age, male_age2) %>%
+#  drop_na()
 
 # residualise, average, save
-residualise.average.save(data=agree, average=TRUE, age_residualise=TRUE, name="AGREE")
+#residualise.average.save(data=agree, average=TRUE, age_residualise=TRUE, name="AGREE")
 
 
 ########################################################
@@ -756,22 +756,22 @@ residualise.average.save(data=intelligence, average=FALSE, age_residualise=FALSE
 ######### Construct phenotype: left out social #########
 ########################################################
 
-leftoutsocial <- data %>%
-  select(id_old, id, respondent_type, yob, contains("age"), male, african_american, contains("leftoutsocial"), -contains("phone")) %>%
-  select(-contains("1957"), -contains("1975")) %>%
-  gather(key="wave", value="value",
-         paste0("leftoutsocial_", c(1993, 2004, 2011)), paste0("age_", c(1993, 2004, 2011))) %>%
-  separate("wave", c("var", "wave")) %>%
-  spread("var", "value") %>%
-  mutate(age2 = age^2,
-         male_age = male * age,
-         male_age2 = male * age2,
-         pheno = leftoutsocial) %>%
-  select(id, respondent_type, wave, pheno, age, age2, male, male_age, male_age2) %>%
-  drop_na()
+#leftoutsocial <- data %>%
+#  select(id_old, id, respondent_type, yob, contains("age"), male, african_american, contains("leftoutsocial"), -contains("phone")) %>%
+#  select(-contains("1957"), -contains("1975")) %>%
+#  gather(key="wave", value="value",
+#         paste0("leftoutsocial_", c(1993, 2004, 2011)), paste0("age_", c(1993, 2004, 2011))) %>%
+#  separate("wave", c("var", "wave")) %>%
+#  spread("var", "value") %>%
+#  mutate(age2 = age^2,
+#         male_age = male * age,
+#         male_age2 = male * age2,
+#         pheno = leftoutsocial) %>%
+#  select(id, respondent_type, wave, pheno, age, age2, male, male_age, male_age2) %>%
+#  drop_na()
 
 # residualise, average, save
-residualise.average.save(data=leftoutsocial, average=TRUE, age_residualise=TRUE, name="LEFTOUT")
+#residualise.average.save(data=leftoutsocial, average=TRUE, age_residualise=TRUE, name="LEFTOUT")
 
 
 ########################################################
@@ -800,23 +800,23 @@ residualise.average.save(data=lonely, average=TRUE, age_residualise=TRUE, name="
 ############# Construct phenotype: migraine ############
 ########################################################
 
-migraine <- data %>%
-  select(id_old, id, respondent_type, yob, contains("age"), male, african_american, contains("migraine")) %>%
-  select(-contains("1957"), -contains("1975")) %>%
-  gather(key="wave", value="value",
-         paste0("migraine_", c(1993, 2004, 2011)), paste0("age_", c(1993, 2004, 2011))) %>%
-  separate("wave", c("var", "wave")) %>%
-  spread("var", "value") %>%
-  mutate(age2 = age^2,
-         male_age = male * age,
-         male_age2 = male * age2,
-         pheno = migraine) %>%
-  filter(pheno >= 0) %>%
-  select(id, respondent_type, wave, pheno, age, age2, male, male_age, male_age2) %>%
-  drop_na()
+#migraine <- data %>%
+#  select(id_old, id, respondent_type, yob, contains("age"), male, african_american, contains("migraine")) %>%
+#  select(-contains("1957"), -contains("1975")) %>%
+#  gather(key="wave", value="value",
+#         paste0("migraine_", c(1993, 2004, 2011)), paste0("age_", c(1993, 2004, 2011))) %>%
+#  separate("wave", c("var", "wave")) %>%
+#  spread("var", "value") %>%
+#  mutate(age2 = age^2,
+#         male_age = male * age,
+#         male_age2 = male * age2,
+#         pheno = migraine) %>%
+#  filter(pheno >= 0) %>%
+#  select(id, respondent_type, wave, pheno, age, age2, male, male_age, male_age2) %>%
+#  drop_na()
 
 # residualise, average, save
-residualise.average.save(data=migraine, average=TRUE, age_residualise=TRUE, name="MIGRAINE")
+#residualise.average.save(data=migraine, average=TRUE, age_residualise=TRUE, name="MIGRAINE")
 
 
 ########################################################

@@ -963,6 +963,13 @@ sort partition_order
 gen partition = ceil(3 * _n/_N)
 save "tmp/pgs_repo.dta", replace
 
+* Save list of individuals in each partition
+foreach partition in 1 2 3 {
+    keep if partition == `partition'
+    export delimited n_eid n_eid using "paritions/UKB_part`partition'_eid.txt", noq replace 
+    clear
+    use "tmp/pgs_repo.dta"
+}
 ****************************************
 ********* Convert to GWAS IDs **********
 ****************************************

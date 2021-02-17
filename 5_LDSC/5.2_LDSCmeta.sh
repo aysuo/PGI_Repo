@@ -11,6 +11,7 @@ LDSC_mtag() {
     dirIn=$2
     dirOut=$3
     single=$4
+    ER2table=$5
 
     cd $dirOut
         
@@ -24,31 +25,47 @@ LDSC_mtag() {
         fi
     done
 
-    ER2_table $fileList $dirIn $single
-
-    if [[ $single == 1 ]]; then
-        checkStatus $dirCode/5_LDSC/rg_meta_filelist rg_meta
-        rg $dirCode/5_LDSC/rg_meta_filelist.rg_meta.rerun
-        rg_table $dirCode/5_LDSC/rg_meta_filelist
+    if [[ $ER2table == "normal" ]]; then
+        ER2_table $fileList $dirIn $single
+    else
+        ER2_table_full $fileList $dirIn $single
     fi
-       
+
+    # Comment this out for E(R2) vs R2 analysis
+    #if [[ $single == 1 ]]; then
+    #    checkStatus $dirCode/5_LDSC/rg_meta_filelist rg_meta
+    #    rg $dirCode/5_LDSC/rg_meta_filelist.rg_meta.rerun
+    #    rg_table $dirCode/5_LDSC/rg_meta_filelist
+    #fi   
 }
 
 ###############################################################################
 
 main(){
     # Single-trait MTAG
-    #rm -f $dirCode/5_LDSC/singleMTAG_output_filelist.txt
-    #for phenodir in ${dirData}/4_MTAG_single/*; do
-    #    if [[ $phenodir == *1 ]]; then
-    #        pheno=$(echo $phenodir | rev | cut -d"/" -f1 | rev)
-    #        ss=$(echo $phenodir/*trait*_formatted*.txt | sed 's/ /,/g')
-    #        echo -e "$pheno\t$ss" >> $dirCode/5_LDSC/singleMTAG_output_filelist.txt
-    #    fi
-    #done
+    rm -f $dirCode/5_LDSC/singleMTAG_output_filelist.txt
+    for phenodir in ${dirData}/4_MTAG_single/*; do
+        if [[ $phenodir == *1 ]]; then
+            pheno=$(echo $phenodir | rev | cut -d"/" -f1 | rev)
+            ss=$(echo $phenodir/*trait*_formatted*.txt | sed 's/ /,/g')
+            echo -e "$pheno\t$ss" >> $dirCode/5_LDSC/singleMTAG_output_filelist.txt
+        fi
+    done
 
-    #LDSC_mtag $dirCode/5_LDSC/singleMTAG_output_filelist.txt $dirData/4_MTAG_single $dirData/5_LDSC/singleMTAG 1
+    LDSC_mtag $dirCode/5_LDSC/singleMTAG_output_filelist.txt $dirData/4_MTAG_single $dirData/5_LDSC/singleMTAG 1 normal
 
+    # For E(R2) vs R2 analyses:
+    versions=$(cat $dirCode/9_Scores/version_single_* | sort | uniq)
+    for pheno in $versions; do
+        if [[ $pheno != *1 ]]; then
+            ss=$(echo $dirData/4_MTAG_single/$pheno/*trait*_formatted*.txt | sed 's/ /,/g')
+            echo -e "$pheno\t$ss" >> $dirCode/5_LDSC/singleMTAG_output_filelist.txt
+        fi
+    done
+
+    LDSC_mtag $dirCode/5_LDSC/singleMTAG_output_filelist.txt $dirData/4_MTAG_single $dirData/5_LDSC/singleMTAG 1 full
+
+    # Multi-trait MTAG
     rm -f $dirCode/5_LDSC/multiMTAG_output_filelist.txt
     for phenodir in ${dirData}/6_MTAG_multi/*; do
         if [[ $phenodir == *1 ]]; then
@@ -58,7 +75,7 @@ main(){
         fi
     done
 
-    LDSC_mtag $dirCode/5_LDSC/multiMTAG_output_filelist.txt $dirData/6_MTAG_multi $dirData/5_LDSC/multiMTAG 0
+    LDSC_mtag $dirCode/5_LDSC/multiMTAG_output_filelist.txt $dirData/6_MTAG_multi $dirData/5_LDSC/multiMTAG 0 normal
 }
 
 main

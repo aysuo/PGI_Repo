@@ -70,10 +70,9 @@ replace age_2011 = age_11 if age_2011 == .
 ********************************************************
 
 * activity
-rename (z_mx005rer z_iz168rer z_jz168rer) (light_exercise_1993 light_exercise_2004 light_exercise_2011)
-rename (z_mx006rer z_ixe02rer) (heavy_exercise_1993 heavy_exercise_2004)
-rename (z_jz171rer) (heavyalone_exercise_2011)
-rename (z_jz174rer) (heavytogether_exercise_2011)
+rename (z_mx005rer z_ixe01rer z_jz165rer z_jz168rer) (light_exercise_1993 light_exercise_2004 lightalone_exercise_2011 lighttogether_exercise_2011)
+rename (z_mx006rer z_ixe02rer z_jz171rer z_jz174rer) (heavy_exercise_1993 heavy_exercise_2004 heavyalone_exercise_2011 heavytogether_exercise_2011)
+
 * note that heavy_exercise_[1993/2004] are already composite measures, whereas 2011 needs to be created
 * scale in 2004-2011 same as 1993, yet range much greater
 
@@ -105,11 +104,17 @@ rename (z_mx085rer z_ix085rer z_jx085rer) (asthma_1993 asthma_2004 asthma_2011)
 * audit
 ** commentary on whether Qs included in HRS
 * analogy to "In your entire life, have you had at least 12 drinks of any type of alcoholic beverage?" not included
-rename (z_ru025re z_gu025re z_hu025re) (EverHadDrink_1993 EverHadDrink_2004 EverHadDrink_2011)
-rename (z_ru026re z_gu026re z_hu026re) (DaysDrinkingPerWeek_1993 DaysDrinkingPerWeek_2004 DaysDrinkingPerWeek_2011)
-rename (z_ru027re z_gu027re z_hu027re) (DrinksPerDrinkingSession_1993 DrinksPerDrinkingSession_2004 DrinksPerDrinkingSession_2011)
-rename (z_ru029re z_gu029re z_hu029re) (DaysHadManyDrinks_1993 DaysHadManyDrinks_2004 DaysHadManyDrinks_2011)
 * analogy to "Have you ever taken a drink first thing in the morning to steady your nerves or get rid of a hangover?" not included
+
+* Have you ever drunk alcoholic beverages such as beer, wine, liquor, or mixed alcoholic drinks? Yes/No
+rename (z_ru025re z_gu025re z_hu025re) (EverHadDrink_1993 EverHadDrink_2004 EverHadDrink_2011)
+* During the last month on how many days did you drink any alcoholic beverages such as beer, wine, liquor, or mixed alcoholic drinks?
+rename (z_ru026re z_gu026re z_hu026re) (DaysDrinkingPerWeek_1993 DaysDrinkingPerWeek_2004 DaysDrinkingPerWeek_2011)
+*What is the average number of drinks you had on the days you consumed any alcoholic beverages such as beer, wine, liquor, or mixed alcoholic drinks in the past month?
+rename (z_ru027re z_gu027re z_hu027re) (DrinksPerDrinkingSession_1993 DrinksPerDrinkingSession_2004 DrinksPerDrinkingSession_2011)
+*Number of times you had 5 or more drinks on the same occasion during the last month.
+rename (z_ru029re z_gu029re z_hu029re) (DaysHadManyDrinks_1993 DaysHadManyDrinks_2004 DaysHadManyDrinks_2011)
+*Have you ever felt bad or guilty about drinking?
 rename (z_ru030re z_gu030re z_hu030re) (GuiltyAboutDrinking_1993 GuiltyAboutDrinking_2004 GuiltyAboutDrinking_2011)
 * below is analogy to "Have you ever felt that you should cut down on drinking?"
 rename (z_ru035re z_gu035re z_hu035re) (WantedCutDrinking_1993 WantedCutDrinking_2004 WantedCutDrinking_2011)
@@ -131,7 +136,10 @@ rename (z_rh008rec z_mh018re z_ih018re z_jh018re) (consc_phone_nanswered_1993 co
 rename (z_mx089rer z_ix089rer z_jx089rer) (copd_1993 copd_2004 copd_2011)
 
 * CPD
-* items for DID and DO -- clarify this with aysu
+* items for DID and DO -- clarify this with aysu 
+* mx015rer: About how many packs did/do you usually smoke per day then/now?
+* ixt08rer: On average, how many packs of cigarettes do you smoke a day?
+* jxt08rer: On average, how many packs of cigarettes do you smoke a day?
 rename (mx015rer z_ixt08rer z_jxt08rer) (CPD_1993 CPD_2004 CPD_2011)
 * condition in smoking now
 rename (z_mx013rer z_ix013rec z_jx013rec) (smokenow_1993 smokenow_2004 smokenow_2011)
@@ -215,7 +223,7 @@ rename (z_bkxrl3 z_rl004rec z_gl004rec z_hl004rec z_jl004rec) (relig_1975 relig_
 rename (z_mx001rer z_ix001rer z_jx001rer) (selfhealth_1993 selfhealth_2004 selfhealth_2011)
 
 * SWB
-rename (z_mu006rer z_iu006rer z_ju006rer) (SWB_1993 SWB_2004 SWB_2011)
+rename (z_mu006rer z_iu006rer z_ju006rer z_mu009rer z_iu009rer z_ju009rer) (happy_1993 happy_2004 happy_2011 enlife_1993 enlife_2004 enlife_2011)
 
 * worksat
 rename (z_jbcrsa z_rg044jjc z_gg044jjc z_hg044jjc) (worksat_1975 worksat_1993 worksat_2004 worksat_2011)
@@ -229,19 +237,20 @@ rename (z_jbcrsa z_rg044jjc z_gg044jjc z_hg044jjc) (worksat_1975 worksat_1993 wo
 replace light_exercise_1993 = . if light_exercise_1993 < 0
 recode light_exercise_1993 (1 = 15) (2 = 6) (3 = 2) (4 = 0.5)
 
-replace light_exercise_2004 = . if light_exercise_2004 < 0
-replace light_exercise_2011 = . if light_exercise_2011 < 0
-
 replace heavy_exercise_1993 = . if heavy_exercise_1993 < 0
 recode heavy_exercise_1993 (1 = 15) (2 = 6) (3 = 2) (4 = 0.5)
 
+replace light_exercise_2004 = . if light_exercise_2004 < 0
 replace heavy_exercise_2004 = . if heavy_exercise_2004 < 0
+
+gen light_exercise_2011 = .
+replace lightalone_exercise_2011 = . if lightalone_exercise_2011 < 0
+replace lighttogether_exercise_2011 = . if lighttogether_exercise_2011 < 0
+replace light_exercise_2011 = (lightalone_exercise_2011 + lighttogether_exercise_2011)
 
 gen heavy_exercise_2011 = .
 replace heavyalone_exercise_2011 = . if heavyalone_exercise_2011 < 0
 replace heavytogether_exercise_2011 = . if heavytogether_exercise_2011 < 0
-recode heavy_exercise_1993 (1 = 15) (2 = 6) (3 = 2) (4 = 0.5)
-recode heavy_exercise_1993 (1 = 15) (2 = 6) (3 = 2) (4 = 0.5)
 replace heavy_exercise_2011 = (heavyalone_exercise_2011 + heavytogether_exercise_2011)
 
 gen activity_1993 = .
@@ -290,17 +299,22 @@ gen allergy_2011 = 0
 replace allergy_2011 = . if haveallergies_2011 < 0
 replace allergy_2011 = . if whichallergies_2011 < 0 | whichallergies_2011 == 22
 
+gen anyallergy_2011 = .
+replace anyallergy_2011 = 0 if haveallergies_2011 == 2
+replace anyallergy_2011 = 1 if haveallergies_2011 == 1
+
 gen pollen_2011 = allergy_2011
 replace pollen_2011 = 1 if whichallergies_2011 == 3
 
 gen cat_2011 = allergy_2011
-replace cat_2011 = 1 if whichallergies_2011 == 20
+replace cat_2011 = 1 if whichallergies_2011 == 20 | whichallergies_2011 == 2
 
 gen hayfever_2011 = allergy_2011
 replace hayfever_2011 = 1 if whichallergies_2011 == 14
 
 gen dust_2011 = allergy_2011
 replace dust_2011 = 1 if whichallergies_2011 == 6
+
 
 * asthma
 replace asthma_1993 = 2 - asthma_1993
@@ -356,8 +370,8 @@ foreach i in 1993 2004 2011 {
   ** note, daily variable
   replace DrinksPerDrinkingSession_`i' = . if DrinksPerDrinkingSession_`i' < 0
   gen DrinksPerSession_binary_`i' = DrinksPerDrinkingSession_`i'
-  replace DrinksPerSession_binary_`i' = 0 if DrinksPerSession_binary_`i' <= 2
-  replace DrinksPerSession_binary_`i' = 1 if DrinksPerSession_binary_`i' > 2
+  replace DrinksPerSession_binary_`i' = 0 if DrinksPerSession_binary_`i' <= 4
+  replace DrinksPerSession_binary_`i' = 1 if DrinksPerSession_binary_`i' > 4
 
   ** note, monthly variable
   replace DaysHadManyDrinks_`i' = . if DaysHadManyDrinks_`i' < 0
@@ -407,21 +421,21 @@ replace copd_2011 = 2 - copd_2011
 replace CPD_1993 = . if CPD_1993 < 0
 replace CPD_1993 = . if CPD_1993 > 4
 * excluding pipes above, ask aysu!
-replace smokenow_1993 = . if smokenow_1993 < 0
-replace smokenow_1993 = 2 - smokenow_1993
-replace CPD_1993 = . if smokenow_1993 == 0
+*replace smokenow_1993 = . if smokenow_1993 < 0
+*replace smokenow_1993 = 2 - smokenow_1993
+*replace CPD_1993 = . if smokenow_1993 == 0
 
 replace CPD_2004 = . if CPD_2004 < 0
-replace smokenow_2004 = . if smokenow_2004 < 0
-replace smokenow_2004 = 2 - smokenow_2004
-replace CPD_2004 = . if smokenow_2004 == 0
+replace CPD_2004 = . if CPD_2004 > 10
+*replace smokenow_2004 = . if smokenow_2004 < 0
+*replace smokenow_2004 = 2 - smokenow_2004
+*replace CPD_2004 = . if smokenow_2004 == 0
 
 replace CPD_2011 = . if CPD_2011 < 0
 replace CPD_2011 = . if CPD_2011 > 10
-* implausible, packs!
-replace smokenow_2011 = . if smokenow_2011 < 0
-replace smokenow_2011 = 2 - smokenow_2011
-replace CPD_2011 = . if smokenow_2011 == 0
+*replace smokenow_2011 = . if smokenow_2011 < 0
+*replace smokenow_2011 = 2 - smokenow_2011
+*replace CPD_2011 = . if smokenow_2011 == 0
 
 * depression
 replace depr_1993 = . if depr_1993 < 0
@@ -604,7 +618,7 @@ replace relig_1993 = . if relig_1993 < 0
 replace relig_2004 = . if relig_2004 < 0
 replace relig_mail_2011 = . if relig_mail_2011 < 0
 replace relig_phone_2011 = . if relig_phone_2011 < 0
-gen relig_2011 = (relig_mail_2011 + relig_phone_2011) / 2
+egen relig_2011 = rmean(relig_mail_2011 relig_phone_2011)
 
 * risk
 ** gain domain
@@ -614,7 +628,7 @@ forvalues i = 2(1)8 {
   rename z_jstk0`i're realstakes5_`i'_2011
   * remove NAs
   replace realstakes5_`i'_2011 = . if realstakes5_`i'_2011 < 0
-  * recode so {1 = certain, 0 = risky}
+  * recode so {0 = certain, 1 = risky}
   replace realstakes5_`i'_2011 = realstakes5_`i'_2011 - 1
 }
 rename z_jstk09re realstakes9_9_2011
@@ -626,7 +640,7 @@ forvalues i = 10(1)15 {
   rename z_jstk`i're realstakes9_`i'_2011
   * remove NAs
   replace realstakes9_`i'_2011 = . if realstakes9_`i'_2011 < 0
-  * recode so {1 = certain, 0 = risky}
+  * recode so {0 = certain, 1 = risky}
   replace realstakes9_`i'_2011 = realstakes9_`i'_2011 - 1
 }
 forvalues i = 16(1)22 {
@@ -635,7 +649,7 @@ forvalues i = 16(1)22 {
   rename z_jstk`i're realstakes11_`i'_2011
   * remove NAs
   replace realstakes11_`i'_2011 = . if realstakes11_`i'_2011 < 0
-  * recode so {1 = certain, 0 = risky}
+  * recode so {0 = certain, 1 = risky}
   replace realstakes11_`i'_2011 = realstakes11_`i'_2011 - 1
 }
 
@@ -682,9 +696,15 @@ replace selfhealth_2004 = . if selfhealth_2004 < 0
 replace selfhealth_2011 = . if selfhealth_2011 < 0
 
 * SWB
-replace SWB_1993 = . if SWB_1993 < 0
-replace SWB_2004 = . if SWB_2004 < 0
-replace SWB_2011 = . if SWB_2011 < 0
+replace happy_1993 = . if happy_1993 < 0
+replace happy_2004 = . if happy_2004 < 0
+replace happy_2011 = . if happy_2011 < 0
+replace enlife_1993 = . if enlife_1993 < 0
+replace enlife_2004 = . if enlife_2004 < 0
+replace enlife_2011 = . if enlife_2011 < 0
+egen SWB_1993 = rmean(happy_1993 enlife_1993)
+egen SWB_2004 = rmean(happy_2004 enlife_2004)
+egen SWB_2011 = rmean(happy_2011 enlife_2011)
 
 * worksat
 replace worksat_1975 = . if worksat_1975 < 0

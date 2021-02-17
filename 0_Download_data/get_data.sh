@@ -213,6 +213,7 @@ wget https://www.dropbox.com/s/df3bifmk238ks2y/GPC-1.BigFiveNEO.zip?dl=0
 # EA
 wget https://www.dropbox.com/s/ho58e9jmytmpaf8/GWAS_EA_excl23andMe.txt?dl=0
 wget http://ssgac.org/documents/EduYears_Main.txt.gz
+wget http://ssgac.org/documents/MA_EA_1st_stage.txt.gz
 
 # Friend satisfaction
 wget https://www.dropbox.com/s/274tmv6f3q3z4q1/4570.gwas.imputed_v3.both_sexes.tsv.bgz?dl=0 -O 4570.gwas.imputed_v3.both_sexes.tsv.bgz

@@ -1,9 +1,11 @@
 #!/bin/bash
 
-dirCode="/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/code/9_Scores"
+dirCode="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code/9_Scores"
+dirGeno="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes"
 score=$1
 cohort=$2
 dirOut=$3
+
 
 ##############################################################
 ########## Define LDpred input files and parameters ##########
@@ -11,37 +13,26 @@ dirOut=$3
 LDgf_rs="/disk/genetics/HRC/aokbay/LDgf/HM3/HRC_HM3_geno02_mind02_rel025_nooutliers"
 LDgf_chrpos="/disk/genetics/HRC/aokbay/LDgf/HM3/HRC_HM3_geno02_mind02_rel025_nooutliers_ChrPosID"
 
-valbim_HRS2="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/HRS2/plink/HM3/HRS2_HM3"
-#valbim_AH="/disk/genetics4/projects/EA4/derived_data/PGS/reffiles/AH_HM3"
-valbim_WLS="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/WLS/plink/HM3/WLS_HM3"
-#valbim_STR_PSYCH="/disk/genetics4/projects/EA4/derived_data/PGS/reffiles/STR-PSYCH_HM3"
-#valbim_STR_TWGE="/disk/genetics4/projects/EA4/derived_data/PGS/reffiles/STR-TWGE_HM3"
-#valbim_STR_YATSSSTAGE="/disk/genetics4/projects/EA4/derived_data/PGS/reffiles/STR-YATSSSTAGE_HM3"
-#valbim_UKB=$LDgf_rs
+for i in "HRS3" "HRS2" "WLS" "Dunedin" "ERisk" "AH" "STRpsych" "STRtwge" "STRyatssstage" "Texas" "ELSA" "EGCUT" "MCTFR"; do
+	declare valbim_${i}="${dirGeno}/${i}/plink/HM3/${i}_HM3"
+	declare valgf_${i}="${dirGeno}/${i}/plink2/${i}_chr[1:22]"
+	declare sample_${i}="${dirGeno}/${i}/sampleQC/${i}_EUR_FID_IID.txt"
+	case $i in
+		"HRS2" | "WLS") 
+			declare snpidtype_${i}="rs" 
+			;;
+		*) 
+			declare snpidtype_${i}="chrpos" 
+			;;
+	esac
+done
 
-valgf_HRS2="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/HRS2/plink2/HRS2_chr[1:22]"
-#valgf_AH="/disk/genetics/dbgap/data/derived/addhealth_HRCimputation/gen/AddHealth_HRC_chr[1:22].gen.gz"
-valgf_WLS="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/WLS/plink2/WLS_chr[1:22]"
-#valgf_STR_PSYCH="/disk/genetics/PGS/PGS_Repo/data/GENOTYPES/STR/STR_Salty/imputed/gen/STR_PSYCH_HRC_chr[1:22].gen.gz"
-#valgf_STR_TWGE="/disk/genetics/PGS/PGS_Repo/data/GENOTYPES/STR/STR_Twingene/imputed/gen/STR_TWGE_HRC_chr[1:22].gen.gz"
-#valgf_STR_YATSSSTAGE="/disk/genetics/PGS/PGS_Repo/data/GENOTYPES/STR/STR_YATSS_STAGE/imputed/gen/STR_YATSS-STAGE_HRC_chr[1:22].gen.gz"
-#valgf_UKB="/disk/genetics2/ukb/orig/UKBv3/imputed_plink_HM3/ukb_imp_chr[1:22]_v3_HM3_nodup"
-
-sample_HRS2="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/HRS2/sampleQC/HRS2_EUR_FID_IID.txt"
-#sample_AH="/disk/genetics2/dbgap/data/derived/addhealth_HRCimputation/gen/AddHealth_HRC_chr1.samples"
-sample_WLS="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/WLS/sampleQC/WLS_EUR_FID_IID.txt"
-#sample_STR_PSYCH="/disk/genetics4/PGS/PGS_Repo/data/GENOTYPES/STR/STR_Salty/imputed/gen/STR_PSYCH_HRC_chr1.sample"
-#sample_STR_TWGE="/disk/genetics4/PGS/PGS_Repo/data/GENOTYPES/STR/STR_Twingene/imputed/gen/STR_TWGE_HRC_chr1.sample"
-#sample_STR_YATSSSTAGE="/disk/genetics4/PGS/PGS_Repo/data/GENOTYPES/STR/STR_YATSS_STAGE/imputed/gen/STR_YATSS-STAGE_HRC_chr1.sample"
-#sample_UKB="/disk/genetics2/ukb/orig/UKBv2/linking/ukb_imp_v2.sample"
-
-snpidtype_HRS2=rs
-#snpidtype_AH=chrpos
-snpidtype_WLS=rs
-#snpidtype_STR-PSYCH=chrpos
-#snpidtype_STR-TWGE=chrpos
-#snpidtype_STR-YATSSSTAGE=chrpos
-#snpidtype_UKB=rs
+for part in 1 2 3; do
+	declare valbim_UKB${part}="${dirGeno}/UKB/plink/HM3/UKB_HM3"
+	declare valgf_UKB${part}="/disk/genetics2/ukb/orig/UKBv3/imputed_plink2_HM3/ukb_imp_chr[1:22]_v3_HM3_nodup"
+	declare sample_UKB${part}="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/1_UKB_GWAS/partitions/UKB_part${part}_eid.txt"
+	declare snpidtype_UKB${part}="rs"
+done
 
 P=1
 
@@ -51,12 +42,16 @@ LDpred(){
 	fileList=$1
 	cohort=$2
 	dirOut=$3
-
 	mkdir -p $dirOut/logs
 
 	eval snpidtype='$'snpidtype_${cohort}
 	eval LDgf='$'LDgf_${snpidtype}
 	eval valbim='$'valbim_${cohort}
+
+	if [[ $snpidtype == "rs" ]]; then
+		snpid="SNPID"; else
+		snpid="cptid"
+	fi
 	
 	i=0
 	while read row; do
@@ -66,6 +61,7 @@ LDpred(){
 		rm -f coord/${cohort}_${pheno}.coord
 		nohup bash $dirCode/9.0.1_LDpred.sh \
 			--sumstats=$ssPath \
+			--snpid=$snpid \
 			--out=${cohort}_${pheno} \
 			--LDgf=$LDgf \
 			--Valbim=$valbim \
@@ -73,7 +69,7 @@ LDpred(){
 			
 		let i+=1
 		
-		if [[ $i == 7 ]]; then
+		if [[ $i == 6 ]]; then
 			wait
 			i=0
 		fi
@@ -144,7 +140,7 @@ makePGS(){
 		done
 		let i+=1
 		
-		if [[ $i == 7 ]]; then
+		if [[ $i == 1 ]]; then
 			wait
 			i=0
 		fi
@@ -157,7 +153,6 @@ PGS(){
 	score=$1
 	cohort=$2
 	dirOut=$3
-	
 	cd $dirOut
 	
 	echo "----------------------------------------------------------------------"

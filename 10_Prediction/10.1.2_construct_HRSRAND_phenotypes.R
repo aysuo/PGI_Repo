@@ -22,7 +22,7 @@ lapply(packages, library, character.only = T)
 
 # source and set directory
 # source("directory_paths.R")
-setwd("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction/input/HRS")
+setwd("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction/input/HRS2")
 inputDataDir="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/prediction_phenotypes/HRS/"
 
 ########################################################
@@ -223,7 +223,7 @@ delaydisc <- RAND_data %>%
   drop_na()
 
 # residualise, average, save
-residualise.average.save(data=delaydisc, average=T, age_residualise=T, rand = T, name="DELAYDISC")
+#residualise.average.save(data=delaydisc, average=T, age_residualise=T, rand = T, name="DELAYDISC")
 
 
 ########################################################
@@ -242,7 +242,7 @@ height <- RAND_data %>%
   to_long(keys = "wave", values = c("height", "age"),
                                   c(paste0("r", 1:13, "height")),
                                   c(paste0("r", 1:13, "agem_m"))) %>%
-  mutate(wave = gsub("r", "", gsub("height", "", wave)),
+  mutate(height,wave = gsub("r", "", gsub("height", "", wave)),
          male = case_when(ragender == "1.male" ~ 1, ragender == "2.female" ~ 0),
          dob = rabyear + (rabmonth / 12),
          dob2 = dob^2,
@@ -253,6 +253,7 @@ height <- RAND_data %>%
   mutate(pheno = mean(height, na.rm=T), rn=row_number()) %>%
   ungroup() %>%
   filter(rn==1) %>%
+  select(hhidpn, dob, dob2, male, male_dob, male_dob2, pheno) %>%
   drop_na()
 
 # residualise, average, save
@@ -908,7 +909,7 @@ agree <- agree_2006 %>%
   drop_na()
 
 # residualise, average, save
-residualise.average.save(data=agree, average=T, age_residualise=T, name="AGREE")
+#residualise.average.save(data=agree, average=T, age_residualise=T, name="AGREE")
 
 
 ########################################################
@@ -1042,7 +1043,7 @@ hayfever <- hayfever_2008 %>%
   drop_na()
 
 # residualise, average, save
-residualise.average.save(data=hayfever, average=F, age_residualise=F, name="HAYFEVER")
+#residualise.average.save(data=hayfever, average=F, age_residualise=F, name="HAYFEVER")
 
 
 ########################################################
@@ -1062,7 +1063,7 @@ asthma_hayfever <- asthma %>%
   drop_na()
 
 # residualise, average, save
-residualise.average.save(data=asthma_hayfever, average=F, age_residualise=F, name="ASTECZRHI")
+# residualise.average.save(data=asthma_hayfever, average=F, age_residualise=F, name="ASTECZRHI")
 
 
 ########################################################
@@ -1072,11 +1073,13 @@ residualise.average.save(data=asthma_hayfever, average=F, age_residualise=F, nam
 # HRS Qs:
 #
 #    "In your entire life, have you had at least 12 drinks of any type of alcoholic beverage?" AUDIT 0 if no
-#    " Do you ever drink any alcoholic beverages such as beer, wine, or liquor?" 0 if no
-#    "In the last three months, on average, how many days per week have you had any alcohol to drink?" 0 if [0,1], 1 if [>1].
-#    "In the last three months, on the days you drink, about how many drinks do you have?" 0 if [0/1-2], 1 if [>2].
-#    "In the last three months, on how many days have you had four or more drinks on one occasion?" 0 if [0-3], 1 if [>3].
+#    "Do you ever drink any alcoholic beverages such as beer, wine, or liquor?" 0 if no
+#1    "In the last three months, on average, how many days per week have you had any alcohol to drink?" 0 if [0,1], 1 if [>1].
+#2    "In the last three months, on the days you drink, about how many drinks do you have?" 0 if [0-4], 1 if [>4].
+#3    "In the last three months, on how many days have you had four or more drinks on one occasion?" 0 if [0-3], 1 if [>3].
 #    Rest are 0-1. Use
+
+
 # "Have you ever taken a drink first thing in the morning to steady your nerves or get rid of a hangover?"
 # "Have you ever felt bad or guilty about drinking?"
 # "Have you ever felt that you should cut down on drinking?"
@@ -1252,11 +1255,11 @@ audit <- audit_2002 %>%
       pheno3 %in% 2:7 ~ 1
     ),
     # "In the last three months, on the days you drink, about how many drinks do you have?"
-    # 0 if [0/1-2], 1 if [>2].
+    # 0 if [0/1-4], 1 if [>4].
     pheno4 = case_when(
       #pheno4 %in% 0:50 ~ as.numeric(pheno4),
-      pheno4 %in% 0:2 ~ 0,
-      pheno4 %in% 3:50 ~ 1
+      pheno4 %in% 0:4 ~ 0,
+      pheno4 %in% 5:50 ~ 1
     ),
     # "In the last three months, on how many days have you had four or more drinks on one occasion?"
     # 0 if [0-3], 1 if [>3].
@@ -1292,13 +1295,13 @@ audit <- audit_2002 %>%
       pheno1 > 0 ~ 1,
       pheno2 > 0 ~ 1
     ),
-    pheno_sum = sum(c(pheno3, pheno4, pheno5, pheno6, pheno7, pheno8, pheno9), na.rm = T)
+    pheno_sum = sum(c(pheno3, pheno4, pheno5, pheno6, pheno7, pheno8, pheno9), na.rm = F)
   ) %>%
   ungroup() %>%
   mutate(
-    pheno_count = 7 - pheno_NA,
+  #  pheno_count = 7 - pheno_NA,
     pheno = case_when(
-      pheno_count > 3 ~ pheno_sum,
+      pheno_filter == 1 ~ pheno_sum,
       pheno_filter == 0 ~ 0
     )
   ) %>%
@@ -1590,18 +1593,21 @@ copd <- copd_1992 %>%
   separate("wave", c("var", "col")) %>%
   spread("var", "value") %>%
   mutate(dob = yob + (mob/12),
-         doi = yoi + (moi/12),
-         age = doi - dob,
-         age2 = age^2,
+         dob2 = dob^2,
          male = 2 - sex,
-         male_age = male * age,
-         male_age2 = male * age2,
+         male_dob = male * dob,
+         male_dob2 = male * dob2,
          pheno = case_when(pheno %in% 1:3 ~ 1, pheno %in% 4:5 ~ 0)) %>%
-  select(HHID, PN, wave=col, pheno, age, age2, male, male_age, male_age2) %>%
+  group_by(HHID, PN) %>%
+  mutate(pheno = max(pheno, na.rm=T),
+         rn = row_number()) %>%
+  ungroup() %>%
+  filter(rn==1 & pheno!="-Inf") %>%
+  select(HHID, PN, pheno, dob, dob2, male, male_dob, male_dob2) %>%
   drop_na()
 
 # residualise, average, save
-residualise.average.save(data=copd, average=T, age_residualise=T, name="COPD")
+residualise.average.save(data=copd, average=F, age_residualise=F, name="COPD")
 
 
 ########################################################
@@ -2049,7 +2055,7 @@ friendsat <- friendsat_1992 %>%
   drop_na()
 
 # residualise, average, save
-residualise.average.save(data=friendsat, average=T, age_residualise=T, name="FRIENDSAT")
+residualise.average.save(data=friendsat, average=F, age_residualise=T, name="FRIENDSAT")
 
 
 ########################################################
@@ -2168,7 +2174,7 @@ migraine <- migraine_1995 %>%
   drop_na()
 
 # residualise, average, save
-residualise.average.save(data=migraine, average=F, age_residualise=F, name="MIGRAINE")
+# residualise.average.save(data=migraine, average=F, age_residualise=F, name="MIGRAINE")
 
 
 ########################################################

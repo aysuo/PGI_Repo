@@ -24,6 +24,8 @@ done
 wait
 
 
+#################################################################
+
 ## Files that came annotated
 cd ${dirIn}/annotated/
 gunzip *.gz
@@ -148,6 +150,7 @@ mv $dirOut/23andMe_age_started_smoking.dat $dirOut/AgeStartedSmoking-23andMe.txt
 mv $dirOut/23andMe_ever_tobacco_user.dat $dirOut/Eversmoke-23andMe.txt
 mv $dirOut/23andMe_GSCAN_smoking_cessation.dat $dirOut/SmokingCessation-23andMe.txt
 mv $dirOut/23andMe_packs_per_day.dat $dirOut/CPD-23andMe.txt
+mv $dirOut/23andMe_GSCAN_drinking_per_week_tx.dat $dirOut/DPW-23andMe.txt
 
 gzip $dirOut/* &
 wait

@@ -5,6 +5,7 @@ pathIn=/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/2_Formatted
 pathCode=/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/code/3_QC
 
 cd $pathOut
+export R_LIBS=/homes/nber/aokbay/R/x86_64-redhat-linux-gnu-library/3.1/:$R_LIBS
 
 # $1: filelist, $2: cohort $3: SE filter
 easyQC(){
@@ -269,9 +270,9 @@ QC(){
 }
 
 main(){
-	#QC 23andMe 
+	QC 23andMe 
 	#QC public
-	QC public_scores
+	#QC public_scores
 	#QC UKB
 }
 

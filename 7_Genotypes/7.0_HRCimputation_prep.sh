@@ -21,6 +21,7 @@ HRC_1000G_check_bim(){
         -r ${refDir}/HRC.r1-1.GRCh37.wgs.mac5.sites.tab \
         -h
     
+    sed -i 's/plink/plink1.9/g' Run-plink.sh
     sh Run-plink.sh | tee Run-plink.sh.log
 }
 
@@ -53,7 +54,7 @@ checkVcf(){
 HRCqc(){
     pathGf=$1
     dirGf=$(echo $pathGf | rev | cut -d"/" -f1 --complement | rev)
-    cd $dirGf
+    #cd $dirGf
 
     getFreq $pathGf
     HRC_1000G_check_bim $pathGf
