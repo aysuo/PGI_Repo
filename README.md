@@ -1,2 +1,2 @@
 # PGI_Repo
-A Repository for Polygenic Scores
+A Repository for Polygenic Indexes
