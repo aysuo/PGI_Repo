@@ -1,0 +1,4 @@
+dir0_PublicData="/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/original_data/public"
+dir0_PublicPGIData="/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/original_data/public_scores"
+dir0_1000G="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/ref_data/1000G_ph3"
+dir0_HRC="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/ref_data/HRC_imputation_qc"
