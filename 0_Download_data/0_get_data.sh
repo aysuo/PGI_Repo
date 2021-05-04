@@ -1,11 +1,11 @@
 #!/bin/bash
 
-source dirs0
+source paths0
 
 #------------------------------------------------------------------------------------------------------------#
 # ------------------------------------------ For Repository PGI----------------------------------------------#
 #------------------------------------------------------------------------------------------------------------#
-cd $dir0_PublicData
+cd $p0_PublicData
 
 #------------------------------------#
 # Barban et al - Fertility
@@ -110,7 +110,7 @@ wget https://portals.broadinstitute.org/collaboration/giant/images/0/01/GIANT_HE
 #------------------------------------------------------------------------------------------------------------#
 # -------------------------------------------- For Public PGI------------------------------------------------#
 #------------------------------------------------------------------------------------------------------------#
-cd $dir0_PublicPGIData
+cd $p0_PublicPGIData
 #------------------------------------#
 # ADHD
 # See above
@@ -310,7 +310,7 @@ wget https://portals.broadinstitute.org/collaboration/giant/images/6/63/Meta-ana
 
 #------------------------------------#
 # 1000 Genomes
-cd $dir0_1000G
+cd $p0_1000G
 for chr in {1..22}; do
     wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$i.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz &
     wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chr$i.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi &
@@ -319,7 +319,7 @@ done
 
 #------------------------------------#
 # HRC ref data for pre-imputation qc
-cd $dir0_HRC
+cd $p0_HRC
 wget https://www.well.ox.ac.uk/~wrayner/tools/HRC-1000G-check-bim-v4.2.10.zip
 wget ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/HRC.r1-1.GRCh37.wgs.mac5.sites.vcf.gz
 wget ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.gz

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source dirs0
-cd $dir0_PublicData
+source paths0
+cd $p0_PublicData
 
 #------------------------------------#
 # EA
