@@ -1,12 +1,7 @@
 #!/bin/bash
 
-##############################################
-## Script to extract columns by name        ##
-## Assumes tab-delimited file               ##
-## Aysu Okbay (c) - VU Amsterdam            ##
-## Contact: a.okbay@vu.nl                   ##
-##############################################
-## If input comes from stdin, specify only columns to keep.
+## Script to extract columns by name        
+## Assumes tab-delimited file               
 ## Note: If there are multiple columns with the same name, it takes the first one.
 
 usage(){

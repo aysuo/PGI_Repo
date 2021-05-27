@@ -1,11 +1,6 @@
 #!/bin/bash
 
-##############################################
-## Script to merge 2 tab-delimited files    ##
-## Aysu Okbay (c) - VU Amsterdam            ##
-## Contact: a.okbay@vu.nl                   ##
-##############################################
-
+## Script to merge 2 tab-delimited files   
 
 usage() {
 echo "Usage: 
