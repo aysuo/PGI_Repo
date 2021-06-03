@@ -1,16 +1,8 @@
 #-------------------------------------------------#
 # Make additional plots based on the CLEANED QC output
-# Updated 01/07/2018
-
-# Rscript --file [Folder location of EasyQC results] 
-
-# Instructions:
-#  use --file to specify a FOLDER that contains cleaned GWAS of the format "CLEANED*.gz"
-#  This program will create supplementary plots for each CLEANED.gz file found
-
-# Uses reference file:
-#  /var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt
-#  Needs columns: ChrPosID and freq1 for AF plot
+# Rscript --file [FOLDER location of EasyQC results] --ref [path to ref file] 
+# Will create supplementary plots for each CLEANED*.gz file found in folder
+# Uses reference file with columns: ChrPosID, a1, a2, freq1 
 #-------------------------------------------------#
 
 #---------------------------------------------#
@@ -27,6 +19,7 @@ library("data.table")
 #---------------------------------------------#
 option_list = list(
   make_option(c("--file"),      type="character", default=NULL, help="Folder location of EasyQC results", metavar="character"),
+  make_option(c("--ref"),      type="character", default=NULL, help="Path to reference file", metavar="character"),
   make_option(c("--samples"),   type="integer", default=200000, help="Number of samples with which to make plots [default= %default]", metavar="integer"),
   make_option(c("--sdy"),   type="double", default=1.0, help="Standard deviation value of residualized phenotype [default= %default]", metavar="double"),
   make_option(c("--stdx"),   type="logical", default=FALSE, help="TRUE if genotypes are standardized  [default= %default]", metavar="logical"),
@@ -36,10 +29,13 @@ option_list = list(
 opt_parser = OptionParser(option_list = option_list)
 opt = parse_args(opt_parser)
 
-# Location of results must be provided
+# Location of results and ref file path must be provided
 if (is.null(opt$file)) {
   print_help(opt_parser)
   stop("Must provide path to folder containing EasyQC results!", call.=FALSE)
+} else if (is.null(opt$ref)) {
+  print_help(opt_parser)
+  stop("Must provide path to reference file!", call.=FALSE)
 } else {
   cat("Set directory to", opt$file, "\n")
   setwd(opt$file)
@@ -63,8 +59,8 @@ Sys.Date()
 cat("-----------------------------------------\n")
 cat("\n")
 
-# Load HRC Reference Sample 
-REF_file <- "/var/genetics/ukb/linner/EA3/EasyQC_HRC/EASYQC.ALLELE_FREQUENCY.MAPFILE.HRC.chr1_22_X.LET.FLIPPED_ALLELE_1000G+UK10K.txt"
+# Load Reference Sample 
+REF_file <- opt$ref
 cat("Loading reference file:", REF_file, "\n")
 REF <- fread(REF_file)
 
@@ -92,12 +88,14 @@ datasample <- gwas_data[sample(nrow(gwas_data), size=sample_size)]
 # TODO: allow a list of sdy's for multiple files with diff var(y)'s? 
 sigY <- opt$sdy
 
+# Option for analyzing dominance GWAS results
 if (opt$dom == T) {
   datasample[, SE_test := sigY*sqrt(1-(2*EAF*(1-EAF)))/sqrt(2*N*EAF*(1-EAF))]
 } else {
     if (opt$stdx == F) {
       datasample[, SE_test := sigY/sqrt(N*2*EAF*(1-EAF))]
     } else {
+      # Option for analyzing results for standardized genotype 
       datasample[, SE_test := sigY/sqrt(N)]
     }
 }
@@ -143,7 +141,7 @@ ggsave(plot=g, paste0(out_name,"_SEN.png"), width=6.5, height=6.5)
 # Manhattan SE 
 #----------------------------------#
 cat("Plotting Manhattan SE ... \n")
-# Generate ratio of actualSE / predicted SE ratio
+# Generate actualSE / predicted SE ratio
 datasample$SE_ratio <- with(datasample, SE/SE_test)
 
 # extract chr

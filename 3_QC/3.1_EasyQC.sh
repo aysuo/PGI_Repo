@@ -1,12 +1,7 @@
 #!/bin/bash
-export R_LIBS=/homes/nber/aokbay/R/x86_64-redhat-linux-gnu-library/3.1/:$R_LIBS
 
-#-------------------------------------------------------------------------#
-# Creates and runs EasyQC script
-# Date Updated: 03/01/2020
-# Author: Aysu Okbay
-#-------------------------------------------------------------------------#
-
+source paths3
+export R_LIBS=$p3_Rlib/:$R_LIBS
 
 ## To do: Add option for other effect types (e.g. OR, logOR, etc)
 
@@ -44,11 +39,11 @@ echo "Usage:
        --cutoff_N <N cutoff>
        --XY <1 if sex chromosomes are to be kept, 0 otherwise, default = 0>
        --INDEL <1 if INDELs are to be kept, 0 otherwise, default = 0>
-       --cptref <cptid reference file path, default = /disk/genetics/ukb/aokbay/reffiles/HRC/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map>
+       --cptref <cptid reference file path, default = $p3_cptref>
        --cptref_marker <marker name in cptid reference file, default = rsid>
        --cptref_chr <chr name in cptid reference file, default = chr>
        --cptref_bp <bp name in cptid reference file, default = pos>
-       --afref <allele freq reference file path, default = /disk/genetics/ukb/aokbay/reffiles/HRC/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz>
+       --afref <allele freq reference file path, default = $p3_afref>
        --afref_marker <marker name in allele freq reference file, default = cptid>
        --afref_ref  <reference allele name in allele freq reference file, default = ref>
        --afref_alt  <alternative allele name in allele freq reference file, default = alt>
@@ -486,7 +481,7 @@ else
 fi
 
 if [[ -z $cptref ]]; then
-  cptref="/disk/genetics/ukb/aokbay/reffiles/1kG_phase1/rsmid_map.1000G_ALL_p1v3.merged_mach_impute.v1.txt"
+  cptref=$p3_cptref
 fi
 echo "Reference file to obtain cptid's: $cptref ."
 
@@ -506,7 +501,7 @@ fi
 echo "Base pair name in cptid reference file: $cptref_bp ."
 
 if [[ -z $afref ]]; then
-  afref="/disk/genetics/ukb/aokbay/reffiles/HRC/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.cptid.maf001.gz"
+  afref=$p3_afref
 fi
 echo "Allele frequency reference file: $afref ."
 
@@ -610,6 +605,7 @@ for (( i=0; i<${N_files}; i++ )); do
   echo "EASYIN  --fileIn ${files[$i]} --fileInShortName ${tags[$i]}" >>  $pathOut/QC_${tags[$i]}_$(date +"%Y_%m_%d")/QC_${tags[$i]}.ecf
 done
 
+# Filter out missing values for alleles, P, effect, SE, EAF, N
 echo "
 START EASYQC
 
@@ -623,12 +619,16 @@ CLEAN --rcdClean is.na(${SE_out}) --strCleanName numDrop_Missing_SE --blnWriteCl
 CLEAN --rcdClean is.na(${EAF_out}) --strCleanName numDrop_Missing_EAF --blnWriteCleaned 0
 CLEAN --rcdClean is.na(${N_out}) --strCleanName numDrop_Missing_N --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 
+# If IMPUTED/GENOTYPED SNP indicator exists, filter out:
+#   SNPs with missing values or values different than 0/1 for the indicator
+#   imputed SNPs with missing INFO
 if [[ ! -z $IMPUTED ]]; then
   echo "CLEAN --rcdClean is.na(${IMPUTED_out}) --strCleanName numDrop_Missing_IMPUTED --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
   echo "CLEAN --rcdClean ${IMPUTED_out}==1 & is.na(${INFO_out}) --strCleanName numDrop_Missing_INFO --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
   echo "CLEAN --rcdClean ${IMPUTED_out}!=0 & ${IMPUTED_out}!=1 --strCleanName numDrop_invalid_IMPUTED --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# Filter out out-of-bounds values for P, SE, EAF
 echo "
 CLEAN --rcdClean ${P_out}<0 | ${P_out}>1 --strCleanName numDrop_invalid_PVAL --blnWriteCleaned 0
 CLEAN --rcdClean ${SE_out}<=0 | ${SE_out}==Inf --strCleanName numDrop_invalid_SE --blnWriteCleaned 0
@@ -640,39 +640,48 @@ CLEAN --rcdClean ${EAF_out}<0 | ${EAF_out}>1 --strCleanName numDrop_invalid_EAF 
 
 CLEAN --rcdClean ${EAF_out}==0 | ${EAF_out}==1 --strCleanName numDrop_Monomorph --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 
+# If IMPUTED/GENOTYPED SNP indicator exists and HWE filter requested, filter genotyped SNPs for HWE 
 if [[ ! -z $IMPUTED && ! -z $cutoff_HWE ]]; then
   echo "CLEAN --rcdClean ${IMPUTED_out}==0 & ${HWE_out}<${cutoff_HWE} --strCleanName numDrop_HWE_${cutoff_HWE} --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# If IMPUTED/GENOTYPED SNP indicator exists and call rate filter requested, filter genotyped SNPs for call rate
 if [[ ! -z $IMPUTED && ! -z $cutoff_CALLRATE ]]; then
   echo "CLEAN --rcdClean ${IMPUTED_out}==0 & ${CALLRATE_out}<${cutoff_CALLRATE} --strCleanName numDrop_CALLRATE_${cutoff_CALLRATE} --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# MAF filter
 echo "CLEAN --rcdClean ${EAF_out}<${cutoff_MAF} | ${EAF_out}>1-${cutoff_MAF} --strCleanName numDrop_MAF_${cutoff_MAF} --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 
+# If MAC filter requested calculate and filter for MAC
 if [[ ! -z $cutoff_MAC ]]; then
   echo "ADDCOL --rcdAddCol signif(2*pmin(${EAF_out},1-${EAF_out})*${N_out},4) --colOut MAC" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
   echo "CLEAN --rcdClean MAC<${cutoff_MAC} --strCleanName numDrop_MAC_${cutoff_MAC} --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
-## Exclude imputed SNPs with missing or low Imputation Quality 
+# If IMPUTED/GENOTYPED SNP indicator exists, get #imputed SNPs
+# Otherwise, if INFO exists, identify imputed SNPs as those with INFO<1, and get #imputed SNPs that way
 if [[ ! -z $IMPUTED ]]; then
   echo "GETNUM  --rcdGetNum ${IMPUTED_out}==1 --strGetNumName num_Imputed" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 elif [[ ! -z $INFO ]]; then
   echo "GETNUM  --rcdGetNum ${INFO_out}<1 --strGetNumName num_Imputed" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# If IMPUTED/GENOTYPED SNP indicator exists and INFO column is not missing, filter imputed SNPs for INFO
+# If IMPUTED/GENOTYPED SNP indicator doesn't exist, filter all SNPs for INFO
 if [[ ! -z ${IMPUTED} && ! -z ${INFO} ]]; then
   echo "CLEAN --rcdClean ${IMPUTED_out}==1 & ${INFO_out}<${cutoff_INFO} --strCleanName numDrop_Imputed_lowImpQual --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 elif [[ -z ${IMPUTED} && ! -z ${INFO} ]]; then
   echo "CLEAN --rcdClean ${INFO_out}<${cutoff_INFO} --strCleanName numDrop_Imputed_lowImpQual --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
-
+# If N filter requested, filter for N
 if [[ ! -z ${cutoff_N} ]]; then
    echo "CLEAN --rcdClean ${N_out} < ${cutoff_N}  --strCleanName numDrop_N --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# Calculate R2 and predicted SE
+# dom=1 if QCing dominance GWAS
 ## To do: Add option for other effect types (e.g. OR, logOR, etc)
 if [[ $dom != 1 ]]; then
   if [[ ${EFFECTtype} == "BETA" ]]; then
@@ -689,10 +698,12 @@ else
   echo "ADDCOL --rcdAddCol ${SDy}*sqrt(1-(2*${EAF_out}*(1-${EAF_out})))/sqrt(2*${N_out}*${EAF_out}*(1-${EAF_out})) --colOut SEpred" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# If R^2 filter requested, filter for R^2
 if [[ ! -z ${cutoff_R2} ]]; then
    echo "CLEAN --rcdClean R2 > ${cutoff_R2}  --strCleanName numDrop_R2 --blnWriteCleaned 0" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# If SE ratio filter requested, filter for SE ratio
 if [[ ! -z ${cutoff_SE} ]]; then
    echo "CLEAN --rcdClean ${SE_out}/SEpred > ${cutoff_SE} | SEpred/${SE_out} > ${cutoff_SE} --strCleanName numDrop_SEratio --blnWriteCleaned 1" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
@@ -707,11 +718,12 @@ echo "
 HARMONIZEALLELES --colInA1 ${EA_out} --colInA2 ${OA_out}
 " >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 
-## Remove INDELs if specified
+## Remove INDELs if requested
 if [[ ${INDEL} == 0 ]]; then
   echo "CLEAN --rcdClean (${EA_out}%in%c('I','D')) | (${OA_out}%in%c('I','D'))   --strCleanName numDrop_INDEL --blnWriteCleaned 1" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# Create cptid's
 echo "
 ####################
 ## 4. Harmonization of marker names (compile 'cptid')
@@ -737,19 +749,19 @@ else
   --colInPos ${BP_out}" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# If CHR and BP are not available in input, obtain them by splitting the cptid (obtained in prev step) into two
 if [[ -z $CHR && -z $BP ]]; then
   echo -e "\nSTRSPLITCOL --colSplit cptid --strSplit : --numSplitIdx 1 --colOut ${CHR_out}" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
   echo "STRSPLITCOL --colSplit cptid --strSplit : --numSplitIdx 2 --colOut ${BP_out}" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
+# Remove non-autosomal chromosomes (NAs kept in)
 if [[ ${XY} == 0 ]]; then
   echo -e "\nCLEAN  --rcdClean !${CHR_out}%in%c(1:22,NA) --strCleanName numDropSNP_ChrXY --blnWriteCleaned 1" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 fi
 
-#if [[ ${XY} == 0 ]]; then
-#  echo -e "\nCLEAN  --rcdClean !${CHR_out}%in%c(1:22) --strCleanName numDropSNP_ChrXY --blnWriteCleaned 1" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
-#fi
-
+# Remove all copies of duplicate cptid's
+# Check EAF's against ref panel
 echo " 
 ####################
 ## 5.Filter duplicate SNPs
@@ -797,13 +809,6 @@ echo "
 ## 7. Rearrange columns and Write CLEANED output" >> $pathOut/QC_${tag}_$(date +"%Y_%m_%d")/QC_${tag}.ecf
 
 cols_out=$(echo -n "cptid;${SNPID_out};${CHR_out};${BP_out};${EA_out};${OA_out};${EAF_out};${EFFECT_out};${SE_out};${P_out};${N_out}")
-
-#for col in "IMPUTED" "INFO" "HWE" "CALLRATE"; do
-#  if [[ ! -z $col ]]; then
-#    eval col_out='$'{${col}_out}
-#    cols_out=$(echo "${cols_out};$col_out")
-#  fi
-#done
 
 for i in IMPUTED INFO HWE CALLRATE; do
   eval col='$'{$i}
