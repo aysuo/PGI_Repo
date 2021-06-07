@@ -1,27 +1,26 @@
 #!/bin/bash
-dirCode=/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code
-dirData=/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data
 
-###############################################################################
-
-source $dirCode/5_LDSC/5.0_LDSCfunctions.sh
+source paths5
+source $code/5_LDSC/5.0_LDSCfunctions.sh
 
 LDSC_mtag() {
     fileList=$1
     dirIn=$2
     dirOut=$3
+    # single = 1 if single-trait MTAG, 0 if multi-trait
     single=$4
+    # ER2table = "full" if making table for the E(R2) vs R2 analysis, "normal" otherwise
     ER2table=$5
 
     cd $dirOut
         
     for analysis in munge h2; do
-        checkStatus $fileList $analysis
+        checkStatusLDSC $fileList $analysis
     
         if [[ $status == 1 ]]; then
             echo "Rerunning LDSC for the unfinished files in $fileList.."
             $analysis ${fileList}.${analysis}.rerun
-            checkStatus $fileList $analysis
+            checkStatusLDSC $fileList $analysis
         fi
     done
 
@@ -31,51 +30,64 @@ LDSC_mtag() {
         ER2_table_full $fileList $dirIn $single
     fi
 
-    # Comment this out for E(R2) vs R2 analysis
-    #if [[ $single == 1 ]]; then
-    #    checkStatus $dirCode/5_LDSC/rg_meta_filelist rg_meta
-    #    rg $dirCode/5_LDSC/rg_meta_filelist.rg_meta.rerun
-    #    rg_table $dirCode/5_LDSC/rg_meta_filelist
-    #fi   
+    if [[ $ER2table == "normal" ]] && [[ $single == 1 ]]; then
+        checkStatusLDSC $code/5_LDSC/rg_meta_filelist rg_meta
+        rg $code/5_LDSC/rg_meta_filelist.rg_meta.rerun
+        rg_table $code/5_LDSC/rg_meta_filelist
+    fi
+  
 }
 
 ###############################################################################
 
 main(){
-    # Single-trait MTAG
-    rm -f $dirCode/5_LDSC/singleMTAG_output_filelist.txt
-    for phenodir in ${dirData}/4_MTAG_single/*; do
+    # Estimate h^2, rg for single-trait MTAG output, write E(R^2) and rg tables.
+    rm -f $code/5_LDSC/singleMTAG_output_filelist.txt
+    for phenodir in $mainDir/derived_data/4_MTAG_single/*; do
+        # Use largest sample size version (v1, e.g. NEURO1) for each phenotype
         if [[ $phenodir == *1 ]]; then
             pheno=$(echo $phenodir | rev | cut -d"/" -f1 | rev)
             ss=$(echo $phenodir/*trait*_formatted*.txt | sed 's/ /,/g')
-            echo -e "$pheno\t$ss" >> $dirCode/5_LDSC/singleMTAG_output_filelist.txt
+            echo -e "$pheno\t$ss" >> $code/5_LDSC/singleMTAG_output_filelist.txt
         fi
     done
 
-    LDSC_mtag $dirCode/5_LDSC/singleMTAG_output_filelist.txt $dirData/4_MTAG_single $dirData/5_LDSC/singleMTAG 1 normal
+    LDSC_mtag $code/5_LDSC/singleMTAG_output_filelist.txt $mainDir/derived_data/4_MTAG_single $mainDir/derived_data/5_LDSC/singleMTAG 1 normal
 
-    # For E(R2) vs R2 analyses:
-    versions=$(cat $dirCode/9_Scores/version_single_* | sort | uniq)
+    # E(R^2) - observed R^2 comparison table for single-trait PGIs
+    # Calculate E(R^2) based on all GWAS used to make PGIs for validation cohorts and largest h^2 MTAG output
+    versions=$(cat $code/9_Scores/version_single_* | sort | uniq)
     for pheno in $versions; do
         if [[ $pheno != *1 ]]; then
-            ss=$(echo $dirData/4_MTAG_single/$pheno/*trait*_formatted*.txt | sed 's/ /,/g')
-            echo -e "$pheno\t$ss" >> $dirCode/5_LDSC/singleMTAG_output_filelist.txt
+            ss=$(echo $mainDir/derived_data/4_MTAG_single/$pheno/*trait*_formatted*.txt | sed 's/ /,/g')
+            echo -e "$pheno\t$ss" >> $code/5_LDSC/singleMTAG_output_filelist.txt
         fi
     done
 
-    LDSC_mtag $dirCode/5_LDSC/singleMTAG_output_filelist.txt $dirData/4_MTAG_single $dirData/5_LDSC/singleMTAG 1 full
+    LDSC_mtag $code/5_LDSC/singleMTAG_output_filelist.txt $mainDir/derived_data/4_MTAG_single $mainDir/derived_data/5_LDSC/singleMTAG 1 full
 
-    # Multi-trait MTAG
-    rm -f $dirCode/5_LDSC/multiMTAG_output_filelist.txt
-    for phenodir in ${dirData}/6_MTAG_multi/*; do
+    # Estimate h^2 for multi-trait MTAG output, write E(R^2) table
+    rm -f $code/5_LDSC/multiMTAG_output_filelist.txt
+    for phenodir in $mainDir/derived_data/6_MTAG_multi/*; do
         if [[ $phenodir == *1 ]]; then
             pheno=$(echo $phenodir | rev | cut -d"/" -f1 | rev)
             ss=$(echo $phenodir/*trait_1_formatted.txt)
-            echo -e "$pheno\t$ss" >> $dirCode/5_LDSC/multiMTAG_output_filelist.txt
+            echo -e "$pheno\t$ss" >> $code/5_LDSC/multiMTAG_output_filelist.txt
         fi
     done
 
-    LDSC_mtag $dirCode/5_LDSC/multiMTAG_output_filelist.txt $dirData/6_MTAG_multi $dirData/5_LDSC/multiMTAG 0 normal
+    LDSC_mtag $code/5_LDSC/multiMTAG_output_filelist.txt $mainDir/derived_data/6_MTAG_multi $mainDir/derived_data/5_LDSC/multiMTAG 0 normal
+
+    # E(R^2) - observed R^2 comparison table for multi-trait PGIs
+    versions=$(cat $code/9_Scores/version_multi_* | sort | uniq)
+    for pheno in $versions; do
+        if [[ $pheno != *1 ]]; then
+            ss=$(echo $mainDir/derived_data/6_MTAG_multi/$pheno/*trait_1_formatted.txt)
+            echo -e "$pheno\t$ss" >> $code/5_LDSC/multiMTAG_output_filelist.txt
+        fi
+    done
+
+    LDSC_mtag $code/5_LDSC/multiMTAG_output_filelist.txt $mainDir/derived_data/6_MTAG_multi $mainDir/derived_data/5_LDSC/multiMTAG 0 full
 }
 
 main

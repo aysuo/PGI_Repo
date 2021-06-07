@@ -289,17 +289,17 @@ main(){
     # Extract required columns from annotation files
     echo "Extracting necessary columns from annotation files"
 
-    sh $p2_code/2.1.1.1_ExtractCols.sh \
+    sh $mainDir/code/2_Formatting/2.1.1.1_ExtractCols.sh \
     --file ${annot_all} \
     --cols "all.data.id,gt.data.id,im.data.id,assay.name,scaffold,position,alleles,ploidy" \
     --out TMP/tmp_all_v${annot_version} > LOG/tmp_all_v${annot_version}.log &
 
-    sh $p2_code/2.1.1.1_ExtractCols.sh \
+    sh $mainDir/code/2_Formatting/2.1.1.1_ExtractCols.sh \
     --file ${annot_im} \
     --cols ${im_cols} \
     --out TMP/tmp_im_v${annot_version} > LOG/tmp_im_v${annot_version}.log &
 
-    sh $p2_code/2.1.1.1_ExtractCols.sh \
+    sh $mainDir/code/2_Formatting/2.1.1.1_ExtractCols.sh \
     --file ${annot_gt} \
     --cols "gt.data.id,gt.rate,hw.p.value" \
     --out TMP/tmp_gt_v${annot_version} > LOG/tmp_gt_v${annot_version}.log &
@@ -309,7 +309,7 @@ main(){
     ## Merge annotation files
     echo -e "Merging annotation files"
 
-    sh $p2_code/2.1.1.2_Merge.sh \
+    sh $mainDir/code/2_Formatting/2.1.1.2_Merge.sh \
     --mergeType L \
     --mergeCol1 3 \
     --mergeCol2 1 \
@@ -317,7 +317,7 @@ main(){
     --file2 TMP/tmp_im_v${annot_version} \
     --out TMP/tmp_all_im_v${annot_version} > LOG/tmp_all_im_v${annot_version}.log 
     
-    sh $p2_code/2.1.1.2_Merge.sh \
+    sh $mainDir/code/2_Formatting/2.1.1.2_Merge.sh \
     --mergeType L \
     --mergeCol1 2 \
     --mergeCol2 1 \
@@ -354,7 +354,7 @@ main(){
   for gwas_path in ${GWAS[*]}
   do
     gwas_file=$(echo ${gwas_path} | sed 's,.\+/,,g')
-    sh $p2_code/2.1.1.2_Merge.sh \
+    sh $mainDir/code/2_Formatting/2.1.1.2_Merge.sh \
     --mergeType R \
     --mergeCol1 1 \
     --mergeCol2 1 \
@@ -369,7 +369,7 @@ main(){
   for gwas_path in ${GWAS[*]}
   do
     gwas_file=$(echo ${gwas_path} | sed 's,.\+/,,g')
-    sh $p2_code/2.1.1.1_ExtractCols.sh \
+    sh $mainDir/code/2_Formatting/2.1.1.1_ExtractCols.sh \
     --file TMP/tmp_${gwas_file}_annot \
     --cols "SNPID,CHR,BP,EFFECT_ALLELE,OTHER_ALLELE,EAF,BETA,SE,P,INFO,N,IMPUTED,CALLRATE,HWE_PVAL,PLOIDY" \
     --out ${OUT[$i]} > LOG/${OUT[$i]}.log &

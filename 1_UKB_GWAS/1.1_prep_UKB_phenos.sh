@@ -3,7 +3,7 @@
 
 source paths1
 
-cd $p1_UKBGWAS
+cd $mainDir/derived_data/1_UKB_GWAS
 
 ###### GET LIST OF BRAIN MRI SAMPLE AND RELATED INDIVIDUALS FOR PARTITIONING ########
 echo "Getting list of brain-imaged and up to 3rd degree related individuals.." 
@@ -26,15 +26,15 @@ echo "List created."
 
 echo "Running Stata to partition sample and obtain phenotype file for each partition.."
 
-stata -b do $p1_code/1.1_prep_UKB_phenos.do \
-	$p1_UKBGWAS \
+stata -b do $mainDir/code/1_UKB_GWAS/1.1_prep_UKB_phenos.do \
+	$mainDir/derived_data/1_UKB_GWAS \
 	$p1_UKBcrosswalk \
-	$p1_UKB_partition_data \
+	$mainDir/derived_data/1_UKB_GWAS/tmp/IDs_assignPartition_ordered.txt \
 	$p1_pheno_data_1 \
 	$p1_pheno_data_2 \
 	$p1_pheno_data_3 \
 	$p1_covar_data \
-	$p1_log
+	$mainDir/code/1_UKB_GWAS/1.1_prep_UKB_phenos_test.do.log
 
 # Replace missing values (.) with NA
 for file in input/*.pheno; do

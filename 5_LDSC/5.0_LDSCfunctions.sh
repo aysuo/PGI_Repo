@@ -1,18 +1,16 @@
 #!/bin/bash
-alias python=/homes/nber/aokbay/anaconda2/bin/python2.7
-hm3_snplist=/disk/genetics/ukb/aokbay/reffiles/w_hm3.snplist
-LDscores=/disk/genetics/ukb/aokbay/bin/ldsc_old/eur_w_ld_chr/
-LDSC=/disk/genetics/ukb/aokbay/bin/ldsc
+
+source paths5
 
 ldsc_munge () {
     ss=$1
     out=$2
 
 	## Munge sumstats ##
-	python ${LDSC}/munge_sumstats.py \
+	$python ${LDSC}/munge_sumstats.py \
 		--sumstats ${ss} \
 		--out ${out} \
-		--merge-alleles ${hm3_snplist}
+		--merge-alleles ${hm3snps}
 }
 
 ldsc_h2 () {
@@ -20,7 +18,7 @@ ldsc_h2 () {
     out=$2
 
 	## Get h2 and intercept ##
-	python ${LDSC}/ldsc.py \
+	$python ${LDSC}/ldsc.py \
 		--h2 ${ssMunged}  \
 		--ref-ld-chr ${LDscores} \
 		--w-ld-chr ${LDscores} \
@@ -33,7 +31,7 @@ ldsc_rg () {
     out=$2
 
     ## Get rg 
-	python ${LDSC}/ldsc.py \
+	$python ${LDSC}/ldsc.py \
 	    --rg ${ssPairMunged}  \
 	    --ref-ld-chr ${LDscores} \
 	    --w-ld-chr ${LDscores} \
@@ -68,6 +66,7 @@ munge () {
     wait
 }
 
+
 h2 () {
     fileListh2=$1
 
@@ -89,6 +88,7 @@ h2 () {
     done < $fileListh2
     wait
 }
+
 
 rg () { 
     fileListrg=$1
@@ -115,8 +115,8 @@ rg () {
 }
 
 ###############################################################################
-
-checkStatus () {
+# Check for which phenotypes in file list munging/h2/rg hasn't finished
+checkStatusLDSC () {
     fileList=$1
     analysis=$2
 
@@ -196,6 +196,9 @@ checkStatus () {
 
 ###############################################################################
 
+# FORMAT RESULTS FOR SINGLE-MTAG INPUT FILES (h2 of each input ss and rg between input ss, needed for QC)
+
+# Write LDSC h^2 results for single-MTAG input files into a table
 LDSC_h2_stats () {
     fileList=$1
     phenoList=$(cut -f1 $fileList| sed 's/[1-9]//g' | sort | uniq)
@@ -217,6 +220,7 @@ LDSC_h2_stats () {
     done
 }
 
+# Write LDSC rg between single-MTAG input files for each phenotype into a table
 LDSC_rg_stats () {
     fileList=$1
     phenoList=$(cut -f1 $fileList| sed 's/[1-9]//g' | sort | uniq)
@@ -244,6 +248,10 @@ LDSC_rg_stats () {
 
 ###############################################################################
 
+# FORMAT RESULTS FOR SINGLE-/MULTI-MTAG OUTPUT FILES
+
+# Calculate E(R^2) based on largest sample size (PHENO1) and largest h^2 MTAG output
+# Write results into table
 ER2_table() {
     fileList=$1
     dirIn=$2
@@ -288,12 +296,15 @@ ER2_table() {
 
         echo -e "${pheno}\t${SNPsMTAG}\t${MeanChi2}\t${SNPsLDSC}\t${maxh2}\t${h2_SE}\t${gwasN}\t${ER2}" >> ER2_table.txt
 
+        # Write the trait number with largest h^2 into a file (will use those files to estimate pairwise rg's)
         if [[ $single == 1 ]]; then
             echo -e "${pheno}\t${study}" >> $dirCode/5_LDSC/rg_meta_filelist
         fi
     done  
 }
 
+# Table for E(R^2) - observed R^2 comparison
+# Also writes which MTAG output (trait_#) was used (i.e. which had largest h^2)
 ER2_table_full() {
     fileList=$1
     dirIn=$2
@@ -339,7 +350,8 @@ ER2_table_full() {
 }
 
 
-
+# Write rg between single-MTAG output for different phenotypes into a table
+# Lines that are commented out are to make a table with SE's (decided to include no SEs in the table for the paper because it gets too busy)
 rg_table(){
     fileList=$1
 

@@ -2,8 +2,8 @@
 
 source paths3
 
-cd $p3_QC
-export R_LIBS=$p3_Rlib/:$R_LIBS
+cd $mainDir/derived_data/3_QCd
+export R_LIBS=$Rlib/:$R_LIBS
 
 # EasyQC SNP filtering
 easyQC(){
@@ -23,21 +23,21 @@ easyQC(){
 		if [[ $SEfilter == 0 ]]; then
 			cutoff_SE=100
 			SDy=1
-			outDir=$p3_QC/$cohort
+			outDir=$mainDir/derived_data/3_QCd/$cohort
 		else
-			mkdir -p $p3_QC/$cohort/SEfilter
+			mkdir -p $mainDir/derived_data/3_QCd/$cohort/SEfilter
 			cutoff_SE=2
-			SDy=$(sed -n '/^SE_reg/p' $p3_QC/$cohort/QC_${pheno}_*/CLEANED.*.log  | awk '{print $2}')
-			outDir=$p3_QC/$cohort/SEfilter
+			SDy=$(sed -n '/^SE_reg/p' $mainDir/derived_data/3_QCd/$cohort/QC_${pheno}_*/CLEANED.*.log  | awk '{print $2}')
+			outDir=$mainDir/derived_data/3_QCd/$cohort/SEfilter
 		fi
 
 		rm -r -f $outDir/QC_${pheno}_*
 		
-		nohup sh $p3_code/3.1_EasyQC.sh \
+		nohup sh $mainDir/code/3_QC/3.1_EasyQC.sh \
 		--fileIn $file \
 		--sep TAB \
 		--miss NA \
-		--p3_QC $outDir \
+		--pathOut $outDir \
 		--tag $pheno \
 		--SNPID SNPID \
 		--SNPIDtype rs \
@@ -96,15 +96,15 @@ qcPlots(){
 	while read file; do
 		pheno=$(echo $file | rev | cut -f1 -d"/" | cut -d"." -f3 | rev )
 		if [[ $SEfilter == "1" ]]; then
-			outDir=$p3_QC/$cohort/SEfilter/
+			outDir=$mainDir/derived_data/3_QCd/$cohort/SEfilter/
 		else
-			outDir=$p3_QC/$cohort
+			outDir=$mainDir/derived_data/3_QCd/$cohort
 		fi
 
 		file=$(echo $outDir/QC_${pheno}_* | cut -d" " -f1)
 
 		echo "Processing $pheno.."
-		Rscript $p3_code/3.2_QCplots.R \
+		Rscript $mainDir/code/3_QC/3.2_QCplots.R \
 		--file $file \
 		--ref $p3_qcplotsRef \
 		--sdy 1 >> $outDir/QC_${pheno}_$(date +"%Y_%m_%d").log &
@@ -135,8 +135,8 @@ checkStatus(){
 
 	echo "Checking status.."
 	
-	rm -f $p3_code/${cohort}_${analysis}_status
-	rm -f $p3_code/${cohort}_${analysis}_rerun
+	rm -f $mainDir/code/3_QC/${cohort}_${analysis}_status
+	rm -f $mainDir/code/3_QC/${cohort}_${analysis}_rerun
 	
 	status=1
 	while read file; do
@@ -146,9 +146,9 @@ checkStatus(){
 		eval targetN='$'{targetN_${analysis}}
 
 		if [[ $SEfilter == 0 ]]; then
-			inputDir="$p3_QC/$cohort"
+			inputDir="$mainDir/derived_data/3_QCd/$cohort"
 		else
-			inputDir="$p3_QC/$cohort/SEfilter"
+			inputDir="$mainDir/derived_data/3_QCd/$cohort/SEfilter"
 		fi
 
 		if ls $inputDir/QC_${pheno}_*/*png 1> /dev/null 2>&1; then
@@ -158,22 +158,22 @@ checkStatus(){
 		fi
 		
 		if [[ $Nplots < $targetN ]]; then
-			grep $pheno $fileList >> $p3_code/${cohort}_${analysis}_rerun
+			grep $pheno $fileList >> $mainDir/code/3_QC/${cohort}_${analysis}_rerun
 			echo "$analysis for $cohort $pheno was unsuccessful."
 			status=0
 		fi
 
 	done < $fileList
 
-	if [[ -f $p3_code/${cohort}_${analysis}_rerun ]]; then
-		mv $p3_code/${cohort}_${analysis}_rerun ${fileList}
+	if [[ -f $mainDir/code/3_QC/${cohort}_${analysis}_rerun ]]; then
+		mv $mainDir/code/3_QC/${cohort}_${analysis}_rerun ${fileList}
 	fi
 }
 
 
 QC(){
 	cohort=$1
-	inputDir=$p3_formatted/$cohort
+	inputDir=$mainDir/derived_data/2_Formatted/$cohort
 
 	echo "----------------------------------------------------------------------"
 	echo -n "QC on $cohort started at"
@@ -184,7 +184,7 @@ QC(){
 	# First run without SE filter, use those results to estimate SDy with qcPlots()
 	# Then rerun with SE filter, using estimated SDy to calculate predicted SEs
 	for SEfilter in 0 1; do
-		ls -d $p3_formatted/$cohort/*.gz > $p3_code/${cohort}_inputFileList
+		ls -d $mainDir/derived_data/2_Formatted/$cohort/*.gz > $mainDir/code/3_QC/${cohort}_inputFileList
 		pass=1
 		status=0
 
@@ -192,11 +192,11 @@ QC(){
 			echo "--------------------------------------------------"
 			echo "EasyQC pass $pass.."
 
-			checkStatus $p3_code/${cohort}_inputFileList $cohort easyQC $SEfilter
+			checkStatus $mainDir/code/3_QC/${cohort}_inputFileList $cohort easyQC $SEfilter
 			status=$status
 
 			if [[ $status == 0 ]]; then
-				easyQC $p3_code/${cohort}_inputFileList $cohort $SEfilter
+				easyQC $mainDir/code/3_QC/${cohort}_inputFileList $cohort $SEfilter
 				pass=$(($pass+1))
 			fi
 
@@ -214,18 +214,18 @@ QC(){
 		echo "--------------------------------------------------"
 		echo ""
 
-		ls -d $p3_formatted/$cohort/*.gz > $p3_code/${cohort}_inputFileList
+		ls -d $mainDir/derived_data/2_Formatted/$cohort/*.gz > $mainDir/code/3_QC/${cohort}_inputFileList
 		pass=1
 		status=0
 
 		while [[ $status == 0 ]]; do
 			echo "qcPlots pass $pass :"
 			
-			checkStatus $p3_code/${cohort}_inputFileList $cohort qcPlots $SEfilter
+			checkStatus $mainDir/code/3_QC/${cohort}_inputFileList $cohort qcPlots $SEfilter
 			status=$status
 		
 			if [[ $status == 0 ]]; then
-				qcPlots $p3_code/${cohort}_inputFileList $cohort $SEfilter
+				qcPlots $mainDir/code/3_QC/${cohort}_inputFileList $cohort $SEfilter
 				pass=$(($pass+1))
 			fi
 
@@ -238,25 +238,25 @@ QC(){
 			echo "qcPlots could not be completed for $cohort - SE filter=$SEfilter . Check for errors in input files."
 		fi
 
-		rm $p3_code/${cohort}_inputFileList
+		rm $mainDir/code/3_QC/${cohort}_inputFileList
 
 		if [[ $SEfilter == 0 ]]; then
-			outDir=$p3_QC/$cohort
+			outDir=$mainDir/derived_data/3_QCd/$cohort
 		else
-			outDir=$p3_QC/$cohort/SEfilter
+			outDir=$mainDir/derived_data/3_QCd/$cohort/SEfilter
 		fi
 
 		# Copy QC plots and *.rep files into Results directory 
 		rm -r -f $outDir/Results
 		mkdir $outDir/Results
-		ls -d $outDir/QC_* > $p3_code/${cohort}_SE${SEfilter}_QCdirs
+		ls -d $outDir/QC_* > $mainDir/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
 		while read dir; do
 			if [[ -d $dir ]]; then
 				cat ${dir}/*.rep >> $outDir/Results/${cohort}_SE${SEfilter}_easyQC_rep.txt
 				cp ${dir}/*.png $outDir/Results
 			fi
-		done < $p3_code/${cohort}_SE${SEfilter}_QCdirs
-		rm $p3_code/${cohort}_SE${SEfilter}_QCdirs
+		done < $mainDir/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
+		rm $mainDir/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
 
 
 	done	

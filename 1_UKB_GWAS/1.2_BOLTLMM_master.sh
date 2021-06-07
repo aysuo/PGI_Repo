@@ -2,7 +2,7 @@
 
 source paths1
 
-cd $p1_UKBGWAS
+cd $mainDir/derived_data/1_UKB_GWAS
 mkdir -p output
 mkdir -p logs
 
@@ -17,8 +17,8 @@ num_Threads=7 # number of cores to use
 
 run_BOLTLMM(){
   pheno=$1
-  mkdir -p ${p1_UKBGWAS}/output/$pheno
-  mkdir -p ${p1_UKBGWAS}/logs/$pheno
+  mkdir -p output/$pheno
+  mkdir -p logs/$pheno
   
   echo "----------------------------------------------------------------------"
 
@@ -35,8 +35,8 @@ run_BOLTLMM(){
     #### set file names
     pheno_file="input/UKB_${pheno}_part${j}.pheno"
 
-    nohup ${p1_bolt}/bolt --lmm \
-      --LDscoresFile=${p1_bolt}/tables/LDSCORE.1000G_EUR.tab.gz \
+    nohup ${bolt}/bolt --lmm \
+      --LDscoresFile=${bolt}/tables/LDSCORE.1000G_EUR.tab.gz \
       --fam=${p1_gf_fam} \
       --bed=${p1_gf_bed} \
       --bim=${p1_gf_bim} \
@@ -47,8 +47,8 @@ run_BOLTLMM(){
       --bgenMinINFO=${bgen_INFO} \
       --phenoFile=${pheno_file} \
       --phenoCol=${pheno_col} \
-      --statsFile=${p1_UKBGWAS}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM_plink \
-      --statsFileBgenSnps=${p1_UKBGWAS}/output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM > ${p1_UKBGWAS}/logs/${pheno}/UKB_${pheno}_part${j}_BOLTLMM.log &
+      --statsFile=output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM_plink \
+      --statsFileBgenSnps=output/${pheno}/UKB_${pheno}_part${j}_BOLTLMM > logs/${pheno}/UKB_${pheno}_part${j}_BOLTLMM.log &
   done
   wait
 
@@ -66,7 +66,7 @@ run_BOLTLMM(){
 
 main(){
   # Get list of phenotypes
-  pheno_list=$(ls $p1_UKBGWAS/input/*.pheno | rev | cut -d"/" -f1 | rev | sed 's/UKB_//g' | sed 's/_part[1-3]\.pheno//g' | sort | uniq)
+  pheno_list=$(ls input/*.pheno | rev | cut -d"/" -f1 | rev | sed 's/UKB_//g' | sed 's/_part[1-3]\.pheno//g' | sort | uniq)
 
   for pheno in $pheno_list; do
     run_BOLTLMM $pheno

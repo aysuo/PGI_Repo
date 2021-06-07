@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source paths3
-export R_LIBS=$p3_Rlib/:$R_LIBS
+export R_LIBS=$Rlib/:$R_LIBS
 
 ## To do: Add option for other effect types (e.g. OR, logOR, etc)
 
