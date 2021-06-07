@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source paths5
-source $code/5_LDSC/5.0_LDSCfunctions.sh
+source $mainDir/code/5_LDSC/5.0_LDSCfunctions.sh
 
 LDSC_mtag() {
     fileList=$1
@@ -31,9 +31,9 @@ LDSC_mtag() {
     fi
 
     if [[ $ER2table == "normal" ]] && [[ $single == 1 ]]; then
-        checkStatusLDSC $code/5_LDSC/rg_meta_filelist rg_meta
-        rg $code/5_LDSC/rg_meta_filelist.rg_meta.rerun
-        rg_table $code/5_LDSC/rg_meta_filelist
+        checkStatusLDSC $mainDir/code/5_LDSC/rg_meta_filelist rg_meta
+        rg $mainDir/code/5_LDSC/rg_meta_filelist.rg_meta.rerun
+        rg_table $mainDir/code/5_LDSC/rg_meta_filelist
     fi
   
 }
@@ -42,52 +42,52 @@ LDSC_mtag() {
 
 main(){
     # Estimate h^2, rg for single-trait MTAG output, write E(R^2) and rg tables.
-    rm -f $code/5_LDSC/singleMTAG_output_filelist.txt
+    rm -f $mainDir/code/5_LDSC/singleMTAG_output_filelist.txt
     for phenodir in $mainDir/derived_data/4_MTAG_single/*; do
         # Use largest sample size version (v1, e.g. NEURO1) for each phenotype
         if [[ $phenodir == *1 ]]; then
             pheno=$(echo $phenodir | rev | cut -d"/" -f1 | rev)
             ss=$(echo $phenodir/*trait*_formatted*.txt | sed 's/ /,/g')
-            echo -e "$pheno\t$ss" >> $code/5_LDSC/singleMTAG_output_filelist.txt
+            echo -e "$pheno\t$ss" >> $mainDir/code/5_LDSC/singleMTAG_output_filelist.txt
         fi
     done
 
-    LDSC_mtag $code/5_LDSC/singleMTAG_output_filelist.txt $mainDir/derived_data/4_MTAG_single $mainDir/derived_data/5_LDSC/singleMTAG 1 normal
+    LDSC_mtag $mainDir/code/5_LDSC/singleMTAG_output_filelist.txt $mainDir/derived_data/4_MTAG_single $mainDir/derived_data/5_LDSC/singleMTAG 1 normal
 
     # E(R^2) - observed R^2 comparison table for single-trait PGIs
     # Calculate E(R^2) based on all GWAS used to make PGIs for validation cohorts and largest h^2 MTAG output
-    versions=$(cat $code/9_Scores/version_single_* | sort | uniq)
+    versions=$(cat $mainDir/code/9_Scores/version_single_* | sort | uniq)
     for pheno in $versions; do
         if [[ $pheno != *1 ]]; then
             ss=$(echo $mainDir/derived_data/4_MTAG_single/$pheno/*trait*_formatted*.txt | sed 's/ /,/g')
-            echo -e "$pheno\t$ss" >> $code/5_LDSC/singleMTAG_output_filelist.txt
+            echo -e "$pheno\t$ss" >> $mainDir/code/5_LDSC/singleMTAG_output_filelist.txt
         fi
     done
 
-    LDSC_mtag $code/5_LDSC/singleMTAG_output_filelist.txt $mainDir/derived_data/4_MTAG_single $mainDir/derived_data/5_LDSC/singleMTAG 1 full
+    LDSC_mtag $mainDir/code/5_LDSC/singleMTAG_output_filelist.txt $mainDir/derived_data/4_MTAG_single $mainDir/derived_data/5_LDSC/singleMTAG 1 full
 
     # Estimate h^2 for multi-trait MTAG output, write E(R^2) table
-    rm -f $code/5_LDSC/multiMTAG_output_filelist.txt
+    rm -f $mainDir/code/5_LDSC/multiMTAG_output_filelist.txt
     for phenodir in $mainDir/derived_data/6_MTAG_multi/*; do
         if [[ $phenodir == *1 ]]; then
             pheno=$(echo $phenodir | rev | cut -d"/" -f1 | rev)
             ss=$(echo $phenodir/*trait_1_formatted.txt)
-            echo -e "$pheno\t$ss" >> $code/5_LDSC/multiMTAG_output_filelist.txt
+            echo -e "$pheno\t$ss" >> $mainDir/code/5_LDSC/multiMTAG_output_filelist.txt
         fi
     done
 
-    LDSC_mtag $code/5_LDSC/multiMTAG_output_filelist.txt $mainDir/derived_data/6_MTAG_multi $mainDir/derived_data/5_LDSC/multiMTAG 0 normal
+    LDSC_mtag $mainDir/code/5_LDSC/multiMTAG_output_filelist.txt $mainDir/derived_data/6_MTAG_multi $mainDir/derived_data/5_LDSC/multiMTAG 0 normal
 
     # E(R^2) - observed R^2 comparison table for multi-trait PGIs
-    versions=$(cat $code/9_Scores/version_multi_* | sort | uniq)
+    versions=$(cat $mainDir/code/9_Scores/version_multi_* | sort | uniq)
     for pheno in $versions; do
         if [[ $pheno != *1 ]]; then
             ss=$(echo $mainDir/derived_data/6_MTAG_multi/$pheno/*trait_1_formatted.txt)
-            echo -e "$pheno\t$ss" >> $code/5_LDSC/multiMTAG_output_filelist.txt
+            echo -e "$pheno\t$ss" >> $mainDir/code/5_LDSC/multiMTAG_output_filelist.txt
         fi
     done
 
-    LDSC_mtag $code/5_LDSC/multiMTAG_output_filelist.txt $mainDir/derived_data/6_MTAG_multi $mainDir/derived_data/5_LDSC/multiMTAG 0 full
+    LDSC_mtag $mainDir/code/5_LDSC/multiMTAG_output_filelist.txt $mainDir/derived_data/6_MTAG_multi $mainDir/derived_data/5_LDSC/multiMTAG 0 full
 }
 
 main

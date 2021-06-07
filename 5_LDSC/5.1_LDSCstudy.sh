@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source paths5
-source $code/5_LDSC/5.0_LDSCfunctions.sh
+source $mainDir/code/5_LDSC/5.0_LDSCfunctions.sh
 
 
 LDSC_study() {
@@ -27,7 +27,7 @@ LDSC_study() {
 ###############################################################################
 
 main(){
-    LDSC_study $code/4_MTAG_single/singleMTAG_input_filelist.txt
+    LDSC_study $mainDir/code/4_MTAG_single/singleMTAG_input_filelist.txt
 }
 
 main
