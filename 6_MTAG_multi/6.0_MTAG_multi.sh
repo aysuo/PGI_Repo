@@ -1,12 +1,7 @@
 #!/bin/bash
 
-dirIn="/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/4_MTAG_single"
-dirOut="/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/6_MTAG_multi"
-dirCode="/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/code/6_MTAG_multi"
-mtag="/disk/genetics/ukb/aokbay/bin/mtag/mtag.py"
-rgmatrix="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/5_LDSC/singleMTAG/rg_table.txt"
 
-cd $dirOut
+cd $mainDir/derived_data/6_MTAG_multi
 
 MTAG_multi(){
   pheno=$1
@@ -35,7 +30,7 @@ MTAG_multi(){
     echo " "
 }
 
-checkStatus(){
+checkStatusMultiMTAG(){
     fileList=$1
 
     rm -f ${fileList}.error
@@ -45,7 +40,7 @@ checkStatus(){
     while read row; do
       pheno=$(echo $row | cut -d" " -f1)
       
-      if ! [[ $(ls ${dirOut}/${pheno}/${pheno}_trait* 2>/dev/null) ]]; then
+      if ! [[ $(ls $mainDir/derived_data/6_MTAG_multi/${pheno}/${pheno}_trait* 2>/dev/null) ]]; then
         echo $pheno >> ${fileList}.error
         awk -F"\t" -v pheno=$pheno '$1==pheno{print}' OFS="\t" $fileList >> ${fileList}.rerun
         status=1
@@ -63,11 +58,14 @@ checkStatus(){
 }
 
 main(){
+    # Get list of supplementary phenotypes for each phenotype using the rg table
     awk -F"\t" 'NR==1{for (i=1;i<=NF;i++) pheno[i]=$i;next}\
         {group=""; for (i=2;i<=NF;i++) if ($i>=0.6 || $i<=-0.6) group=pheno[i]","group} \
-        group != "" {print $1,group}' OFS="\t" $rgmatrix | sed 's/,$//g' > $dirCode/mtag_groups.txt
+        group != "" {print $1,group}' OFS="\t" $mainDir/derived_data/5_LDSC/singleMTAG/rg_table.txt | sed 's/,$//g' > $mainDir/code/6_MTAG_multi/mtag_groups.txt
 
-    checkStatus $dirCode/mtag_groups_all_versions.txt
+    # Have to get input files for different versions manually
+    # Do that and write into "$mainDir/code/6_MTAG_multi/mtag_groups_all_versions.txt"
+    checkStatusMultiMTAG $mainDir/code/6_MTAG_multi/mtag_groups_all_versions.txt
 
     if [[ $status == 1 ]]; then
         j=0
@@ -78,15 +76,15 @@ main(){
             declare -a group="($group)"
             
             for ((i=0;i<${#group[@]};i++)); do
-                if [[ -f $dirIn/${group[$i]}/${group[$i]}_trait_1_formatted.txt ]]; then
-                    sumstats[$i]=$dirIn/${group[$i]}/${group[$i]}_trait_1_formatted.txt
+                if [[ -f $mainDir/derived_data/4_MTAG_single/${group[$i]}/${group[$i]}_trait_1_formatted.txt ]]; then
+                    sumstats[$i]=$mainDir/derived_data/4_MTAG_single/${group[$i]}/${group[$i]}_trait_1_formatted.txt
                 else
-                    sumstats[$i]=$dirIn/${group[$i]}/${group[$i]}_trait_formatted.txt
+                    sumstats[$i]=$mainDir/derived_data/4_MTAG_single/${group[$i]}/${group[$i]}_trait_formatted.txt
                 fi
             done
 
             ss=$(echo ${sumstats[@]} | sed 's/ /,/g')
-            mkdir -p ${dirOut}/${pheno}
+            mkdir -p $mainDir/derived_data/6_MTAG_multi/${pheno}
 
             MTAG_multi $pheno $ss &
             let j+=1
@@ -97,11 +95,11 @@ main(){
             fi
 
             unset sumstats
-        done < $dirCode/mtag_groups_all_versions.txt.rerun
+        done < $mainDir/code/6_MTAG_multi/mtag_groups_all_versions.txt.rerun
         wait
     fi
 
-  checkStatus $dirCode/mtag_groups_all_versions.txt
+  checkStatusMultiMTAG $mainDir/code/6_MTAG_multi/mtag_groups_all_versions.txt
 }
 
 main
