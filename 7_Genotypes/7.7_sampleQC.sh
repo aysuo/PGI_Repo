@@ -1,18 +1,14 @@
 #!/bin/bash
-dirCode="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code/7_Genotypes"
 
-pop1000G="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/ref_data/1000G_ph3/igsr_samples.tsv"
-
-dirOut="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes"
+source paths7
 
 for cohort in AH Dunedin EGCUT ERisk ELSA HRS2 HRS3 MCTFR STRpsych STRtwge STRyatssstage Texas WLS; do
-    declare gf_$cohort="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/$cohort/plink/HM3/${cohort}_HM3"
+    declare gf_${cohort}_hm3="$mainDir/derived_data/7_Genotypes/$cohort/plink/HM3/${cohort}_HM3"
 done
 
-gf_1000G_rs="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3"
-gf_1000G_chrpos="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3_chrpos"
-
-
+gf_1000G_hm3_rs="$mainDir/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3"
+gf_1000G_hm3_chrpos="$mainDir/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3_chrpos"
+pop1000G="$mainDir/original_data/ref_data/1000G_ph3/igsr_samples.tsv"
 
 #---------------------------------------------------------------------------------------#
 
@@ -22,20 +18,20 @@ PCA(){
     sampleKeep=$2
     snpid=$3
 
-    eval gf='$'gf_${cohort}
-    eval gf_1000G='$'gf_1000G_${snpid}
+    eval gf='$'gf_${cohort}_hm3
+    eval gf_1000G='$'gf_1000G_hm3_${snpid}
 
-    mkdir -p $dirOut/$cohort/sampleQC
+    mkdir -p $mainDir/derived_data/7_Genotypes/$cohort/sampleQC
 
     plink1.9 --bfile $gf_1000G \
         --bmerge $gf \
         --geno 0.99 \
         --make-bed \
-        --out $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3
+        --out $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3
 
-    if [[ -f $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3-merge.missnp ]]; then
+    if [[ -f $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3-merge.missnp ]]; then
         plink2 --bfile $gf_1000G \
-            --exclude $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3-merge.missnp \
+            --exclude $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3-merge.missnp \
             --make-bed \
             --out $gf_1000G.tmp
 
@@ -43,40 +39,39 @@ PCA(){
             --bmerge $gf \
             --geno 0.99 \
             --make-bed \
-            --out $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3
+            --out $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3
         
         rm $gf_1000G.tmp*
     fi
 
     awk -v cohort=$cohort '$1=="0"{print $1,$2,"1000G";next} \
-        {print $1,$2,cohort}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3.fam > $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3.clusters
+        {print $1,$2,cohort}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3.fam > $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3.clusters
 
-     # Estimate 4PCs in 1000G
     if [[ $sampleKeep == "NA" ]]; then
-        plink1.9 --bfile $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3 \
+        plink1.9 --bfile $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3 \
             --maf 0.01 \
-            --within $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3.clusters \
+            --within $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3.clusters \
             --pca 4 \
             --pca-cluster-names 1000G \
-            --out $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs
-        sed -i 's/ /\t/g' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec
+            --out $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs
+        sed -i 's/ /\t/g' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec
     else
-        plink1.9 --bfile $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3 \
+        plink1.9 --bfile $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3 \
             --keep $sampleKeep \
             --maf 0.01 \
-            --within $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3.clusters \
+            --within $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3.clusters \
             --pca 4 \
             --pca-cluster-names 1000G \
-            --out $dirOut/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs
-        sed -i 's/ /\t/g' $dirOut/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec
+            --out $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs
+        sed -i 's/ /\t/g' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec
     fi
 
-    rm $dirOut/$cohort/sampleQC/*bed \
-        $dirOut/$cohort/sampleQC/*bim \
-        $dirOut/$cohort/sampleQC/*fam \
-        $dirOut/$cohort/sampleQC/*nosex \
-        $dirOut/$cohort/sampleQC/*-merge.missnp \
-        $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3.clusters
+    rm $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/*bed \
+        $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/*bim \
+        $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/*fam \
+        $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/*nosex \
+        $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/*-merge.missnp \
+        $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3.clusters
 }
 
 plotPCs(){
@@ -91,7 +86,7 @@ plotPCs(){
         !($1~"#"){print $0,cohort,cohort}' OFS="\t" $pop1000G $PCs > ${PCs}.annotated
 
     # Plot
-    Rscript $dirCode/7.7.0_plotPCs.R "${PCs}.annotated" $out
+    Rscript $mainDir/code/7_Genotypes/7.7.0_plotPCs.R "${PCs}.annotated" $out
 }
 
 extractEUR(){
@@ -106,38 +101,36 @@ extractEUR(){
     low4=$8
     up4=$9
         
-    #low1=$(awk -F"\t" 'BEGIN{min1=9999} $8=="EUR" && NR>1 {if ($3<min1) min1=$3}END{print min1}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
-    #up1=$(awk -F"\t" 'BEGIN{max1=-9999} $8=="EUR" && NR>1 {if ($3>max1) max1=$3}END{print max1}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
-    #low2=$(awk -F"\t" 'BEGIN{min2=9999} $8=="EUR" && NR>1 {if ($4<min2) min2=$4}END{print min2}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
-    #up2=$(awk -F"\t" 'BEGIN{max2=-9999} $8=="EUR" && NR>1 {if ($4>max2) max2=$4}END{print max2}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
-    #low3=$(awk -F"\t" 'BEGIN{min3=9999} $8=="EUR" && NR>1 {if ($5<min3) min3=$5}END{print min3}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
-    #up3=$(awk -F"\t" 'BEGIN{max3=-9999} $8=="EUR" && NR>1 {if ($5>max3) max3=$5}END{print max3}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
-    #low4=$(awk -F"\t" 'BEGIN{min4=9999} $8=="EUR" && NR>1 {if ($6<min4) min4=$6}END{print min4}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
-    #up4=$(awk -F"\t" 'BEGIN{max4=-9999} $8=="EUR" && NR>1 {if ($6>max4) max4=$6}END{print max4}' $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
+    # Code to get min/max of 1kG EUR PCs if we want to automate the filter instead of visual inspection    
+    #low1=$(awk -F"\t" 'BEGIN{min1=9999} $8=="EUR" && NR>1 {if ($3<min1) min1=$3}END{print min1}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
+    #up1=$(awk -F"\t" 'BEGIN{max1=-9999} $8=="EUR" && NR>1 {if ($3>max1) max1=$3}END{print max1}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
+    #low2=$(awk -F"\t" 'BEGIN{min2=9999} $8=="EUR" && NR>1 {if ($4<min2) min2=$4}END{print min2}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
+    #up2=$(awk -F"\t" 'BEGIN{max2=-9999} $8=="EUR" && NR>1 {if ($4>max2) max2=$4}END{print max2}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
+    #low3=$(awk -F"\t" 'BEGIN{min3=9999} $8=="EUR" && NR>1 {if ($5<min3) min3=$5}END{print min3}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
+    #up3=$(awk -F"\t" 'BEGIN{max3=-9999} $8=="EUR" && NR>1 {if ($5>max3) max3=$5}END{print max3}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
+    #low4=$(awk -F"\t" 'BEGIN{min4=9999} $8=="EUR" && NR>1 {if ($6<min4) min4=$6}END{print min4}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
+    #up4=$(awk -F"\t" 'BEGIN{max4=-9999} $8=="EUR" && NR>1 {if ($6>max4) max4=$6}END{print max4}' $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated)
     
     awk -F"\t" -v l1=$low1 -v u1=$up1 -v l2=$low2 -v u2=$up2 -v l3=$low3 -v u3=$up3 -v l4=$low4 -v u4=$up4  \
-        '$1=="0" || ($3>l1 && $3<u1 && $4>l2 && $4<u2 && $5>l3 && $5<u3 && $6>l4 && $6<u4) {print $1,$2,$3,$4,$5,$6}' OFS="\t" $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated > $dirOut/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec
+        '$1=="0" || ($3>l1 && $3<u1 && $4>l2 && $4<u2 && $5>l3 && $5<u3 && $6>l4 && $6<u4) {print $1,$2,$3,$4,$5,$6}' OFS="\t" $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated > $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec
 
-    awk -F"\t" '$1!=0{print $1,$2}' OFS="\t" $dirOut/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec > $dirOut/$cohort/sampleQC/${cohort}_EUR_FID_IID.txt
+    awk -F"\t" '$1!=0{print $1,$2}' OFS="\t" $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec > $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_EUR_FID_IID.txt
 
 }
 
 
 main(){
-    for cohort in HRS3 Texas STRpsych STRyatssstage STRtwge MCTFR EGCUT ELSA AH Dunedin ERisk WLS HRS2; do
-        mkdir -p $dirOut/$cohort/sampleQC
-        PCA $cohort "NA" chrpos
-        plotPCs $cohort $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec $dirOut/$cohort/sampleQC/${cohort}_PCA.pdf
-    done
-
-    for cohort in WLS HRS2; do
-        mkdir -p $dirOut/$cohort/sampleQC
-        PCA $cohort "NA" rs
-        plotPCs $cohort $dirOut/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec $dirOut/$cohort/sampleQC/${cohort}_PCA.pdf
+    for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCTFR Texas STRpsych STRtwge STRyatssstage WLS; do
+        if [[ $cohort == "HRS2" || $cohort == "WLS" ]]; then
+            snpidtype="rs"
+        else
+            snpidtype="chrpos"
+        fi 
+        PCA $cohort "NA" $snpidtype
+        plotPCs $cohort $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_PCA.pdf
     done
 
     extractEUR WLS -0.01 0 -0.005 0.005 -0.01 0.01 -0.01 0.01 
-    #extractEUR HRS2 -0.01 0 0 0.01 -0.008 0.01 -0.005 0.01
     extractEUR HRS2 -0.01 -0.0025 0 0.01 -0.006 0.005 -0.01 0
     extractEUR EGCUT -0.005 1 -1 0.005 -0.013 0.005 -0.01 0.01
     extractEUR ELSA -1 1 -0.005 1 -0.01 1 -1 1
@@ -152,8 +145,8 @@ main(){
     extractEUR AH -1 1 -1 1 -1 1 -1 1
     extractEUR HRS3 -1 1 -1 1 -1 1 -1 1
         
-    for cohort in HRS3 AH ERisk Dunedin Texas STRyatssstage STRtwge MCTFR ELSA EGCUT HRS2 WLS; do
-        plotPCs $cohort $dirOut/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec $dirOut/$cohort/sampleQC/${cohort}_EUR_PCA.pdf
+    for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCTFR Texas STRpsych STRtwge STRyatssstage WLS; do
+        plotPCs $cohort $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec $mainDir/derived_data/7_Genotypes/$cohort/sampleQC/${cohort}_EUR_PCA.pdf
     done
 }
 

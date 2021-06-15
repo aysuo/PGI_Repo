@@ -1,22 +1,21 @@
 #!/bin/bash
 
-dirCode="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code/9_Scores"
-dirGeno="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes"
+source paths9
+
 score=$1
 cohort=$2
 dirOut=$3
 
+cd $dirOut
 
 ##############################################################
 ########## Define LDpred input files and parameters ##########
 ##############################################################
-LDgf_rs="/disk/genetics/HRC/aokbay/LDgf/HM3/HRC_HM3_geno02_mind02_rel025_nooutliers"
-LDgf_chrpos="/disk/genetics/HRC/aokbay/LDgf/HM3/HRC_HM3_geno02_mind02_rel025_nooutliers_ChrPosID"
 
-for i in "HRS3" "HRS2" "WLS" "Dunedin" "ERisk" "AH" "STRpsych" "STRtwge" "STRyatssstage" "Texas" "ELSA" "EGCUT" "MCTFR"; do
-	declare valbim_${i}="${dirGeno}/${i}/plink/HM3/${i}_HM3"
-	declare valgf_${i}="${dirGeno}/${i}/plink2/${i}_chr[1:22]"
-	declare sample_${i}="${dirGeno}/${i}/sampleQC/${i}_EUR_FID_IID.txt"
+for i in AH Dunedin EGCUT ERisk ELSA HRS2 HRS3 MCTFR STRpsych STRtwge STRyatssstage Texas WLS; do
+	declare valbim_${i}="$mainDir/derived_data/7_Genotypes/${i}/plink/HM3/${i}_HM3"
+	declare valgf_${i}="$mainDir/derived_data/7_Genotypes/${i}/plink2/${i}_chr[1:22]"
+	declare sample_${i}="$mainDir/derived_data/7_Genotypes/${i}/sampleQC/${i}_EUR_FID_IID.txt"
 	case $i in
 		"HRS2" | "WLS") 
 			declare snpidtype_${i}="rs" 
@@ -28,24 +27,22 @@ for i in "HRS3" "HRS2" "WLS" "Dunedin" "ERisk" "AH" "STRpsych" "STRtwge" "STRyat
 done
 
 for part in 1 2 3; do
-	declare valbim_UKB${part}="${dirGeno}/UKB/plink/HM3/UKB_HM3"
-	declare valgf_UKB${part}="/disk/genetics2/ukb/orig/UKBv3/imputed_plink2_HM3/ukb_imp_chr[1:22]_v3_HM3_nodup"
-	declare sample_UKB${part}="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/1_UKB_GWAS/partitions/UKB_part${part}_eid.txt"
+	declare valbim_UKB${part}="$mainDir/derived_data/7_Genotypes/UKB/plink/HM3/UKB_HM3"
+	declare valgf_UKB${part}=$p9_valGf_UKB
+	declare sample_UKB${part}="$mainDir/derived_data/1_UKB_GWAS/partitions/UKB_part${part}_eid.txt"
 	declare snpidtype_UKB${part}="rs"
 done
 
 P=1
 
 
-# 1:score (public / single / multi), 2:cohort 
 LDpred(){
 	fileList=$1
 	cohort=$2
-	dirOut=$3
-	mkdir -p $dirOut/logs
+	mkdir -p logs
 
 	eval snpidtype='$'snpidtype_${cohort}
-	eval LDgf='$'LDgf_${snpidtype}
+	eval LDgf='$'p9_LDgf_${snpidtype}
 	eval valbim='$'valbim_${cohort}
 
 	if [[ $snpidtype == "rs" ]]; then
@@ -59,13 +56,13 @@ LDpred(){
 		ssPath=$(echo $row | cut -d" " -f2)
 
 		rm -f coord/${cohort}_${pheno}.coord
-		nohup bash $dirCode/9.0.1_LDpred.sh \
+		nohup bash $mainDir/code/9_Scores/9.0.1_LDpred.sh \
 			--sumstats=$ssPath \
 			--snpid=$snpid \
 			--out=${cohort}_${pheno} \
 			--LDgf=$LDgf \
 			--Valbim=$valbim \
-			--P=$P > $dirOut/logs/ldpred_${pheno}_${cohort}.log &
+			--P=$P > logs/ldpred_${pheno}_${cohort}.log &
 			
 		let i+=1
 		
@@ -78,15 +75,14 @@ LDpred(){
 	wait
 }
 
-checkStatus(){
+checkStatusPGI(){
 	fileList=$1
 	cohort=$2
-	dirOut=$3
-	step=$4
+	step=$3
 
 	echo "Checking status.."
 	
-	rm -f $dirCode/${cohort}_${score}_${step}_rerun
+	rm -f $mainDir/code/9_Scores/${cohort}_${score}_${step}_rerun
 	
 	status=1
 	while read row; do
@@ -94,26 +90,25 @@ checkStatus(){
 		
 		case $step in
 			LDpred)
-				if ! ls $dirOut/pickled/${cohort}_${pheno}_*.pkl.gz 1> /dev/null 2>&1; then
-					grep $pheno $dirCode/ss_${score}_${cohort} >> $dirCode/${cohort}_${score}_${step}_rerun
+				if ! ls pickled/${cohort}_${pheno}_*.pkl.gz 1> /dev/null 2>&1; then
+					grep $pheno $mainDir/code/9_Scores/ss_${score}_${cohort} >> $mainDir/code/9_Scores/${cohort}_${score}_${step}_rerun
 					echo "LDpred for $score $pheno score for $cohort was unsuccessful."
 					status=0
 				fi
 				;;
 			makePGS)
-				if ! [[ $(find $dirOut/scores/PGS_${cohort}_${pheno}*.txt -type f -size +100 2>/dev/null) ]]; then 
-					#! ls $dirOut/scores/PGS_${cohort}_${pheno}*.txt 1> /dev/null 2>&1; then
-					grep $pheno $dirCode/ss_${score}_${cohort} >> $dirCode/${cohort}_${score}_${step}_rerun
+				if ! [[ $(find scores/PGS_${cohort}_${pheno}*.txt -type f -size +100 2>/dev/null) ]]; then 
+					grep $pheno $mainDir/code/9_Scores/ss_${score}_${cohort} >> $mainDir/code/9_Scores/${cohort}_${score}_${step}_rerun
 					echo "makePGS for $score $pheno score for $cohort was unsuccessful."
 					status=0
 				fi
 				;;
 		esac
 
-	done < $dirCode/ss_${score}_${cohort}
+	done < $mainDir/code/9_Scores/ss_${score}_${cohort}
 
-	if [[ -f $dirCode/${cohort}_${score}_${step}_rerun ]]; then
-		mv $dirCode/${cohort}_${score}_${step}_rerun $dirCode/ss_${score}_${cohort}_${step}
+	if [[ -f $mainDir/code/9_Scores/${cohort}_${score}_${step}_rerun ]]; then
+		mv $mainDir/code/9_Scores/${cohort}_${score}_${step}_rerun $mainDir/code/9_Scores/ss_${score}_${cohort}_${step}
 	fi
 }
 
@@ -121,7 +116,6 @@ checkStatus(){
 makePGS(){
 	fileList=$1
 	cohort=$2
-	dirOut=$3
 	
 	eval valgf='$'valgf_${cohort}
 	eval sample='$'sample_${cohort}
@@ -131,7 +125,7 @@ makePGS(){
 		pheno=$(echo $row | cut -d" " -f1)
 		for weight in weights/${cohort}_${pheno}_weights_LDpred_p*.txt; do
 			p=$(echo $weight | sed "s,weights/${cohort}_${pheno}_weights_LDpred_p,,g" | sed 's/\.txt//g')
-			bash $dirCode/9.0.2_make_PGS.sh \
+			bash $mainDir/code/9_Scores/9.0.2_make_PGS.sh \
 				--weight=weights/${cohort}_${pheno}_weights_LDpred_p*.txt \
 				--weightCols=3,4,7 \
 				--valgf=${valgf} \
@@ -140,7 +134,7 @@ makePGS(){
 		done
 		let i+=1
 		
-		if [[ $i == 1 ]]; then
+		if [[ $i == 5 ]]; then
 			wait
 			i=0
 		fi
@@ -152,8 +146,6 @@ makePGS(){
 PGS(){
 	score=$1
 	cohort=$2
-	dirOut=$3
-	cd $dirOut
 	
 	echo "----------------------------------------------------------------------"
 	echo -n "PGS on $cohort started on "
@@ -168,11 +160,11 @@ PGS(){
 		echo ""
 		echo "LDpred pass $pass.."
 		
-		checkStatus $score $cohort $dirOut LDpred
+		checkStatusPGI $score $cohort LDpred
 		status=$status
 
 		if [[ $status == 0 ]]; then
-			LDpred $dirCode/ss_${score}_${cohort}_LDpred $cohort $dirOut
+			LDpred $mainDir/code/9_Scores/ss_${score}_${cohort}_LDpred $cohort
 			pass=$(($pass+1))
 		fi
 
@@ -192,11 +184,11 @@ PGS(){
 		echo ""
 		echo "makePGS $pass.."
 		
-		checkStatus $score $cohort $dirOut makePGS
+		checkStatusPGI $score $cohort makePGS
 		status=$status
 
 		if [[ $status == 0 ]]; then
-			makePGS $dirCode/ss_${score}_${cohort}_makePGS $cohort $dirOut
+			makePGS $mainDir/code/9_Scores/ss_${score}_${cohort}_makePGS $cohort
 			pass=$(($pass+1))
 		fi
 
@@ -210,7 +202,7 @@ PGS(){
 	fi
 
 	
-	rm -f $dirCode/ss_${score}_${cohort}
+	rm -f $mainDir/code/9_Scores/ss_${score}_${cohort}
 
 	echo ""
 	echo "--------------------------------------------------"
@@ -228,4 +220,4 @@ PGS(){
 }
 
 
-PGS $score $cohort $dirOut
+PGS $score $cohort

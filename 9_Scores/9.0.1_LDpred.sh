@@ -365,11 +365,6 @@ echo ""
 ########################## DEFINE FUNCTIONS ###########################
 #######################################################################
 
-# Function to format GWAS summary statistics as LDpred input
-
-
-#######################################################################
-
 # Function to coordinate genotypes and GWAS summary statistics
 ldpred_coord(){
     echo "Coordinating genotypes and summary statistics.."
@@ -429,7 +424,6 @@ ldpred_weights(){
 #######################################################################
 ####################### DEFINE AND EXECUTE MAIN #######################
 #######################################################################
-
 
 main(){
   ldpred_coord $LDgf $sumstats $Valbim $chr $A1 $A2 $reffreq $se $snpid $pval $eff $ncol $pos $efftype $out

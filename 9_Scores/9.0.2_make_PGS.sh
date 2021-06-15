@@ -2,7 +2,7 @@
 
 ## To do:
 ## Add option to provide list of SNPs to be included in the score rather than a bim file.
-## Optional: Add function to make P&T scores
+## Add function to make P&T scores
 
 
 usage() {
@@ -25,9 +25,6 @@ echo ""
 echo -n "Script started on "
 date
 start=$(date +%s)
-
-
-snpid_map="/disk/genetics3/PGS/PGS_Repo/data/REFFILES/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.rsid_map"
 
 
 #######################################################################
