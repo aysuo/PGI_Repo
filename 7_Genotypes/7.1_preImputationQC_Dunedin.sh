@@ -1,13 +1,9 @@
 #!/bin/bash
 
-dataIn=/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/genotype_data/Dunedin/genotyped/Friends
-dirOut=/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/Dunedin/preImputationQC
-dirCode=/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code/7_Genotypes
+source paths7
 
-cd $dirOut
-
-## Variant QC: Call rate> 0.98 , maf>0.01, hwe 1e-5
-plink2 --bfile $dataIn \
+## Variant QC: Call rate> 0.98 , maf>0.01, hwe 1e-4
+plink2 --bfile $mainDir/original_data/genotype_data/Dunedin/genotyped/Friends \
 	--geno 0.02 \
 	--maf 0.01 \
 	--hwe 1e-4 midp \
@@ -38,7 +34,7 @@ rm chr*
 #--------------------------------------------------------------------#
 
 ## Sex check
-plink1.9 --bfile $dataIn \
+plink1.9 --bfile $mainDir/original_data/genotype_data/Dunedin/genotyped/Friends \
 --check-sex \
 --out Dunedin_sexcheck
 # No problems
@@ -59,4 +55,4 @@ plink2 --bfile Dunedin_autosome_geno02_maf01_hwe1e-4 \
 
 #--------------------------------------------------------------------#
 
-sh $dirCode/7.0_HRCimputation_prep.sh $dirOut/Dunedin_autosome_geno02_maf01_hwe1e-4_hethom
+sh $mainDir/code/7_Genotypes/7.0_HRCimputation_prep.sh $mainDir/derived_data/7_Genotypes/Dunedin/preImputationQC/Dunedin_autosome_geno02_maf01_hwe1e-4_hethom

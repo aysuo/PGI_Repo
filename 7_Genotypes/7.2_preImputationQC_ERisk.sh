@@ -1,22 +1,20 @@
 #!/bin/bash
 
-dirIn=/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/genotype_data/ERisk/genotyped
-dirOut=/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/7_Genotypes/ERisk/preImputationQC
-dirCode=/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code/7_Genotypes
+source paths7
 
-cd $dirOut
+cd $mainDir/derived_data/7_Genotypes/ERisk/preImputationQC
 
-awk 'NR==FNR{a[$1]=$2;next}($1 in a){$4=a[$1];print;next}{print}' $dirIn/Mothers.fam $dirIn/Kids.fam > $dirOut/Kids.fam
+awk 'NR==FNR{a[$1]=$2;next}($1 in a){$4=a[$1];print;next}{print}' $mainDir/original_data/genotype_data/ERisk/genotyped/Mothers.fam $mainDir/original_data/genotype_data/ERisk/genotyped/Kids.fam > Kids.fam
 
-## Variant QC: Call rate> 0.98 , maf>0.01, hwe 1e-5
-plink1.9 --bed $dirIn/Kids.bed \
---bim $dirIn/Kids.bim \
---fam $dirOut/Kids.fam \
---bmerge $dirIn/Mothers \
+## Merge kids and mothers, do variant QC: Call rate> 0.98 , maf>0.01, hwe 1e-4
+plink1.9 --bed $mainDir/original_data/genotype_data/ERisk/genotyped/Kids.bed \
+--bim $mainDir/original_data/genotype_data/ERisk/genotyped/Kids.bim \
+--fam Kids.fam \
+--bmerge $mainDir/original_data/genotype_data/ERisk/genotyped/Mothers \
 --make-bed \
 --out ERisk
 
-plink1.9 --bfile $dirOut/ERisk \
+plink1.9 --bfile ERisk \
 --geno 0.02 \
 --maf 0.01 \
 --hwe 1e-4 midp \
@@ -75,4 +73,4 @@ plink2 --bfile ERisk_autosome_geno02_maf01_hwe1e-4 \
 
 #--------------------------------------------------------------------#
 
-sh $dirCode/7.0_HRCimputation_prep.sh $dirOut/ERisk_autosome_geno02_maf01_hwe1e-4_sexcheck_hethom
+sh $mainDir/code/7_Genotypes/7.0_HRCimputation_prep.sh $mainDir/derived_data/7_Genotypes/ERisk/preImputationQC/ERisk_autosome_geno02_maf01_hwe1e-4_sexcheck_hethom

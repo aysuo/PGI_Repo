@@ -1,9 +1,18 @@
 #!/bin/bash
-refDir="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/ref_data/HRC_imputation_qc"
-vcfsort="/disk/genetics/ukb/aokbay/bin/vcftools/src/perl/vcf-sort"
-checkvcf="/disk/genetics/ukb/aokbay/bin/checkVCF"
 
+source paths7
 pathGf=$1
+
+if ! [[ -s $mainDir/original_data/ref_data/HRC_imputation_qc/HRC-1000G-check-bim.pl ]]; then
+    wget https://www.well.ox.ac.uk/~wrayner/tools/HRC-1000G-check-bim-v4.2.10.zip -O $mainDir/original_data/ref_data/HRC_imputation_qc/HRC-1000G-check-bim-v4.2.10.zip
+    unzip $mainDir/original_data/ref_data/HRC_imputation_qc/HRC-1000G-check-bim-v4.2.10.zip -d $mainDir/original_data/ref_data/HRC_imputation_qc/
+fi
+
+if ! [[ -s $mainDir/original_data/ref_data/HRC_imputation_qc/HRC.r1-1.GRCh37.wgs.mac5.sites.tab ]]; then
+    wget ftp://ngs.sanger.ac.uk/production/hrc/HRC.r1-1/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.gz -O $mainDir/original_data/ref_data/HRC_imputation_qc/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.gz
+    gunzip $mainDir/original_data/ref_data/HRC_imputation_qc/HRC.r1-1.GRCh37.wgs.mac5.sites.tab.gz
+fi
+
 
 getFreq(){
     pathGf=$1
@@ -15,12 +24,13 @@ getFreq(){
 HRC_1000G_check_bim(){
     pathGf=$1
 
-    perl ${refDir}/HRC-1000G-check-bim.pl \
+    perl $mainDir/original_data/ref_data/HRC_imputation_qc/HRC-1000G-check-bim.pl \
         -b ${pathGf}.bim \
         -f ${pathGf}_frq.afreq \
-        -r ${refDir}/HRC.r1-1.GRCh37.wgs.mac5.sites.tab \
+        -r $mainDir/original_data/ref_data/HRC_imputation_qc/HRC.r1-1.GRCh37.wgs.mac5.sites.tab \
         -h
     
+    # "plink" calls plink1.7 on the server, change that to plink1.9
     sed -i 's/plink/plink1.9/g' Run-plink.sh
     sh Run-plink.sh | tee Run-plink.sh.log
 }
@@ -54,7 +64,6 @@ checkVcf(){
 HRCqc(){
     pathGf=$1
     dirGf=$(echo $pathGf | rev | cut -d"/" -f1 --complement | rev)
-    #cd $dirGf
 
     getFreq $pathGf
     HRC_1000G_check_bim $pathGf
