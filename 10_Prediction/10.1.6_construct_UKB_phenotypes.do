@@ -15,7 +15,7 @@ display "$S_DATE $S_TIME"
 ******************************************************
 **                 PREPARE PHENOTYPES               **
 ******************************************************
-** Get phenotypes: Eczema?, 22126 (for hayfever), 22127 (for asthma), n_22040 // MET minutes per week
+** Get phenotypes: Eczema? , 22126 (for hayfever), 22127 (for asthma), n_22040 // MET minutes per week
 
 
 set more off
