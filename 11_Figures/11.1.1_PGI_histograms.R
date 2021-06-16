@@ -1,14 +1,5 @@
 #!/usr/bin/env Rscript
 
-#----------------------------------------------------------------------------------#
-#
-# Date: 01/04/2021
-# Author: Aysu Okbay 
-
-# Notes:
-#
-#----------------------------------------------------------------------------------#
-
 
 ########################################################
 ######################## Set-up ########################
@@ -24,35 +15,32 @@ lapply(packages, library, character.only = TRUE)
 args=commandArgs(trailingOnly=TRUE)
 cohort=args[1]
 score_type=args[2]
+mainDir=args[3]
 
-# Set directory
-setwd("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/11_Figures/PGI_histograms/")
 
-########################################################
-###################### Data paths ######################
 ########################################################
 
 # PCs
 if ( cohort == "UKB3" | cohort == "UKB2" | cohort == "UKB1" ){
-    PCs_path <- "/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction/input/UKB3/PC_BATCHdum.txt"
+    PCs_path <- paste0(mainDir,"/derived_data/10_Prediction/input/UKB3/PC_BATCHdum.txt")
     PCs_data <- fread(PCs_path)
 } else {
-    PCs_path <- paste0("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
+    PCs_path <- paste0(mainDir,"/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
     PCs_oldnames <- paste0("V", 3:22)
     PCs_newnames <- paste0("pc", 1:20)
     PCs_data <- fread(PCs_path) %>%
     rename(IID = V2) %>%
     rename_at(vars(PCs_oldnames), ~ PCs_newnames)
 }
-print("1")
-score_wd <- paste0("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/9_Scores/",score_type,"/scores/")
+
+score_wd <- paste0(mainDir,"/derived_data/9_Scores/",score_type,"/scores/")
 
 score_files <- list.files(score_wd)
 score_files <- score_files[grep(cohort, score_files)]
 score_names <- gsub(paste0("PGS_",cohort,"_"), "", 
                     gsub("_LDpred_p1.txt", "", 
                             gsub("-.*", "",score_files)))
-print("2")
+
 # Merge scores
 score_data <- NULL
 for (i in 1:length(score_names)){
@@ -71,22 +59,18 @@ for (i in 1:length(score_names)){
     }
 }        
 score_data <- score_data %>% select(-contains("ALLELE"))
-print("3")
-#head(score_data)
-#head(PCs_data)
+
 # Merge with PC data
 if ( cohort == "UKB3" | cohort == "UKB2" | cohort == "UKB1" ){
     data <- score_data %>%
         inner_join(PCs_data, by="IID") #%>%
-        #drop_na(PC1,EA)
-        head(data)
+        drop_na(PC1,EA)
         print("4")
 } else {
     data <- score_data %>%
         inner_join(PCs_data, by="IID") %>%
         drop_na(pc1,EA)
 }
-
 
 # Residualize on PCs
 PCs <- str_c(paste0("pc", 1:10), collapse=" + ")
