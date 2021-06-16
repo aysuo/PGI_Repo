@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 #----------------------------------------------------------------------------------#
-# Predicts HRS/WLS phenotypes from scores created using public data
+# Predicts HRS/WLS/UKB phenotypes from scores created using public data
 # Date: 07/13/2020
 # Author: Joel Becker & Aysu Okbay 
 
@@ -23,10 +23,7 @@ lapply(packages, library, character.only = TRUE)
 # Parse arguments
 args=commandArgs(trailingOnly=TRUE)
 cohort=args[1]
-
-# Set directory
-setwd("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction")
-
+mainDir=args[2]
 
 ########################################################
 ###################### Data paths ######################
@@ -47,7 +44,7 @@ score_types=c("public","single","multi")
 # Loop over score types
 for(i in score_types){
     # Set directory containing scores for the score type
-    assign(paste0(i,"_score_wd"), paste0("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/9_Scores/",i,"/scores/"))
+    assign(paste0(i,"_score_wd"), paste0(mainDir,"/derived_data/9_Scores/",i,"/scores/"))
     assign(paste0(i,"_score_files"), list.files(eval(parse(text=paste0(i,"_score_wd")))))
     
     # Get list of all score files for the score type
@@ -70,7 +67,7 @@ pheno_names <- union(predict_single, predict_multi)
 # If cohort is HRS, need pheno-geno crosswalk
 if ( cohort == "HRS2" ){
     # Scores-phenos crosswalk
-    score_pheno_crosswalk_path <- "/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/prediction_phenotypes/HRS/HRS_GENOTYPEV2_XREF.dta"
+    score_pheno_crosswalk_path <- paste0(mainDir,"/original_data/prediction_phenotypes/HRS/HRS_GENOTYPEV2_XREF.dta")
     score_pheno_crosswalk_data <- read.dta(score_pheno_crosswalk_path) %>%
         mutate(IID = as.numeric(LOCAL_ID),
         HHID = as.numeric(HHID),
@@ -82,7 +79,7 @@ if ( cohort == "UKB3" ){
     PCs_path <- "input/UKB3/PC_BATCHdum.txt"
     PCs_data <- fread(PCs_path)
 } else {
-    PCs_path <- paste0("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
+    PCs_path <- paste0(mainDir,"/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
     PCs_oldnames <- paste0("V", 3:22)
     PCs_newnames <- paste0("pc", 1:20)
     PCs_data <- fread(PCs_path) %>%

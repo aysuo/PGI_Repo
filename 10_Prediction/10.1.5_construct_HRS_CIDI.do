@@ -15,97 +15,96 @@
 clear all
 set more off
 set maxvar 20000
-local inputDataDir = "/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/prediction_phenotypes/HRS"
-local WD = "/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction"
 
+local inputDataDir="`1'"
 
 ********************************************************
 ******************* Import and merge *******************
 ********************************************************
 
 import delimited "`inputDataDir'/1995_merged_respondent_level.txt"
-save "`WD'/tmp/1995_merged_respondent_level.dta", replace
+save "tmp/1995_merged_respondent_level.dta", replace
 use "`inputDataDir'/TRK2016TR_R.dta", clear
 rename (HHID PN) (hhid pn)
 destring hhid pn, replace
-merge 1:1 hhid pn using "`WD'/tmp/1995_merged_respondent_level.dta", nogenerate
+merge 1:1 hhid pn using "tmp/1995_merged_respondent_level.dta", nogenerate
 rename (GENDER d636a d638a d391 d393) (sex_1995 mob_1995 yob_1995 moi_1995 yoi_1995)
 keep hhid pn d1006-d1030 d1009-d1017 d1031-d1038 sex_1995 mob_1995 yob_1995 moi_1995 yoi_1995
-save "`WD'/tmp/CIDI_1995.dta", replace
+save "tmp/CIDI_1995.dta", replace
 
 clear
 import delimited "`inputDataDir'/1996_merged_respondent_level.txt"
-save "`WD'/tmp/1996_merged_respondent_level.dta", replace
+save "tmp/1996_merged_respondent_level.dta", replace
 use "`inputDataDir'/TRK2016TR_R.dta", clear
 rename (HHID PN) (hhid pn)
 destring hhid pn, replace
-merge 1:1 hhid pn using "`WD'/tmp/1996_merged_respondent_level.dta", nogenerate
+merge 1:1 hhid pn using "tmp/1996_merged_respondent_level.dta", nogenerate
 rename (GENDER e636 e638 e391 e393) (sex_1996 mob_1996 yob_1996 moi_1996 yoi_1996)
 keep hhid pn e1006-e1030 e1009-e1018 e1031-e1038 sex_1996 mob_1996 yob_1996 moi_1996 yoi_1996
-save "`WD'/tmp/CIDI_1996.dta", replace
+save "tmp/CIDI_1996.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_1998_data.txt"
 rename (f686 f968a f970a f704 f703) (sex_1998 mob_1998 yob_1998 moi_1998 yoi_1998)
 keep hhid pn f1323-f1362 sex_1998 mob_1998 yob_1998 moi_1998 yoi_1998
-save "`WD'/tmp/CIDI_1998.dta", replace
+save "tmp/CIDI_1998.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2000_data.txt"
 rename (g757 g1051a g1053a g775 g774) (sex_2000 mob_2000 yob_2000 moi_2000 yoi_2000)
 keep hhid pn g1456-g1495 sex_2000 mob_2000 yob_2000 moi_2000 yoi_2000
-save "`WD'/tmp/CIDI_2000.dta", replace
+save "tmp/CIDI_2000.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2002_data.txt"
 rename (hx060_r hx004_r hx067_r ha500 ha501) (sex_2002 mob_2002 yob_2002 moi_2002 yoi_2002)
 keep hhid pn hc150-hc182 sex_2002 mob_2002 yob_2002 moi_2002 yoi_2002
-save "`WD'/tmp/CIDI_2002.dta", replace
+save "tmp/CIDI_2002.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2004_data.txt"
 rename (jx060_r jx004_r jx067_r ja500 ja501) (sex_2004 mob_2004 yob_2004 moi_2004 yoi_2004)
 keep hhid pn jc150-jc182 sex_2004 mob_2004 yob_2004 moi_2004 yoi_2004
-save "`WD'/tmp/CIDI_2004.dta", replace
+save "tmp/CIDI_2004.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2006_data.txt"
 rename (kx060_r kx004_r kx067_r ka500 ka501) (sex_2006 mob_2006 yob_2006 moi_2006 yoi_2006)
 keep hhid pn kc150-kc182 sex_2006 mob_2006 yob_2006 moi_2006 yoi_2006
-save "`WD'/tmp/CIDI_2006.dta", replace
+save "tmp/CIDI_2006.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2008_data.txt"
 rename (lx060_r lx004_r lx067_r la500 la501) (sex_2008 mob_2008 yob_2008 moi_2008 yoi_2008)
 keep hhid pn lc150-lc182 sex_2008 mob_2008 yob_2008 moi_2008 yoi_2008
-save "`WD'/tmp/CIDI_2008.dta", replace
+save "tmp/CIDI_2008.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2010_data.txt"
 rename (mx060_r mx004_r mx067_r ma500 ma501) (sex_2010 mob_2010 yob_2010 moi_2010 yoi_2010)
 keep hhid pn mc150-mc182 sex_2010 mob_2010 yob_2010 moi_2010 yoi_2010
-save "`WD'/tmp/CIDI_2010.dta", replace
+save "tmp/CIDI_2010.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2012_data.txt"
 rename (nx060_r nx004_r nx067_r na500 na501) (sex_2012 mob_2012 yob_2012 moi_2012 yoi_2012)
 keep hhid pn nc150-nc182 sex_2012 mob_2012 yob_2012 moi_2012 yoi_2012
-save "`WD'/tmp/CIDI_2012.dta", replace
+save "tmp/CIDI_2012.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2014_data.txt"
 rename (ox060_r ox004_r ox067_r oa500 oa501) (sex_2014 mob_2014 yob_2014 moi_2014 yoi_2014)
 keep hhid pn oc150-oc182 sex_2014 mob_2014 yob_2014 moi_2014 yoi_2014
-save "`WD'/tmp/CIDI_2014.dta", replace
+save "tmp/CIDI_2014.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2016_data.txt"
 rename (px060_r px004_r px067_r pa500 pa501) (sex_2016 mob_2016 yob_2016 moi_2016 yoi_2016)
 keep hhid pn pc150-pc182 sex_2016 mob_2016 yob_2016 moi_2016 yoi_2016
-save "`WD'/tmp/CIDI_2016.dta", replace
+save "tmp/CIDI_2016.dta", replace
 
 foreach i in 1995 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014{
-	merge 1:1 hhid pn using "`WD'/tmp/CIDI_`i'.dta", nogenerate
+	merge 1:1 hhid pn using "tmp/CIDI_`i'.dta", nogenerate
 }
 
 
@@ -161,8 +160,8 @@ foreach i in h j k l m n o p{
 
 gen long hhidpn = 1000*hhid + pn
 
-saveold "`WD'/tmp/CIDI_all.dta", replace version(12)
-use "`WD'/tmp/CIDI_all.dta", clear
+saveold "tmp/CIDI_all.dta", replace version(12)
+use "tmp/CIDI_all.dta", clear
 
 
 ********************************************************
@@ -228,7 +227,7 @@ foreach year in 1995 1996 1998 2000 2002 2004 2006 2008 2010 2012 2014 2016{
 drop if CIDIcount==0
 
 keep hhid pn hhidpn CIDI* sex_* mob_* yob_* moi_* yoi_*
-saveold "`WD'/tmp/CIDI_all.dta", replace version(12)
+saveold "tmp/CIDI_all.dta", replace version(12)
 
 
 ********************************************************
@@ -239,11 +238,11 @@ use "`inputDataDir'/HRS_GENOTYPEV2_XREF.dta", clear
 destring HHID, replace
 destring PN, replace
 gen long hhidpn = (1000 * HHID) + PN
-merge 1:1 hhidpn using "`WD'/tmp/CIDI_all.dta", keep(match) nogenerate
+merge 1:1 hhidpn using "tmp/CIDI_all.dta", keep(match) nogenerate
 *merge 1:1 IID using "/var/genetics/dbgap/aokbay/HRS/hwe_eur_keep.txt",  keep(match) nogenerate
 * don't need to merge above file because non-eur dropped at PC merge stage
 
-save "`WD'/tmp/CIDISF_eur.dta", replace
+save "tmp/CIDISF_eur.dta", replace
 
 *****************************************
 clear all
@@ -253,7 +252,7 @@ keep hhidpn r*agey_m ragender
 
 rename (r2agey_m r3agey_m r4agey_m r5agey_m r6agey_m r7agey_m r8agey_m r9agey_m r10agey_m r11agey_m) (age_1995 age_1996 age_1998 age_2000 age_2002 age_2004 age_2006 age_2008 age_2010 age_2012)
 
-merge 1:1 hhidpn using "`WD'/tmp/CIDISF_eur.dta", keep(match) nogenerate
+merge 1:1 hhidpn using "tmp/CIDISF_eur.dta", keep(match) nogenerate
 
 * old results:
 *  CIDIcount |      Freq.     Percent        Cum.
@@ -338,8 +337,8 @@ rename LOCAL_ID iid
 destring iid, replace
 keep iid hhid pn hhidpn Z_*
 egen phenotype = std(Z_DEP)
-save "`WD'/tmp/HRS_CIDISF_FINAL.dta", replace
+save "tmp/HRS_CIDISF_FINAL.dta", replace
 
-export delimited hhidpn phenotype using "`WD'/input/HRS/DEP.pheno", noq delim(",") replace
+export delimited hhidpn phenotype using "input/HRS2/DEP.pheno", noq delim(",") replace
 
 

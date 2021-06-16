@@ -15,9 +15,8 @@
 clear all
 set more off
 set maxvar 20000
-local WD = "/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction/"
-local inputDataDir="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/prediction_phenotypes/HRS"
 
+local inputDataDir="`1'"
 
 ********************************************************
 ******************* Import and merge *******************
@@ -27,46 +26,46 @@ clear
 import delimited "`inputDataDir'/HRS_2006_data.txt"
 rename (kx060_r kx004_r kx067_r ka500 ka501) (sex_2006 mob_2006 yob_2006 moi_2006 yoi_2006)
 keep hhid pn klb027* klb003* sex_2006 mob_2006 yob_2006 moi_2006 yoi_2006
-save "`WD'/tmp/SWB_2006.dta", replace
+save "tmp/SWB_2006.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2008_data.txt"
 rename (lx060_r lx004_r lx067_r la500 la501) (sex_2008 mob_2008 yob_2008 moi_2008 yoi_2008)
 keep hhid pn llb027* llb003* sex_2008 mob_2008 yob_2008 moi_2008 yoi_2008
-save "`WD'/tmp/SWB_2008.dta", replace
+save "tmp/SWB_2008.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2010_data.txt"
 rename (mx060_r mx004_r mx067_r ma500 ma501) (sex_2010 mob_2010 yob_2010 moi_2010 yoi_2010)
 keep hhid pn mlb027* mlb003* sex_2010 mob_2010 yob_2010 moi_2010 yoi_2010
-save "`WD'/tmp/SWB_2010.dta", replace
+save "tmp/SWB_2010.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2012_data.txt"
 rename (nx060_r nx004_r nx067_r na500 na501) (sex_2012 mob_2012 yob_2012 moi_2012 yoi_2012)
 keep hhid pn nlb027* nlb003* sex_2012 mob_2012 yob_2012 moi_2012 yoi_2012
-save "`WD'/tmp/SWB_2012.dta", replace
+save "tmp/SWB_2012.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2014_data.txt"
 rename (ox060_r ox004_r ox067_r oa500 oa501) (sex_2014 mob_2014 yob_2014 moi_2014 yoi_2014)
 keep hhid pn olb026* olb002* sex_2014 mob_2014 yob_2014 moi_2014 yoi_2014
-save "`WD'/tmp/SWB_2014.dta", replace
+save "tmp/SWB_2014.dta", replace
 
 clear
 import delimited "`inputDataDir'/HRS_2016_data.txt"
 rename (px060_r px004_r px067_r pa500 pa501) (sex_2016 mob_2016 yob_2016 moi_2016 yoi_2016)
 keep hhid pn plb026* plb002* sex_2016 mob_2016 yob_2016 moi_2016 yoi_2016
-save "`WD'/tmp/SWB_2016.dta", replace
+save "tmp/SWB_2016.dta", replace
 
 foreach i in 2006 2008 2010 2012 2014{
-	merge 1:1 hhid pn using "`WD'/tmp/SWB_`i'.dta", nogenerate
+	merge 1:1 hhid pn using "tmp/SWB_`i'.dta", nogenerate
 }
 
 gen long hhidpn = 1000*hhid + pn
 
-saveold "`WD'/tmp/SWB_all.dta", replace version(12)
-use "`WD'/tmp/SWB_all.dta", clear
+saveold "tmp/SWB_all.dta", replace version(12)
+use "tmp/SWB_all.dta", clear
 
 
 ********************************************************
@@ -162,4 +161,4 @@ foreach pheno in PA LS{
 ********************************************************
 
 keep hhid pn PA* LS* sex_* mob_* yob_* moi_* yoi_*
-saveold "`WD'/tmp/SWB_all.dta", replace version(12)
+saveold "tmp/SWB_all.dta", replace version(12)

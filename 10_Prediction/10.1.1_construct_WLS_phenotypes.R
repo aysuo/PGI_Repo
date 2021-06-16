@@ -19,16 +19,12 @@ new.packages <- packages[!(packages %in% installed.packages()[, "Package"])]
 if(length(new.packages)) install.packages(new.packages)
 lapply(packages, library, character.only = TRUE)
 
-# source and set directory
-setwd("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction")
-inputDataDir="/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/original_data/prediction_phenotypes/WLS/"
 
 ########################################################
 ####################### Load data ######################
 ########################################################
 
 data <- fread("tmp/WLS_renamed.csv")
-
 
 ########################################################
 ################ Residualising function ################
@@ -101,8 +97,8 @@ residualise.average.save <- function(data, average=TRUE, age_residualise=TRUE, n
         filter(male == 0) %>%
         residualise(., age_residualise = age_residualise, nosex=neb) %>%
         select(id, respondent_type, phenotype=std_resid)
-      fwrite(nebmen, paste0("input/WLS/NEBmen.pheno"))
-      fwrite(nebwom, paste0("input/WLS/NEBwomen.pheno"))
+      fwrite(nebmen, "input/WLS/NEBmen.pheno")
+      fwrite(nebwom, "input/WLS/NEBwomen.pheno")
     }
 
   }

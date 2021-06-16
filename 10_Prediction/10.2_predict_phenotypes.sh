@@ -1,6 +1,12 @@
 #!/bin/bash
-cd /disk/genetics/PGS/Aysu/PGS_Repo_pipeline/code/10_Prediction
 
-Rscript 10.2.1_predict_phenotypes.R HRS2 
-Rscript 10.2.1_predict_phenotypes.R WLS 
-Rscript 10.2.1_predict_phenotypes.R UKB3
+source paths10
+cd $mainDir/derived_data/10_Prediction
+
+# Get descriptives
+Rscript $mainDir/code/10_Prediction/10.2.0_get_descriptives.R $mainDir > $mainDir/code/10_Prediction/10.2.0_get_descriptives.R.log
+
+# Run prediction
+Rscript $mainDir/code/10_Prediction/10.2.1_predict_phenotypes.R HRS2 $mainDir
+Rscript $mainDir/code/10_Prediction/10.2.1_predict_phenotypes.R WLS $mainDir
+Rscript $mainDir/code/10_Prediction/10.2.1_predict_phenotypes.R UKB3 $mainDir

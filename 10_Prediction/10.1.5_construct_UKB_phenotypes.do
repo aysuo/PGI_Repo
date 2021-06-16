@@ -1,25 +1,20 @@
 clear all
-cd "/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction"
-local partition_data="/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/derived_data/1_UKB_GWAS/tmp/IDs_assignPartition_ordered.txt"
-local pheno_data_1="/disk/genetics2/ukb/orig/UKBv2/pheno/9690_update/ukb9690_update_jun14_2018.dta"
-local covar_data="/disk/genetics2/ukb/orig/UKBv2/linking/ukb_sqc_v2_combined_header.dta"
-local pheno_data_2="/disk/genetics2/ukb/orig/UKBv2/pheno/22392/ukb22392.dta"
-local pheno_data_3="/disk/genetics/ukb/data/41490_alc_cannabis_menarche_myopia/ukb41490.dta"
 
-log using "/disk/genetics4/PGS/Aysu/PGS_Repo_pipeline/code/10_Prediction/10.1.6_construct_UKB_phenotypes.do.log", replace
+local partition_data="`1'"
+local pheno_data_1="`2'"
+local pheno_data_2="`3'"
+local pheno_data_3="`4'"
+local covar_data="`5'"
+local logfile="`6'"
+
+
+log using `logfile', replace
 display "$S_DATE $S_TIME"
-
 
 
 ******************************************************
 **                 PREPARE PHENOTYPES UKB           **
-**                  PGS Repo project                **
-**                                                  **
-**                Casper Burik 12 Feb 2018          **
-**              Last edit Casper: 22 Feb 2020       **
-**              Last edit Aysu: 13 Aug 2020         **
 ******************************************************
-
 ** Get phenotypes: Eczema?, 22126 (for hayfever), 22127 (for asthma), n_22040 // MET minutes per week
 
 
@@ -169,383 +164,24 @@ forval i = 0/2 {
 ******************************* GENERATE VARS ************************************
 **********************************************************************************
 
-**********************************************************
-********************** ALZHEIMER'S  **********************
-**********************************************************
-* Father's ALZ status
-
-foreach i in 0 1 2{
-    gen ALZF_`i'=0 if n_20107_`i'_0!=.
-    forval j = 0/3{
-        replace ALZF_`i'=1 if n_20107_`i'_`j'==10 
-    }
-}
-
-
-foreach i in 0 1 2{
-    forval j = 0/3{
-        replace ALZF_`i'=. if ALZF_`i'==0 & (n_20107_`i'_`j'==-11 | n_20107_`i'_`j'==-13)
-    }
-}
-
-egen ALZF=rmax(ALZF_*)
-
-foreach i in 0 1 2{
-   gen F_age_`i'= n_2946_`i'_0 if n_2946_`i'_0>0
-   replace F_age_`i' = n_1807_`i'_0 if F_age_`i'==. & n_1807_`i'_0>0
-}
-
-egen F_age=rmax(F_age_*) if ALZF==0
-replace F_age=F_age_0 if ALZF_0==1
-replace F_age=F_age_1 if ALZF_0==0 & ALZF_1==1
-replace F_age=F_age_2 if ALZF_0==0 & ALZF_1==0 & ALZF_2==1
-
-* Set to ALZF missing if father's ALZ status is 0 but father dies before age 60 or if father is younger than 60
-replace ALZF=. if ALZF==0 & F_age<60
-
-* Set to missing if father's age is not known
-replace ALZF=. if F_age==.
-
-**************************
-
-* Mother's ALZ status
-foreach i in 0 1 2{
-    gen ALZM_`i'=0 if n_20110_`i'_0!=.
-    forval j = 0/2{
-        replace ALZM_`i'=1 if n_20110_`i'_`j'==10 
-    }
-}
-
-foreach i in 0 1 2{
-    forval j = 0/2{
-        replace ALZM_`i'=. if ALZM_`i'==0 & (n_20110_`i'_`j'==-11 | n_20110_`i'_`j'==-13)
-    }
-}
-
-egen ALZM=rmax(ALZM_*)
-
-foreach i in 0 1 2{
-   gen M_age_`i'= n_1845_`i'_0 if n_1845_`i'_0>0
-   replace M_age_`i' = n_3526_`i'_0 if M_age_`i'==. & n_3526_`i'_0>0
-}
-
-egen M_age=rmax(M_age_*) if ALZM==0
-replace M_age=M_age_0 if ALZM_0==1
-replace M_age=M_age_1 if ALZM_0==0 & ALZM_1==1
-replace M_age=M_age_2 if ALZM_0==0 & ALZM_1==0 & ALZM_2==1
-
-* Set ALZM to missing if mother's ALZ status is 0 but mother dies before age 60 or if mother is younger than 60
-replace ALZM=. if ALZM==0 & M_age<60
-
-* Set to missing if father's age is not known
-replace ALZM=. if M_age==.
-
-**********************************************************
-
-**********************************************************
-************************ MENARCHE  ***********************
-**********************************************************
-forval i=0/3{
-    replace n_2714_`i'_0=. if n_2714_`i'_0<0    
-}
-egen MENARCHE=rmean(n_2714_*)
-
-**********************************************************
-
-
-
-**********************************************************
-************************* MYOPIA  ************************
-**********************************************************
-
-forval i=0/3{
-    gen MYOPIA`i'=.
-    replace MYOPIA`i'=0 if n_2207_`i'_0==0 | (n_6147_`i'_0!=. & n_6147_`i'_0>1)
-    replace MYOPIA`i'=1 if n_6147_`i'_0==1
-}
-egen MYOPIA=rmax(MYOPIA*)
-
-replace MYOPIA=0 if MYOPIA==. & n_20262_0_0==0
-replace MYOPIA=1 if n_20262_0_0==1 | n_20262_0_0==2
-  
-**********************************************************
-
-**********************************************************
-******************* CANNABIS AMOUNT **********************
-**********************************************************
-ren n_20453_0_0 CANNABIS
-replace CANNABIS=. if CANNABIS<0
-**********************************************************
-
-
-**********************************************************
-******************** EVER CANNABIS  **********************
-**********************************************************
-gen EVERCANNABIS=0 if CANNABIS==0
-replace EVERCANNABIS=1 if CANNABIS!=. & CANNABIS>0
-**********************************************************
-
-
-**********************************************************
-*************************** AUDIT  ***********************
-**********************************************************
-foreach i in 403 405 407 408 409 411 412 413 414 416 {
-    replace n_20`i'_0_0=. if n_20`i'_0_0<0
-}
-
-
-foreach i in 403 407 408 409 412 413 416{
-    replace n_20`i'_0_0 = n_20`i'_0_0 - 1
-}
-
-foreach i in 405 411{
-    replace n_20`i'_0_0 = 2*n_20`i'_0_0
-}
-
-egen AUDIT=rowtotal(n_20403_0_0 n_20405_0_0 n_20407_0_0 n_20408_0_0 n_20409_0_0 n_20411_0_0 n_20412_0_0 n_20413_0_0 n_20414_0_0 n_20416_0_0)
-
-replace AUDIT=. if n_20414_0_0==.
-replace AUDIT=. if n_20414_0_0==0 & (n_20405_0_0==. | n_20411_0_0==.)
-replace AUDIT=. if n_20403_0_0 + n_20416_0_0>0 & (n_20407_0_0==. | n_20408_0_0==. | n_20409_0_0==. | n_20412_0_0==. | n_20413_0_0==. | n_20405_0_0==. | n_20411_0_0==.)
-gen logAUDIT=log10(AUDIT)
-
-
-**********************************************************
-************************ EA ******************************
-**********************************************************
-forval i = 0/2 {
-    replace n_845_`i'_0 = . if n_845_`i'_0 < 0
-	forval j = 0/5 {
-		g EA_`i'_`j' = 22 if n_6138_0_0 == 1
-		replace EA_`i'_`j' = 17 if n_6138_`i'_`j' == 2
-		replace EA_`i'_`j' = 12 if n_6138_`i'_`j' == 3
-		replace EA_`i'_`j' = 11 if n_6138_`i'_`j' == 4
-		*replace EA_`i'_`j' = 13 if n_6138_`i'_`j' == 5
-        replace EA_`i'_`j' = n_845_`i'_0-5 if n_6138_`i'_`j' == 5
-		replace EA_`i'_`j' = 15 if n_6138_`i'_`j' == 6
-		replace EA_`i'_`j' = 7 if n_6138_`i'_`j' == -7
-		replace EA_`i'_`j' = . if n_6138_`i'_`j' == -3
-	}
-}
-
-*** Take max ***
-egen EA = rmax(EA_*_*)
-replace EA = . if EA < 7
-**********************************************************
-
-
-**********************************************************
-************************ IQ ******************************
-**********************************************************
-
-forval i = 0/2 {
-    qui xi: reg n_20016_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict IQtouch`i',rstandard
-}
-
-qui xi: reg n_20191_0_0 SEX##c.AGE0 SEX##c.AGE0sq SEX##c.AGE0cb
-predict IQweb, rstandard
-
-egen IQ = rmean (IQtouch* IQweb)
-**********************************************************
-
-
-
-**********************************************************
-************************ RISK ****************************
-**********************************************************
-forval i = 0/2 {
-    replace n_2040_`i'_0=. if n_2040_`i'_0<0
-    qui xi: reg n_2040_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict risk_`i', rstandard 
-}
-
-egen RISK=rmean(risk_*)
-
-**********************************************************
 
-
-
-**********************************************************
-************************ HEIGHT **************************
-**********************************************************
-forval i = 0/2 {
-    qui xi: reg n_50_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict height_`i', rstandard 
-}
-
-egen HEIGHT=rmean(height_*)
-**********************************************************
-
-
-**********************************************************
-************************* BMI ****************************
-**********************************************************
-forval i = 0/1 {
-    qui xi: reg n_23104_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict bmi_`i', rstandard 
-}
-egen BMI = rmean(bmi_*)
-**********************************************************
-
-
-**********************************************************
-********************* NEUROTICISM ************************
-**********************************************************
-qui xi: reg n_20127_0_0 SEX##c.AGE0 SEX##c.AGE0sq SEX##c.AGE0cb
-predict NEURO, rstandard
-**********************************************************
-
-
-**********************************************************
-********************* MORNING PERSON *********************
-**********************************************************
-* scale 1-4, was reverse coded
-forval i = 0/2 {
-    gen morning_`i' =  5 - n_1180_`i'_0 if n_1180_`i'_0!=. & n_1180_`i'_0 > 0
-    qui xi: reg morning_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict MORNING_`i', rstandard
-}
-egen MORNING = rmean(MORNING_*)
-**********************************************************
-
-
-**********************************************************
-*********************** RELIGIOSITY **********************
-**********************************************************
-forval i = 0/2 {
-    gen relig_`i' = 0 if (n_6160_`i'_0 != -3 & !missing(n_6160_`i'_0))
-    forval j = 0/4 {
-        replace relig_`i' = 1 if n_6160_`i'_`j' == 3
-    }
-    qui xi: reg relig_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict RELIG_`i', rstandard
-}
-
-egen RELIG = rmean(RELIG_*)
-**********************************************************
-
-
-**********************************************************
-*************************** SWB **************************
-**********************************************************
-* scale 1-6, was reverse coded
-forval i = 0/2 {
-    gen swb_`i' = 7 - n_4526_`i'_0 if n_4526_`i'_0 > 0 
-    qui xi: reg swb_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict SWB_`i', rstandard
-}
-
-egen SWB = rmean(SWB_*)
-**********************************************************
-
-*rerun
-**********************************************************
-*********************** DEPRESSION ***********************
-**********************************************************
-
-foreach i in 2050 2060 2070 2080{
-    forval j=0/2{
-        replace n_`i'_`j'_0=. if n_`i'_`j'_0<1
-    }
-}
-
-forval i=0/2{
-    gen depress_`i'=n_2050_`i'_0 + n_2060_`i'_0 + n_2070_`i'_0 + n_2080_`i'_0
-    
-    qui xi: reg depress_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict DEPRESS_`i', rstandard
-}
-
-egen DEPRESS = rmean(DEPRESS_*)
-**********************************************************
-
-
-**********************************************************
-****************** FAMILY SATISFACTION *******************
-**********************************************************
-forval i=0/2 {
-    gen famsat_`i'_0 = 7 - n_4559_`i'_0 if n_4559_`i'_0 > 0
-    qui xi: reg famsat_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict FAMSAT_`i', rstandard
-}
-
-egen FAM_SATISF = rmean(FAMSAT_*)
-**********************************************************
-
-
-**********************************************************
-****************** FRIEND SATISFACTION *******************
-**********************************************************
-forval i=0/2 {
-    gen friendsat_`i' = 7 - n_4570_`i'_0 if n_4570_`i'_0 > 0
-    qui xi: reg friendsat_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict FRIENDSAT_`i', rstandard
-}
-
-egen FRIEND_SATISF = rmean(FRIENDSAT_*)
-**********************************************************
-
-
 **********************************************************
-***************** FINANCIAL SATISFACTION *****************
+******************** AGE AT FIRST BIRTH ******************
 **********************************************************
-forval i=0/2 {
-    gen finsat_`i' = 7 - n_4581_`i'_0 if n_4581_`i'_0 > 0
-    qui xi: reg finsat_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict FINSAT_`i', rstandard
-}
-
-egen FIN_SATISF = rmean(FINSAT_*)
-**********************************************************
-
-
-**********************************************************
-******************* WORK SATISFACTION ********************
-**********************************************************
-* 7 is unemployed
-forval i=0/2 {
-    gen worksat_`i' = 7 - n_4537_`i'_0 if (n_4537_`i'_0 > 0 & n_4537_`i'_0 != 7)
-    qui xi: reg worksat_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict WORKSAT_`i', rstandard
-}
-
-egen WORK_SATISF = rmean(WORKSAT_*)
-**********************************************************
-
-
-**********************************************************
-********************** LONELINESS ************************
-**********************************************************
-forval i = 0/2 {
-    replace n_2020_`i'_0=. if n_2020_`i'_0<0
-    qui xi: reg n_2020_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict LONELY_`i', rstandard
-}
-
-egen LONELY = rmean(LONELY_*)
-**********************************************************
-
-
-**********************************************************
-*********************** SELFHEALTH ***********************
-**********************************************************
-* scale 1-4, was reverse coded
-forval i = 0/2 {
-    gen health_`i' = 5 - n_2178_`i'_0 if n_2178_`i'_0 > 0 
-    qui xi: reg health_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict HEALTH_`i', rstandard
-}
-
-egen HEALTH = rmean(HEALTH_*)
+* Minimum age of all times answered
+gen AFB_0 = n_2754_0_0 if n_2754_0_0 > 0
+gen AFB_1 = n_2754_1_0 if n_2754_1_0 > 0
+gen AFB_2 = n_2754_2_0 if n_2754_2_0 > 0
+gen AFB_0b = n_3872_0_0 if n_3872_0_0 > 0
+gen AFB_1b = n_3872_1_0 if n_3872_1_0 > 0
+gen AFB_2b = n_3872_2_0 if n_3872_2_0 > 0
+egen AFB = rmin(AFB_*)
 **********************************************************
 
 
 **********************************************************
 ************************** ASTHMA ************************
 **********************************************************
-** Update when we have data field 22127!!
-
 gen ASTHMA = 0 if (!missing(s_41202_0_0) | !missing(s_41204_0_0) | ///
     !missing(n_20002_0_0) | !missing(n_20002_1_0) | !missing(n_20002_2_0) | ///
     (!missing(n_6152_0_0) & n_6152_0_0!=-3) | ///
@@ -583,173 +219,49 @@ forval i = 0/3 {
     }
 }
 replace ASTHMA = 1 if n_6152_0_4 == 8
-
-
-
 **********************************************************
 
 
-*rerun
 **********************************************************
-*********************** HAYFEVER *************************
+*************************** AUDIT  ***********************
 **********************************************************
-** Update when we get data field 22126
-
-gen HAYFVR = 0 if (!missing(s_41202_0_0) | !missing(s_41204_0_0) | ///
-    !missing(n_20002_0_0) | !missing(n_20002_1_0) | !missing(n_20002_2_0) | ///
-    (!missing(n_6152_0_0) & n_6152_0_0!=-3) | ///
-    (!missing(n_6152_1_0) & n_6152_1_0!=-3) | ///
-    (!missing(n_6152_2_0) & n_6152_2_0!=-3)) 
-
-
-forval i = 0/379 {
-    replace HAYFVR = 1 if (s_41202_0_`i' == "J301" | s_41202_0_`i' == "J302" | ///
-        s_41202_0_`i' == "J303" |  s_41202_0_`i' == "J304")
+foreach i in 403 405 407 408 409 411 412 413 414 416 {
+    replace n_20`i'_0_0=. if n_20`i'_0_0<0
 }
 
-forval i = 0/434 {
-    replace HAYFVR = 1 if (s_41204_0_`i' == "J301" | s_41204_0_`i' == "J302" | ///
-        s_41204_0_`i' == "J303" |  s_41204_0_`i' == "J304")
+foreach i in 403 407 408 409 412 413 416{
+    replace n_20`i'_0_0 = n_20`i'_0_0 - 1
 }
 
-forval i = 0/28 {
-    replace HAYFVR = 1 if (n_20002_0_`i' == 1387 )
+foreach i in 405 411{
+    replace n_20`i'_0_0 = 2*n_20`i'_0_0
 }
 
-forval i = 0/15 {
-    replace HAYFVR = 1 if (n_20002_1_`i' == 1387 )
+egen AUDIT=rowtotal(n_20403_0_0 n_20405_0_0 n_20407_0_0 n_20408_0_0 n_20409_0_0 n_20411_0_0 n_20412_0_0 n_20413_0_0 n_20414_0_0 n_20416_0_0)
+
+replace AUDIT=. if n_20414_0_0==.
+replace AUDIT=. if n_20414_0_0==0 & (n_20405_0_0==. | n_20411_0_0==.)
+replace AUDIT=. if n_20403_0_0 + n_20416_0_0>0 & (n_20407_0_0==. | n_20408_0_0==. | n_20409_0_0==. | n_20412_0_0==. | n_20413_0_0==. | n_20405_0_0==. | n_20411_0_0==.)
+gen logAUDIT=log10(AUDIT)
+replace AUDIT=logAUDIT
+
+**********************************************************
+
+
+**********************************************************
+************************* BMI ****************************
+**********************************************************
+forval i = 0/1 {
+    qui xi: reg n_23104_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict bmi_`i', rstandard 
 }
-
-forval i = 0/16 {
-    replace HAYFVR = 1 if (n_20002_2_`i' == 1387 )
-}
-
-forval i = 0/3 {
-    forval j = 0/2 {
-        replace HAYFVR = 1 if n_6152_`j'_`i' == 9
-    }
-}
-replace HAYFVR = 1 if n_6152_0_4 == 9
-
-
+egen BMI = rmean(bmi_*)
 **********************************************************
 
 
-
-**********************************************************
-************************ ECZEMA **************************
-**********************************************************
-gen ECZEMA = 0 if (!missing(s_41202_0_0) | !missing(s_41204_0_0) | ///
-    !missing(n_20002_0_0) | !missing(n_20002_1_0) | !missing(n_20002_2_0) | ///
-    (!missing(n_6152_0_0) & n_6152_0_0!=-3 & n_6152_0_0!=9) | ///
-    (!missing(n_6152_1_0) & n_6152_1_0!=-3 & n_6152_0_0!=9) | ///
-    (!missing(n_6152_2_0) & n_6152_2_0!=-3 & n_6152_0_0!=9)) 
-
-
-forval i = 0/379 {
-    replace ECZEMA = 1 if (s_41202_0_`i' == "L20" | s_41202_0_`i' == "L208" | ///
-        s_41202_0_`i' == "J209")
-}
-
-forval i = 0/434 {
-    replace ECZEMA = 1 if (s_41204_0_`i' == "L20" | s_41204_0_`i' == "L208" | ///
-        s_41204_0_`i' == "J209")
-}
-
-forval i = 0/28 {
-    replace ECZEMA = 1 if (n_20002_0_`i' == 1452 )
-}
-
-forval i = 0/15 {
-    replace ECZEMA = 1 if (n_20002_1_`i' == 1452 )
-}
-
-forval i = 0/16 {
-    replace ECZEMA = 1 if (n_20002_2_`i' == 1452 )
-}
-**********************************************************
-
-
-**********************************************************
-******************* HAYFEVER & ECZEMA ********************
-**********************************************************
-*gen ECZRHI = 0 if (!missing(s_41202_0_0) | !missing(s_41204_0_0) | ///
-*    !missing(n_20002_0_0) | !missing(n_20002_1_0) | !missing(n_20002_2_0) | ///
-*    (!missing(n_6152_0_0) & n_6152_0_0!=-3) | ///
-*    (!missing(n_6152_1_0) & n_6152_1_0!=-3) | ///
-*    (!missing(n_6152_2_0) &  n_6152_2_0!=-3)) 
-
-
-*forval i = 0/2 {
-*    forval j = 0/3 {
-*        replace ECZRHI = 1 if n_6152_`i'_`j' == 9
-*    }
-*}
-    
-*replace ECZRHI = 1 if n_6152_0_4 == 9
-
-*forval i = 0/379 {
-*    replace ECZRHI = 1 if (s_41202_0_`i' == "J301" | s_41202_0_`i' == "J302" | ///
-*        s_41202_0_`i' == "J303" |  s_41202_0_`i' == "J304" | s_41202_0_`i' == "L20" | /// 
-*        s_41202_0_`i' == "L208" |  s_41202_0_`i' == "J209")
-*}
-
-*forval i = 0/434 {
-*    replace ECZRHI = 1 if (s_41204_0_`i' == "J301" | s_41204_0_`i' == "J302" | ///
-*        s_41204_0_`i' == "J303" |  s_41204_0_`i' == "J304" | s_41204_0_`i' == "L20" | ///
-*        s_41204_0_`i' == "L208" |  s_41204_0_`i' == "J209")
-*}
-
-*forval i = 0/28 {
-*    replace ECZRHI = 1 if (n_20002_0_`i' == 1387 | n_20002_0_`i' == 1452)
-*}
-
-*forval i = 0/15 {
-*    replace ECZRHI = 1 if (n_20002_1_`i' == 1387 | n_20002_1_`i' == 1452)
-*}
-
-*forval i = 0/16 {
-*    replace ECZRHI = 1 if (n_20002_2_`i' == 1387 | n_20002_2_`i' == 1452)
-*}
-**********************************************************
-
-
-
-**********************************************************
-************** ASTHMA / HAYFEVER/ECZEMA ******************
-**********************************************************
-gen ASTECZRHI=.
-replace ASTECZRHI=1 if (ASTHMA==1 | ECZEMA==1 | HAYFVR==1)
-replace ASTECZRHI=0 if (ASTHMA==0 & ECZEMA==0 & HAYFVR==0)
-
-**********************************************************
-
-
-
-**********************************************************
-*********************** EVERSMOKE ************************
-**********************************************************
-
-forval i = 0/2 {
-    gen current_`i' = 1 if n_1239_`i'_0 == 1 
-    replace current_`i' = 0 if n_1239_`i'_0 == 0 |  n_1239_`i'_0 == 2
-
-    gen past_`i' = 1 if n_1249_`i'_0 == 1 | (n_1249_`i'_0 == 2 & n_2644_`i'_0 == 1) | (n_1249_`i'_0 == 3 & n_2644_`i'_0 == 1)
-    replace past_`i' = 0 if n_1249_`i'_0 == 4 | (n_1249_`i'_0 == 2 & n_2644_`i'_0 == 0) | (n_1249_`i'_0 == 3 & n_2644_`i'_0 == 0)
-
-    egen EVERSMOKE_`i'=rmax(current_`i' past_`i')
-}
-
-egen EVERSMOKE = rmax(EVERSMOKE_*)
-
-**********************************************************
-
-
-*rerun
 **********************************************************
 ******************* CIGARETTES PER DAY *******************
 **********************************************************
-
 forval i = 0/2 {
     replace n_3456_`i'_0=. if n_3456_`i'_0 < 1 | n_3456_`i'_0 > 100
     replace n_2887_`i'_0=. if n_2887_`i'_0 < 1 | n_2887_`i'_0 > 100
@@ -757,61 +269,7 @@ forval i = 0/2 {
 }
 
 egen CPD = rmean(n_3456_* n_2887_* n_6183_*)
-
-* GSCAN binning:
-* a. 1 = 1-5
-* b. 2 = 6-15
-* c. 3 = 16-25
-* d. 4 = 26-35
-* e. 5 = 36+
-
-gen CPDbins=1 if CPD > 0 & CPD <= 5
-replace CPDbins=2 if CPD > 5 & CPD <= 15
-replace CPDbins=3 if CPD > 15 & CPD <= 25
-replace CPDbins=4 if CPD > 25 & CPD <= 35
-replace CPDbins=5 if CPD > 35 & CPD != .
 **********************************************************
-
-
-*rerun
-**********************************************************
-******************** DRINKS PER WEEK *********************
-**********************************************************
-forval i = 0/2 {
-    forval j=56/60 {
-        replace n_1`j'8_`i'_0 = . if n_1`j'8_`i'_0 < 0
-    }
-
-    replace n_5364_`i'_0 = . if n_5364_`i'_0 < 0
-    replace n_4407_`i'_0 = . if n_4407_`i'_0 < 0
-    replace n_4418_`i'_0 = . if n_4418_`i'_0 < 0
-    replace n_4429_`i'_0 = . if n_4429_`i'_0 < 0
-    replace n_4440_`i'_0 = . if n_4440_`i'_0 < 0
-    replace n_4451_`i'_0 = . if n_4451_`i'_0 < 0
-    replace n_4462_`i'_0 = . if n_4462_`i'_0 < 0
-}
-
-forval i = 0/2 {
-    * Set to sum of drinks if not less frequent than once or twice per week 
-    egen AW_`i' = rowtotal(n_1568_`i'_0 n_1578_`i'_0 n_1588_`i'_0 n_1598_`i'_0 n_1608_`i'_0 n_5364_`i'_0) if  (n_1568_`i'_0!=. | n_1578_`i'_0!=. | n_1588_`i'_0!=. | n_1598_`i'_0!=. |  n_1608_`i'_0!=. |  n_5364_`i'_0!=.)
-
- 
-    * If less frequent than once or twice per week, replace with rescaled monthly value 
-    egen AM_`i' = rowtotal(n_4407_`i'_0 n_4418_`i'_0 n_4429_`i'_0 n_4440_`i'_0 n_4451_`i'_0 n_4462_`i'_0) if (n_4407_`i'_0!=. | n_4418_`i'_0!=. | n_4429_`i'_0!=. | n_4440_`i'_0!=. | n_4451_`i'_0!=. | n_4462_`i'_0!=.)
-
-    replace AW_`i'= AM_`i' / 4 if (n_1558_`i'_0 == 4 | n_1558_`i'_0 == 5 )
-    
-    * Set to 0 if never drinks 
-    replace AW_`i'= 0 if n_1558_`i'_0 == 6
-
-    qui xi: reg AW_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
-    predict DPW_`i', rstandard
-}
-
-egen DPW = rmean(DPW_*)
-
-**********************************************************
-
 
 
 **********************************************************
@@ -866,7 +324,284 @@ replace COPD = 1 if n_6152_0_4 == 6
 **********************************************************
 
 
-*rerun
+**********************************************************
+**************** COGNITIVE PERFORMANCE *******************
+**********************************************************
+forval i = 0/2 {
+    qui xi: reg n_20016_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict CPtouch`i',rstandard
+}
+
+qui xi: reg n_20191_0_0 SEX##c.AGE0 SEX##c.AGE0sq SEX##c.AGE0cb
+predict CPweb, rstandard
+
+egen CP = rmean (CPtouch* CPweb)
+**********************************************************
+
+
+**********************************************************
+****************** DEPRESSIVE SYMPTOMS *******************
+**********************************************************
+foreach i in 2050 2060 2070 2080{
+    forval j=0/2{
+        replace n_`i'_`j'_0=. if n_`i'_`j'_0<1
+    }
+}
+
+forval i=0/2{
+    gen depress_`i'=n_2050_`i'_0 + n_2060_`i'_0 + n_2070_`i'_0 + n_2080_`i'_0
+    
+    qui xi: reg depress_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict DEP_`i', rstandard
+}
+
+egen DEP = rmean(DEP_*)
+**********************************************************
+
+
+**********************************************************
+******************** DRINKS PER WEEK *********************
+**********************************************************
+forval i = 0/2 {
+    forval j=56/60 {
+        replace n_1`j'8_`i'_0 = . if n_1`j'8_`i'_0 < 0
+    }
+
+    replace n_5364_`i'_0 = . if n_5364_`i'_0 < 0
+    replace n_4407_`i'_0 = . if n_4407_`i'_0 < 0
+    replace n_4418_`i'_0 = . if n_4418_`i'_0 < 0
+    replace n_4429_`i'_0 = . if n_4429_`i'_0 < 0
+    replace n_4440_`i'_0 = . if n_4440_`i'_0 < 0
+    replace n_4451_`i'_0 = . if n_4451_`i'_0 < 0
+    replace n_4462_`i'_0 = . if n_4462_`i'_0 < 0
+}
+
+forval i = 0/2 {
+    * Set to sum of drinks if not less frequent than once or twice per week 
+    egen AW_`i' = rowtotal(n_1568_`i'_0 n_1578_`i'_0 n_1588_`i'_0 n_1598_`i'_0 n_1608_`i'_0 n_5364_`i'_0) if  (n_1568_`i'_0!=. | n_1578_`i'_0!=. | n_1588_`i'_0!=. | n_1598_`i'_0!=. |  n_1608_`i'_0!=. |  n_5364_`i'_0!=.)
+
+ 
+    * If less frequent than once or twice per week, replace with rescaled monthly value 
+    egen AM_`i' = rowtotal(n_4407_`i'_0 n_4418_`i'_0 n_4429_`i'_0 n_4440_`i'_0 n_4451_`i'_0 n_4462_`i'_0) if (n_4407_`i'_0!=. | n_4418_`i'_0!=. | n_4429_`i'_0!=. | n_4440_`i'_0!=. | n_4451_`i'_0!=. | n_4462_`i'_0!=.)
+
+    replace AW_`i'= AM_`i' / 4 if (n_1558_`i'_0 == 4 | n_1558_`i'_0 == 5 )
+    
+    * Set to 0 if never drinks 
+    replace AW_`i'= 0 if n_1558_`i'_0 == 6
+
+    qui xi: reg AW_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict DPW_`i', rstandard
+}
+
+egen DPW = rmean(DPW_*)
+**********************************************************
+
+
+**********************************************************
+************************ EA ******************************
+**********************************************************
+forval i = 0/1 {
+    forval j = 0/5 {
+        g EA_`i'_`j' = 20 if n_6138_0_0 == 1
+        replace EA_`i'_`j' = 13 if n_6138_`i'_`j' == 2
+        replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 3
+        replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 4
+        replace EA_`i'_`j' = 19 if n_6138_`i'_`j' == 5
+        replace EA_`i'_`j' = 15 if n_6138_`i'_`j' == 6
+        replace EA_`i'_`j' = 7 if n_6138_`i'_`j' == -7
+        replace EA_`i'_`j' = . if n_6138_`i'_`j' == -3
+    }
+}
+
+egen EA = rmax(EA_*_*)
+**********************************************************
+
+
+**********************************************************
+************************ ECZEMA **************************
+**********************************************************
+gen ECZEMA = 0 if (!missing(s_41202_0_0) | !missing(s_41204_0_0) | ///
+    !missing(n_20002_0_0) | !missing(n_20002_1_0) | !missing(n_20002_2_0) | ///
+    (!missing(n_6152_0_0) & n_6152_0_0!=-3 & n_6152_0_0!=9) | ///
+    (!missing(n_6152_1_0) & n_6152_1_0!=-3 & n_6152_0_0!=9) | ///
+    (!missing(n_6152_2_0) & n_6152_2_0!=-3 & n_6152_0_0!=9)) 
+
+
+forval i = 0/379 {
+    replace ECZEMA = 1 if (s_41202_0_`i' == "L20" | s_41202_0_`i' == "L208" | ///
+        s_41202_0_`i' == "J209")
+}
+
+forval i = 0/434 {
+    replace ECZEMA = 1 if (s_41204_0_`i' == "L20" | s_41204_0_`i' == "L208" | ///
+        s_41204_0_`i' == "J209")
+}
+
+forval i = 0/28 {
+    replace ECZEMA = 1 if (n_20002_0_`i' == 1452 )
+}
+
+forval i = 0/15 {
+    replace ECZEMA = 1 if (n_20002_1_`i' == 1452 )
+}
+
+forval i = 0/16 {
+    replace ECZEMA = 1 if (n_20002_2_`i' == 1452 )
+}
+**********************************************************
+
+
+**********************************************************
+******************** EVER CANNABIS  **********************
+**********************************************************
+gen CANNABIS=0 if CANNABIS==0
+replace CANNABIS=1 if CANNABIS!=. & CANNABIS>0
+**********************************************************
+
+
+**********************************************************
+*********************** EVERSMOKE ************************
+**********************************************************
+forval i = 0/2 {
+    gen current_`i' = 1 if n_1239_`i'_0 == 1 
+    replace current_`i' = 0 if n_1239_`i'_0 == 0 |  n_1239_`i'_0 == 2
+
+    gen past_`i' = 1 if n_1249_`i'_0 == 1 | (n_1249_`i'_0 == 2 & n_2644_`i'_0 == 1) | (n_1249_`i'_0 == 3 & n_2644_`i'_0 == 1)
+    replace past_`i' = 0 if n_1249_`i'_0 == 4 | (n_1249_`i'_0 == 2 & n_2644_`i'_0 == 0) | (n_1249_`i'_0 == 3 & n_2644_`i'_0 == 0)
+
+    egen EVERSMOKE_`i'=rmax(current_`i' past_`i')
+}
+
+egen EVERSMOKE = rmax(EVERSMOKE_*)
+**********************************************************
+
+
+**********************************************************
+****************** FAMILY SATISFACTION *******************
+**********************************************************
+forval i=0/2 {
+    gen famsat_`i'_0 = 7 - n_4559_`i'_0 if n_4559_`i'_0 > 0
+    qui xi: reg famsat_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict FAMSAT_`i', rstandard
+}
+
+egen FAMSAT = rmean(FAMSAT_*)
+**********************************************************
+
+
+**********************************************************
+***************** FINANCIAL SATISFACTION *****************
+**********************************************************
+forval i=0/2 {
+    gen finsat_`i' = 7 - n_4581_`i'_0 if n_4581_`i'_0 > 0
+    qui xi: reg finsat_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict FINSAT_`i', rstandard
+}
+
+egen FINSAT = rmean(FINSAT_*)
+**********************************************************
+
+
+**********************************************************
+****************** FRIEND SATISFACTION *******************
+**********************************************************
+forval i=0/2 {
+    gen friendsat_`i' = 7 - n_4570_`i'_0 if n_4570_`i'_0 > 0
+    qui xi: reg friendsat_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict FRIENDSAT_`i', rstandard
+}
+
+egen FRIENDSAT = rmean(FRIENDSAT_*)
+**********************************************************
+
+
+**********************************************************
+*********************** HAYFEVER *************************
+**********************************************************
+** Update when we get data field 22126
+
+gen HAYFEVER = 0 if (!missing(s_41202_0_0) | !missing(s_41204_0_0) | ///
+    !missing(n_20002_0_0) | !missing(n_20002_1_0) | !missing(n_20002_2_0) | ///
+    (!missing(n_6152_0_0) & n_6152_0_0!=-3) | ///
+    (!missing(n_6152_1_0) & n_6152_1_0!=-3) | ///
+    (!missing(n_6152_2_0) & n_6152_2_0!=-3)) 
+
+
+forval i = 0/379 {
+    replace HAYFEVER = 1 if (s_41202_0_`i' == "J301" | s_41202_0_`i' == "J302" | ///
+        s_41202_0_`i' == "J303" |  s_41202_0_`i' == "J304")
+}
+
+forval i = 0/434 {
+    replace HAYFEVER = 1 if (s_41204_0_`i' == "J301" | s_41204_0_`i' == "J302" | ///
+        s_41204_0_`i' == "J303" |  s_41204_0_`i' == "J304")
+}
+
+forval i = 0/28 {
+    replace HAYFEVER = 1 if (n_20002_0_`i' == 1387 )
+}
+
+forval i = 0/15 {
+    replace HAYFEVER = 1 if (n_20002_1_`i' == 1387 )
+}
+
+forval i = 0/16 {
+    replace HAYFEVER = 1 if (n_20002_2_`i' == 1387 )
+}
+
+forval i = 0/3 {
+    forval j = 0/2 {
+        replace HAYFEVER = 1 if n_6152_`j'_`i' == 9
+    }
+}
+replace HAYFEVER = 1 if n_6152_0_4 == 9
+**********************************************************
+
+
+**********************************************************
+************** HAYFEVER / ASTHMA / ECZEMA ****************
+**********************************************************
+gen ASTECZRHI=.
+replace ASTECZRHI=1 if (ASTHMA==1 | ECZEMA==1 | HAYFEVER==1)
+replace ASTECZRHI=0 if (ASTHMA==0 & ECZEMA==0 & HAYFEVER==0)
+**********************************************************
+
+
+**********************************************************
+************************ HEIGHT **************************
+**********************************************************
+forval i = 0/2 {
+    qui xi: reg n_50_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict height_`i', rstandard 
+}
+
+egen HEIGHT=rmean(height_*)
+**********************************************************
+
+
+**********************************************************
+********************** LONELINESS ************************
+**********************************************************
+forval i = 0/2 {
+    replace n_2020_`i'_0=. if n_2020_`i'_0<0
+    qui xi: reg n_2020_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict LONELY_`i', rstandard
+}
+
+egen LONELY = rmean(LONELY_*)
+**********************************************************
+
+
+**********************************************************
+************************ MENARCHE  ***********************
+**********************************************************
+forval i=0/3{
+    replace n_2714_`i'_0=. if n_2714_`i'_0<0    
+}
+egen MENARCHE=rmean(n_2714_*)
+**********************************************************
+
+
 **********************************************************
 ************************* MIGRAINE ***********************
 **********************************************************
@@ -897,49 +632,143 @@ forval i = 0/15 {
 forval i = 0/16 {
     replace MIGRAINE  = 1 if (n_20002_2_`i' == 1265 )
 }
-
 **********************************************************
 
 
-
 **********************************************************
-******************** AGE AT FIRST BIRTH ******************
+********************* MORNING PERSON *********************
 **********************************************************
-* minimum age of all times answered
-gen AFB_0 = n_2754_0_0 if n_2754_0_0 > 0
-gen AFB_1 = n_2754_1_0 if n_2754_1_0 > 0
-gen AFB_2 = n_2754_2_0 if n_2754_2_0 > 0
-gen AFB_0b = n_3872_0_0 if n_3872_0_0 > 0
-gen AFB_1b = n_3872_1_0 if n_3872_1_0 > 0
-gen AFB_2b = n_3872_2_0 if n_3872_2_0 > 0
-egen AFB = rmin(AFB_*)
+* scale 1-4, was reverse coded
+forval i = 0/2 {
+    gen morning_`i' =  5 - n_1180_`i'_0 if n_1180_`i'_0!=. & n_1180_`i'_0 > 0
+    qui xi: reg morning_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict MORNING_`i', rstandard
+}
+egen MORNING = rmean(MORNING_*)
 **********************************************************
 
+
+**********************************************************
+******************** NEARSIGHTEDNESS  ********************
+**********************************************************
+forval i=0/3{
+    gen NEARSIGHTED`i'=.
+    replace NEARSIGHTED`i'=0 if n_2207_`i'_0==0 | (n_6147_`i'_0!=. & n_6147_`i'_0>1)
+    replace NEARSIGHTED`i'=1 if n_6147_`i'_0==1
+}
+egen NEARSIGHTED=rmax(NEARSIGHTED*)
+
+replace NEARSIGHTED=0 if NEARSIGHTED==. & n_20262_0_0==0
+replace NEARSIGHTED=1 if n_20262_0_0==1 | n_20262_0_0==2
+**********************************************************
+
+
+**********************************************************
+********************* NEUROTICISM ************************
+**********************************************************
+qui xi: reg n_20127_0_0 SEX##c.AGE0 SEX##c.AGE0sq SEX##c.AGE0cb
+predict NEURO, rstandard
+**********************************************************
 
 
 **********************************************************
 ******************** NUMBER EVER BORN ********************
 **********************************************************
 * max of number all reported children
-gen N_EVERBORN_WOMEN_0 = n_2734_0_0 if n_2734_0_0 >= 0
-gen N_EVERBORN_WOMEN_1 = n_2734_1_0 if n_2734_1_0 >= 0
-gen N_EVERBORN_WOMEN_2 = n_2734_2_0 if n_2734_2_0 >= 0
-egen N_EVERBORN_WOMEN = rmax(N_EVERBORN_WOMEN_*)
+gen NEBwomen_0 = n_2734_0_0 if n_2734_0_0 >= 0
+gen NEBwomen_1 = n_2734_1_0 if n_2734_1_0 >= 0
+gen NEBwomen_2 = n_2734_2_0 if n_2734_2_0 >= 0
+egen NEBwomen = rmax(NEBwomen_*)
 
-gen N_EVERBORN_MEN_0 = n_2405_0_0 if n_2405_0_0 >= 0
-gen N_EVERBORN_MEN_1 = n_2405_1_0 if n_2405_1_0 >= 0
-gen N_EVERBORN_MEN_2 = n_2405_2_0 if n_2405_2_0 >= 0
-egen N_EVERBORN_MEN = rmax(N_EVERBORN_MEN_*)
+gen NEBmen_0 = n_2405_0_0 if n_2405_0_0 >= 0
+gen NEBmen_1 = n_2405_1_0 if n_2405_1_0 >= 0
+gen NEBmen_2 = n_2405_2_0 if n_2405_2_0 >= 0
+egen NEBmen = rmax(NEBmen_*)
+**********************************************************
 
+
+**********************************************************
+***************** RELIGIOUS ATTENDANCE *******************
+**********************************************************
+forval i = 0/2 {
+    gen relig_`i' = 0 if (n_6160_`i'_0 != -3 & !missing(n_6160_`i'_0))
+    forval j = 0/4 {
+        replace relig_`i' = 1 if n_6160_`i'_`j' == 3
+    }
+    qui xi: reg relig_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict RELIGATT_`i', rstandard
+}
+
+egen RELIGATT = rmean(RELIGATT_*)
+**********************************************************
+
+
+**********************************************************
+************************ RISK ****************************
+**********************************************************
+forval i = 0/2 {
+    replace n_2040_`i'_0=. if n_2040_`i'_0<0
+    qui xi: reg n_2040_`i'_0 SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict risk_`i', rstandard 
+}
+
+egen RISK=rmean(risk_*)
+**********************************************************
+
+
+**********************************************************
+***************** SELF-RATED HEALTH **********************
+**********************************************************
+* scale 1-4, was reverse coded
+forval i = 0/2 {
+    gen health_`i' = 5 - n_2178_`i'_0 if n_2178_`i'_0 > 0 
+    qui xi: reg health_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict SELFHEALTH_`i', rstandard
+}
+
+egen SELFHEALTH = rmean(SELFSELFHEALTH_*)
+**********************************************************
+
+
+**********************************************************
+*************************** SWB **************************
+**********************************************************
+* scale 1-6, was reverse coded
+forval i = 0/2 {
+    gen swb_`i' = 7 - n_4526_`i'_0 if n_4526_`i'_0 > 0 
+    qui xi: reg swb_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict SWB_`i', rstandard
+}
+
+egen SWB = rmean(SWB_*)
+**********************************************************
+
+
+**********************************************************
+******************* WORK SATISFACTION ********************
+**********************************************************
+* 7 is unemployed
+forval i=0/2 {
+    gen worksat_`i' = 7 - n_4537_`i'_0 if (n_4537_`i'_0 > 0 & n_4537_`i'_0 != 7)
+    qui xi: reg worksat_`i' SEX##c.AGE`i' SEX##c.AGE`i'sq SEX##c.AGE`i'cb
+    predict WORKSAT_`i', rstandard
+}
+
+egen WORKSAT = rmean(WORKSAT_*)
+**********************************************************
+
+
+**********************************************************************************
+**********************************************************************************
 
 **********************************************************************
 **********************************************************************
 
 *** SAVE FULL DATASET ***
-keep n_eid SEX BATCH BYEAR IQ EA RISK HEIGHT BMI NEURO MORNING RELIG SWB HEALTH AFB N_EVERBORN_MEN  ///
-    N_EVERBORN_WOMEN HAYFVR ECZEMA ASTECZRHI FAM_SATISF FRIEND_SATISF WORK_SATISF FIN_SATISF ///
-    LONELY CPD CPDbins COPD ASTHMA MIGRAINE DEPRESS DPW EVERSMOKE IQ EA RISK CANNABIS EVERCANNABIS /// 
-    logAUDIT MYOPIA MENARCHE ALZM ALZF F_age M_age PC*
+keep n_eid SEX BATCH BYEAR AFB ASTHMA AUDIT BMI CANNABIS CP CPD COPD DEP DPW EA ///
+    ECZEMA EVERSMOKE FAMSAT FINSAT FRIENDSAT HAYFEVER ASTECZRHI HEIGHT LONELY ///
+    MENARCHE MIGRAINE MORNING NEARSIGHTED NEBmen NEBwomen NEURO RELIGATT RISK ///
+    SELFHEALTH SWB WORKSAT PC*
 
 save "tmp/UKB.dta", replace
 
@@ -971,29 +800,6 @@ gen BYEAR3 = BYEAR2*BYEAR
 gen SEXxBYEAR = SEX*BYEAR
 gen SEXxBYEAR2 = SEX*BYEAR2
 gen SEXxBYEAR3 = SEX*BYEAR3
-gen F_agesq=F_age*F_age
-gen F_agecb=F_agesq*F_age
-gen M_agesq=M_age*M_age
-gen M_agecb=M_agesq*M_age
-
-* Note: Check if HAFVYR is better or ECZRHI, CPDbins or CPD, CANNABIS or EVERCANNABIS
-ren FAM_SATISF FAMSAT
-ren FRIEND_SATISF FRIENDSAT
-ren WORK_SATISF WORKSAT
-ren FIN_SATISF FINSAT
-drop CPD
-ren CPDbins CPD
-ren DEPRESS DEP
-ren RELIG RELIGATT
-ren HEALTH SELFHEALTH
-ren HAYFVR HAYFEVER
-ren IQ CP
-drop CANNABIS
-ren EVERCANNABIS CANNABIS
-ren logAUDIT AUDIT
-ren MYOPIA NEARSIGHTED
-ren N_EVERBORN_MEN NEBmen
-ren N_EVERBORN_WOMEN NEBwomen
 
 gen FID=n_eid
 gen IID=n_eid
@@ -1001,14 +807,16 @@ gen IID=n_eid
 save "tmp/pgs_repo.dta", replace
 
 
-foreach partition in 1 2{
-    use "tmp/pgs_repo.dta", clear
+foreach partition in 1 2 3{
+    preserve
     drop if partition!=`partition'
 
     ****************************************
     ********* RESIDUALIZE & EXPORT *********
     ****************************************
-    foreach var of varlist FAMSAT FRIENDSAT WORKSAT FINSAT LONELY CPD COPD ASTHMA MIGRAINE DEP DPW EVERSMOKE HEIGHT BMI NEURO MORNING RELIGATT SWB SELFHEALTH ECZEMA HAYFEVER ASTECZRHI EA CP RISK CANNABIS AUDIT NEARSIGHTED MENARCHE {
+    foreach var of varlist ASTHMA ASTECZRHI AUDIT BMI CANNABIS COPD CP CPD DEP DPW EA ECZEMA ///
+        EVERSMOKE FAMSAT FINSAT FRIENDSAT HAYFEVER HEIGHT LONELY MENARCHE MIGRAINE MORNING ///
+        NEARSIGHTED NEURO RELIGATT RISK SELFHEALTH SWB WORKSAT {
         
         qui xi:reg `var' BYEAR* SEX*
         predict phenotype, rstandard
@@ -1028,24 +836,13 @@ foreach partition in 1 2{
         drop phenotype
     }
 
-
-    qui xi:reg ALZF F_age F_agesq F_agecb
-    predict phenotype, rstandard
-    export delimited FID IID phenotype using "input/UKB`partition'/ALZfather.pheno", noq delim(" ") replace
-
-    drop phenotype
-
-    qui xi:reg ALZM M_age M_agesq M_agecb
-    predict phenotype, rstandard
-    export delimited FID IID phenotype using "input/UKB`partition'/ALZmother.pheno", noq delim(" ") replace
-
-    drop phenotype
-
     tabulate BATCH, generate(batch)
     export delimited FID IID PC1-PC20 batch* using "input/UKB`partition'/PC_BATCHdum.txt", noq delim(" ") replace
 
 
     !sed -i 's/ $/ NA/g' input/UKB`partition'/\*
+
+    restore
 }
 
 log close

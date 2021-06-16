@@ -20,17 +20,12 @@ new.packages <- packages[!(packages %in% installed.packages()[, "Package"])]
 if(length(new.packages)) install.packages(new.packages)
 lapply(packages, library, character.only = TRUE)
 
-# set wd
-setwd("/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction")
-
 
 ########################################################
 ####################### Load data ######################
 ########################################################
 
-SWB_path <- "tmp/SWB_all.dta"
-SWB_data <- read.dta(SWB_path)
-
+SWB_data <- read.dta("tmp/SWB_all.dta")
 
 ########################################################
 ################ Residualising function ################
@@ -152,4 +147,4 @@ SWB <- SWBPA %>%
   mutate(phenotype = PA + LS) %>%
   select(hhid, pn, phenotype)
 
-fwrite(SWB, "input/HRS/SWB.pheno")
+fwrite(SWB, "input/HRS2/SWB.pheno")

@@ -1,10 +1,6 @@
 *----------------------------------------------------------------------------------*
 * Saves WLS data for use in R
 * Author: Joel Becker
-
-* Notes:
-*   imputed age is ~0.4 greater than actual on average
-*   * re-mean to assume surveys were conducted earlier in year?
 *----------------------------------------------------------------------------------*
 
 
@@ -14,10 +10,10 @@
 
 clear all
 set maxvar 20000
-cd "/disk/genetics/PGS/Aysu/PGS_Repo_pipeline/derived_data/10_Prediction/tmp"
-use "/disk/genetics3/WLS_DBGAP/phenotype_data/wls_plg_13_06.dta"
-_strip_labels *
+local phenodata="`1'"
 
+use `phenodata'
+_strip_labels *
 
 ********************************************************
 *************** Rename background columns **************
@@ -724,5 +720,5 @@ replace worksat_2011 = 5 - worksat_2011
 ********************************************************
 
 keep id id_old respondent_type male yob african_american NEB *_19* *_20* age*
-outsheet using "WLS_renamed.csv", replace comma nolabel
-saveold "WLS_renamed.dta", replace version(12)
+outsheet using "tmp/WLS_renamed.csv", replace comma nolabel
+saveold "tmp/WLS_renamed.dta", replace version(12)
