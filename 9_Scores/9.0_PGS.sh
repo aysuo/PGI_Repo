@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source paths9
+source $mainDir/code/paths
 
 score=$1
 cohort=$2
@@ -28,13 +28,16 @@ done
 
 for part in 1 2 3; do
 	declare valbim_UKB${part}="$mainDir/derived_data/7_Genotypes/UKB/plink/HM3/UKB_HM3"
-	declare valgf_UKB${part}=$p9_valGf_UKB
+	declare valgf_UKB${part}=$gf_plink2_UKB
 	declare sample_UKB${part}="$mainDir/derived_data/1_UKB_GWAS/partitions/UKB_part${part}_eid.txt"
 	declare snpidtype_UKB${part}="rs"
 done
 
+##----------------------------------------------------------##
+
 P=1
 
+##############################################################
 
 LDpred(){
 	fileList=$1
@@ -42,7 +45,7 @@ LDpred(){
 	mkdir -p logs
 
 	eval snpidtype='$'snpidtype_${cohort}
-	eval LDgf='$'p9_LDgf_${snpidtype}
+	eval LDgf='$'HRC_LDgf_${snpidtype}
 	eval valbim='$'valbim_${cohort}
 
 	if [[ $snpidtype == "rs" ]]; then

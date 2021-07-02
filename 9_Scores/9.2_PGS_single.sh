@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source paths9
-
 for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCTFR STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS
 do
     rm -f $mainDir/code/9_Scores/ss_single_${cohort}

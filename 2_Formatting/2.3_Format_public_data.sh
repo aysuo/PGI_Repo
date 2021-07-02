@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source paths2
+source $mainDir/code/paths
 export R_LIBS=$Rlib:$R_LIBS
 
 cd $mainDir/derived_data/2_Formatted/public
@@ -268,7 +268,7 @@ for file in ALZ-Kunkle.txt ADHD-Demontis.txt EXTRA-vandenBerg.txt OPEN-deMoor.tx
 	awk -F"\t" 'NR==FNR{ref[$1]=$3;raf[$1]=$5;next} \
 	FNR==1{print;next} \
 	FNR>1 && $1 in ref && ref[$1]==$4{$6=raf[$1];print;next}
-	FNR>1 && $1 in ref && ref[$1]==$5{$6=1-raf[$1];print}' OFS="\t" $p2_HRCref tmp/tmp_$file > $file &
+	FNR>1 && $1 in ref && ref[$1]==$5{$6=1-raf[$1];print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
 done
 wait
 mv OPEN-GPC1.txt tmp/tmp_OPEN-GPC1.txt
@@ -278,7 +278,7 @@ for file in NEURO-deMoor.txt MENARCHE-Day.txt; do
 	awk -F"\t" 'NR==FNR{rs[$2]=$1;ref[$2]=$3;raf[$2]=$5;next} \
 	FNR==1{print;next} \
 	FNR>1 && $1 in ref && ref[$1]==$4{$6=raf[$1];$1=rs[$1];print;next}
-	FNR>1 && $1 in ref && ref[$1]==$5{$6=1-raf[$1];$1=rs[$1];print}' OFS="\t" $p2_HRCref tmp/tmp_$file > $file &
+	FNR>1 && $1 in ref && ref[$1]==$5{$6=1-raf[$1];$1=rs[$1];print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
 done 
 wait
 mv MENARCHE-Day.txt tmp/tmp_MENARCHE-Day.txt
@@ -288,7 +288,7 @@ mv MENARCHE-Day.txt tmp/tmp_MENARCHE-Day.txt
 ## Missing CHR/BP
 for file in BMI-Locke.txt MENARCHE-Perry.txt HEIGHT-Wood.txt EVERSMOKE-Furberg.txt CPD-Furberg.txt OPEN-deMoor.txt; do
 	awk -F"\t" 'NR==FNR{ChrPosID[$1]=$2;next} \
-		FNR==1{print;next} FNR>1 && $1 in ChrPosID {split(ChrPosID[$1],a,":");$2=a[1];$3=a[2];print}' OFS="\t" $p2_HRCref tmp/tmp_$file > $file &
+		FNR==1{print;next} FNR>1 && $1 in ChrPosID {split(ChrPosID[$1],a,":");$2=a[1];$3=a[2];print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
 done
 mv MENARCHE-Perry.txt tmp/tmp_MENARCHE-Perry.txt
 

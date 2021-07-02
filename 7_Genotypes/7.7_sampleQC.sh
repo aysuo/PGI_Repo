@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source paths7
-
 for cohort in AH Dunedin EGCUT ERisk ELSA HRS2 HRS3 MCTFR STRpsych STRtwge STRyatssstage Texas WLS; do
     declare gf_${cohort}_hm3="$mainDir/derived_data/7_Genotypes/$cohort/plink/HM3/${cohort}_HM3"
 done

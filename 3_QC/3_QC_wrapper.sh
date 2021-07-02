@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source paths3
+source $mainDir/code/paths
 
 cd $mainDir/derived_data/3_QCd
 export R_LIBS=$Rlib/:$R_LIBS
@@ -61,8 +61,8 @@ easyQC(){
 		--cutoff_INFO 0.7 \
 		--XY 0 \
 		--INDEL 0 \
-		--cptref $p3_cptref \
-		--afref $p3_afref \
+		--cptref $HRC_EasyQC_cptref \
+		--afref $HRC_EasyQC_afref \
 		--snpStd 0 \
 		--cutoff_SE $cutoff_SE \
 		--SDy $SDy > $outDir/QC_${pheno}_$(date +"%Y_%m_%d").log &
@@ -106,7 +106,7 @@ qcPlots(){
 		echo "Processing $pheno.."
 		Rscript $mainDir/code/3_QC/3.2_QCplots.R \
 		--file $file \
-		--ref $p3_qcplotsRef \
+		--ref $HRC_qcplotsRef \
 		--sdy 1 >> $outDir/QC_${pheno}_$(date +"%Y_%m_%d").log &
 
 		let i+=1

@@ -1,12 +1,12 @@
 #!/bin/bash
-source paths10
+source $mainDir/code/paths
 cd $mainDir/derived_data/10_Prediction
 
 #-------------------------------------------------------------------------#
 
 # WLS
 stata -b $mainDir/code/10_Prediction/10.1.0_save_WLS.do \
-    $WLSpheno
+    $WLS_pheno_data
 
 Rscript $mainDir/code/10_Prediction/10.1.1_construct_WLS_phenotypes.R
 

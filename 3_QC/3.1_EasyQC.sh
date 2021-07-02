@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source paths3
+source $mainDir/code/paths
 export R_LIBS=$Rlib/:$R_LIBS
 
 ## To do: Add option for other effect types (e.g. OR, logOR, etc)
@@ -39,11 +39,11 @@ echo "Usage:
        --cutoff_N <N cutoff>
        --XY <1 if sex chromosomes are to be kept, 0 otherwise, default = 0>
        --INDEL <1 if INDELs are to be kept, 0 otherwise, default = 0>
-       --cptref <cptid reference file path, default = $p3_cptref>
+       --cptref <cptid reference file path, default = $HRC_EasyQC_cptref>
        --cptref_marker <marker name in cptid reference file, default = rsid>
        --cptref_chr <chr name in cptid reference file, default = chr>
        --cptref_bp <bp name in cptid reference file, default = pos>
-       --afref <allele freq reference file path, default = $p3_afref>
+       --afref <allele freq reference file path, default = $HRC_EasyQC_afref>
        --afref_marker <marker name in allele freq reference file, default = cptid>
        --afref_ref  <reference allele name in allele freq reference file, default = ref>
        --afref_alt  <alternative allele name in allele freq reference file, default = alt>
@@ -481,7 +481,7 @@ else
 fi
 
 if [[ -z $cptref ]]; then
-  cptref=$p3_cptref
+  cptref=$HRC_EasyQC_cptref
 fi
 echo "Reference file to obtain cptid's: $cptref ."
 
@@ -501,7 +501,7 @@ fi
 echo "Base pair name in cptid reference file: $cptref_bp ."
 
 if [[ -z $afref ]]; then
-  afref=$p3_afref
+  afref=$HRC_EasyQC_afref
 fi
 echo "Allele frequency reference file: $afref ."
 

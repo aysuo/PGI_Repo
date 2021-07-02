@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source paths4 
 source $mainDir/code/4_MTAG_single/4.0_MTAG_single_functions.sh
 
 cd $mainDir/derived_data/4_MTAG_single

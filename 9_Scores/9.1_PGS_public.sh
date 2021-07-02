@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source paths9
-
 # Get list of sumstats: Pheno name on first column (e.g. SWB-Okbay), file path on second
 for cohort in Dunedin ERisk HRS2 WLS UKB3; 
 do

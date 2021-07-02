@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source paths12
 source $mainDir/code/4_MTAG_single/4.0_MTAG_single_functions.sh
 source $mainDir/code/2_Formatting/2.5.1_Format_MTAG.sh
 

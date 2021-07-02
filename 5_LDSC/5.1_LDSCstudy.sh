@@ -1,8 +1,6 @@
 #!/bin/bash
 
-source paths5
 source $mainDir/code/5_LDSC/5.0_LDSCfunctions.sh
-
 
 LDSC_study() {
     fileList=$1

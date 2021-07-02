@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source paths8
+source $mainDir/code/paths
 
 for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCTFR Texas STRpsych STRtwge STRyatssstage WLS; do
     declare gf_${cohort}_plink2="$mainDir/derived_data/7_Genotypes/${cohort}/plink2/${cohort}_chr[1:22]"
@@ -13,7 +13,7 @@ done
 filterInfo(){
     cohort=$1
 
-    eval info='$'p8_info_${cohort}
+    eval info='$'info_orig_${cohort}
 
     rm -f $mainDir/derived_data/8_PCs/${cohort}/${cohort}_info70.snps
     for chr in {1..22}; do

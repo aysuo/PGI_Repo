@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source paths2
+source $mainDir/code/paths
 export R_LIBS=$Rlib:$R_LIBS
 
 cd $mainDir/derived_data/2_Formatted/public_scores
@@ -209,7 +209,7 @@ for file in EA-Rietveld.txt; do
 	awk -F"\t" 'NR==FNR{ref[$1]=$3;raf[$1]=$5;next} \
 	FNR==1{print;next} \
 	FNR>1 && $1 in ref && ref[$1]==$4{$6=raf[$1];print;next}
-	FNR>1 && $1 in ref && ref[$1]==$5{$6=1-raf[$1];print}' OFS="\t" $p2_HRCref tmp/$file > $file &
+	FNR>1 && $1 in ref && ref[$1]==$5{$6=1-raf[$1];print}' OFS="\t" $HRC_raf tmp/$file > $file &
 done
 mv EA-Rietveld.txt tmp/EA-Rietveld.txt
 
@@ -226,7 +226,7 @@ mv EA-Rietveld.txt tmp/EA-Rietveld.txt
 ## Missing CHR/BP
 for file in EA-Rietveld.txt DEP-Howard.txt; do
 	awk -F"\t" 'NR==FNR{ChrPosID[$1]=$2;next} \
-		FNR==1{print;next} FNR>1 && $1 in ChrPosID {split(ChrPosID[$1],a,":");$2=a[1];$3=a[2];print}' OFS="\t" $p2_HRCref tmp/$file > $file &
+		FNR==1{print;next} FNR>1 && $1 in ChrPosID {split(ChrPosID[$1],a,":");$2=a[1];$3=a[2];print}' OFS="\t" $HRC_raf tmp/$file > $file &
 done
 wait
 

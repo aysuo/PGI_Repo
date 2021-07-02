@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source paths11
-
 cd $mainDir/derived_data/11_Figures/PGI_histograms
 
 for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCTFR STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS

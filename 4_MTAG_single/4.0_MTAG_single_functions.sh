@@ -1,4 +1,5 @@
 #!/bin/bash
+source $mainDir/code/paths
 
 MTAG_single(){
   pheno=$1
@@ -8,7 +9,7 @@ MTAG_single(){
   echo " "
   echo "Running single-trait MTAG for $pheno.."
   echo " "
-  python2.7 ${mtag} \
+  ${python} ${mtag} \
     --sumstats ${sumstats} \
     --out ${out} \
     --snp_name SNPID \

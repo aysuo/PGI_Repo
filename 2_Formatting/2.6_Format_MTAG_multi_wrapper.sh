@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source paths2
 source $mainDir/code/2_Formatting/2.5.1_Format_MTAG.sh
 
 cd $mainDir/derived_data/6_MTAG_multi

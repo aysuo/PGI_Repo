@@ -1,7 +1,6 @@
 #!/bin/bash
 
-source paths7
-
+source $mainDir/code/paths
 
 oxford2plink2(){
     gfIn=$1
@@ -60,7 +59,7 @@ subsetHM3(){
     if ! [[ $gfIn == *UKB* ]]; then
         sampleKeep=$(echo "$gfIn.psam" | sed "s/\[1:22\]/1/g")
     else
-        shuf -n1000 $sample_UKB3 > $gfOut.sample
+        shuf -n1000 $sample_orig_UKB3 > $gfOut.sample
         sampleKeep=$gfOut.sample
     fi
 
@@ -138,13 +137,13 @@ main () {
         mkdir -p $mainDir/derived_data/7_Genotypes/$cohort/plink/HM3
     done
 
-    vcf2plink2 "${p7_gf_1000G}" $mainDir/derived_data/7_Genotypes/1000G/plink2/1000Gph3 rsID
+    vcf2plink2 "${gf_orig_1000G}" $mainDir/derived_data/7_Genotypes/1000G/plink2/1000Gph3 rsID
     subsetHM3  $mainDir/derived_data/7_Genotypes/1000G/plink2/1000Gph3_chr[1:22] rsID $mainDir/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3
     rs2chrpos $mainDir/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3 $mainDir/derived_data/7_Genotypes/1000G/plink/HM3/1000Gph3_HM3_chrpos
 
     for cohort in HRS2; do
-        eval gf='$'p7_gf_${cohort} 
-        eval sample='$'p7_sample_${cohort}
+        eval gf='$'gf_orig_${cohort} 
+        eval sample='$'sample_orig_${cohort}
         oxford2plink2 "$gf" $sample $mainDir/derived_data/7_Genotypes/$cohort/plink2/$cohort
         kgp2rs $mainDir/derived_data/7_Genotypes/$cohort/plink2/$cohort $mainDir/derived_data/7_Genotypes/$cohort/plink2/$cohort.tmp
         rename ".tmp" "" $mainDir/derived_data/7_Genotypes/$cohort/plink2/*
@@ -152,19 +151,19 @@ main () {
     done
 
     for cohort in WLS; do
-        eval gf='$'p7_gf_${cohort} 
-        eval sample='$'p7_sample_${cohort}
+        eval gf='$'gf_orig_${cohort} 
+        eval sample='$'sample_orig_${cohort}
         oxford2plink2 "$gf" $sample $mainDir/derived_data/7_Genotypes/$cohort/plink2/$cohort
         subsetHM3 $mainDir/derived_data/7_Genotypes/$cohort/plink2/${cohort}_chr[1:22] rsID $mainDir/derived_data/7_Genotypes/$cohort/plink/HM3/${cohort}_HM3
     done
 
     for cohort in AH Dunedin EGCUT ELSA ERisk HRS3 MCTFR Texas STRpsych STRtwge STRyatssstage; do
-        eval gf='$'p7_gf_${cohort} 
+        eval gf='$'gf_orig_${cohort} 
         vcf2plink2 "${gf}" $mainDir/derived_data/7_Genotypes/$cohort/plink2/$cohort ChrPosID
         subsetHM3 $mainDir/derived_data/7_Genotypes/$cohort/plink2/${cohort}_chr[1:22] ChrPosID $mainDir/derived_data/7_Genotypes/$cohort/plink/HM3/${cohort}_HM3
     done
 
-    subsetHM3 $p7_gf_UKB rsID $mainDir/derived_data/7_Genotypes/$cohort/plink/HM3/${cohort}_HM3
+    subsetHM3 $gf_orig_UKB rsID $mainDir/derived_data/7_Genotypes/$cohort/plink/HM3/${cohort}_HM3
     
 }
 

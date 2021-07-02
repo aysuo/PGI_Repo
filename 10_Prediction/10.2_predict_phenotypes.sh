@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source paths10
 cd $mainDir/derived_data/10_Prediction
 
 # Get descriptives

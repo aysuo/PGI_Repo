@@ -1,8 +1,4 @@
-
-
 #!/bin/bash
-
-source paths2
 
 cd $mainDir/pgs
 

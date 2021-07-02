@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source paths1
+source $mainDir/code/paths
 
 cd $mainDir/derived_data/1_UKB_GWAS
 mkdir -p output
@@ -37,11 +37,11 @@ run_BOLTLMM(){
 
     nohup ${bolt}/bolt --lmm \
       --LDscoresFile=${bolt}/tables/LDSCORE.1000G_EUR.tab.gz \
-      --fam=${p1_gf_fam} \
-      --bed=${p1_gf_bed} \
-      --bim=${p1_gf_bim} \
-      --bgenFile=${p1_gf_bgen} \
-      --sampleFile=${p1_gf_sample} \
+      --fam=${UKB_model_fam} \
+      --bed=${UKB_model_bed} \
+      --bim=${UKB_model_bim} \
+      --bgenFile=${UKB_bgen} \
+      --sampleFile=${UKB_bgen_sample} \
       --numThreads=${num_Threads} \
       --bgenMinMAF=${bgen_MAF} \
       --bgenMinINFO=${bgen_INFO} \

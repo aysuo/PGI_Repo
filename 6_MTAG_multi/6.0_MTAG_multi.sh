@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+source $mainDir/code/paths
 cd $mainDir/derived_data/6_MTAG_multi
 
 MTAG_multi(){
@@ -10,7 +10,7 @@ MTAG_multi(){
   echo " "
   echo "Running multi-trait MTAG for $pheno.."
   echo " "
-  python2.7 ${mtag} \
+  ${python} ${mtag} \
     --sumstats ${sumstats} \
     --out ${pheno}/${pheno} \
     --snp_name SNPID \

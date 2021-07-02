@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source paths5
+source $mainDir/code/paths
 
 ldsc_munge () {
     ss=$1
@@ -10,7 +10,7 @@ ldsc_munge () {
 	$python ${LDSC}/munge_sumstats.py \
 		--sumstats ${ss} \
 		--out ${out} \
-		--merge-alleles ${hm3snps}
+		--merge-alleles ${HM3_rsID}
 }
 
 ldsc_h2 () {

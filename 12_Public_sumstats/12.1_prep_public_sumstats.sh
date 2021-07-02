@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source paths12
+source $mainDir/code/paths
 
 cd $mainDir/derived_data/12_Public_sumstats
 mkdir -p single multi public
 
-gunzip -c $p12_afref > afref.tmp
-sed 's/\t/ /g' $p12_cptref > cptref.tmp
+gunzip -c $HRC_EasyQC_afref > afref.tmp
+sed 's/\t/ /g' $HRC_rsid2chrpos_map > cptref.tmp
 
 # Clumping function
 clump(){
@@ -15,7 +15,7 @@ clump(){
     version=$3
 
     for chr in {1..22}; do
-        plink1.9 --bfile ${p12_LDgf}_chr$chr \
+        plink1.9 --bfile ${HRC_LDgf_full}_chr$chr \
         --clump $ss \
         --clump-snp-field SNPID \
         --clump-p1 0.01 \

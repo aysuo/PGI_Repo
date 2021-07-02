@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source paths2
-
 cd $mainDir/derived_data/2_Formatted/23andMe
 
 for version in 3.0 4.0 4.1 5.0 5.1 5.2 6.1 7.0; do
