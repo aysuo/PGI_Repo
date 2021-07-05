@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $mainDir/code/paths
+source $PGI_Repo/code/paths
 export R_LIBS=$Rlib/:$R_LIBS
 
 ## To do: Add option for other effect types (e.g. OR, logOR, etc)

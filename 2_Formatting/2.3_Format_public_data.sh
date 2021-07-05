@@ -1,9 +1,9 @@
 #!/bin/bash
 
-source $mainDir/code/paths
+source $PGI_Repo/code/paths
 export R_LIBS=$Rlib:$R_LIBS
 
-cd $mainDir/derived_data/2_Formatted/public
+cd $PGI_Repo/derived_data/2_Formatted/public
 mkdir tmp
 
 #------------------------------------------------------------------------------------------------------------#
@@ -11,44 +11,44 @@ mkdir tmp
 #------------------------------------------------------------------------------------------------------------#
 
 # Get openness from GPC1, remove rest 
-mv $mainDir/original_data/public/GPC-1.BigFiveNEO.zip?dl=0 $mainDir/original_data/public/GPC-1.BigFiveNEO.zip
-unzip $mainDir/original_data/public/GPC-1.BigFiveNEO.zip
+mv $PGI_Repo/original_data/public/GPC-1.BigFiveNEO.zip?dl=0 $PGI_Repo/original_data/public/GPC-1.BigFiveNEO.zip
+unzip $PGI_Repo/original_data/public/GPC-1.BigFiveNEO.zip
 rm GPC-1.NEO-CONSCIENTIOUSNESS.full.txt  GPC-1.NEO-NEUROTICISM.full.txt GPC-1.NEO-AGREEABLENESS.full.txt  GPC-1.NEO-EXTRAVERSION.full.txt
 
 #-----------------------------------#
 ## Decompress and rename
-gunzip -c $mainDir/original_data/public/ADHD-adhd_eur_jun2017.gz > tmp/ADHD-Demontis.txt &
-gunzip -c $mainDir/original_data/public/AFBpooled-AgeFirstBirth_Pooled.txt.gz > tmp/AFB-Barban.txt &
-gunzip -c $mainDir/original_data/public/AstEczRhi-SHARE-without23andMe.LDSCORE-GC.SE-META.v0.gz > tmp/ASTECZRHI-Ferreira.txt &
-gunzip -c $mainDir/original_data/public/BMI-SNP_gwas_mc_merge_nogc.tbl.uniq.gz > tmp/BMI-Locke.txt &
-gunzip -c $mainDir/original_data/public/CPD-tag.cpd.tbl.gz > tmp/CPD-Furberg.txt &
-gunzip -c $mainDir/original_data/public/CigarettesPerDay.txt.gz?sequence=31 > tmp/CPD.txt.gz &
-gunzip -c $mainDir/original_data/public/EVERSMOKE-tag.evrsmk.tbl.gz > tmp/EVERSMOKE-Furberg.txt &
-gunzip -c $mainDir/original_data/public/SmokingInitiation.txt.gz?sequence=34 > tmp/EVERSMOKE-Liu.txt.gz
-gunzip -c $mainDir/original_data/public/KP_DEPR_BETA_EAF.txt.gz > tmp/DEP-GERA.txt &
-gunzip -c $mainDir/original_data/public/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.gz > tmp/DEP-PGC.txt &
-gunzip -c $mainDir/original_data/public/DrinksPerWeek.txt.gz?sequence=32 > tmp/DPW-Liu.txt.gz
-gunzip -c $mainDir/original_data/public/Doherty-2018-NatureComms-overall-activity.csv.gz > tmp/ACTIVITY-Doherty.txt &
-gunzip -c $mainDir/original_data/public/HEIGHT-GIANT_HEIGHT_Wood_et_al_2014_publicrelease_HapMapCeuFreq.txt.gz > tmp/HEIGHT-Wood.txt &
-gunzip -c $mainDir/original_data/public/Intelligence-cogent.hrc.meta.chr.bp.rsid.assoc.full.gz > tmp/CP-COGENT.txt &
-gunzip -c $mainDir/original_data/public/NEBmen-NumberChildrenEverBorn_Male.txt.gz > tmp/NEBmen-Barban.txt &
-gunzip -c $mainDir/original_data/public/NEBwomen-NumberChildrenEverBorn_Female.txt.gz > tmp/NEBwomen-Barban.txt &
-gunzip -c $mainDir/original_data/public/RISK_GWAS_MA_Nweighted_ID15_2017_08_06.tbl.gz > tmp/RISK-Linner.txt &
-gunzip -c $mainDir/original_data/public/SWB_excl_PGSrepo_ldscGC.meta.gz > tmp/SWB-Okbay.txt &
+gunzip -c $PGI_Repo/original_data/public/ADHD-adhd_eur_jun2017.gz > tmp/ADHD-Demontis.txt &
+gunzip -c $PGI_Repo/original_data/public/AFBpooled-AgeFirstBirth_Pooled.txt.gz > tmp/AFB-Barban.txt &
+gunzip -c $PGI_Repo/original_data/public/AstEczRhi-SHARE-without23andMe.LDSCORE-GC.SE-META.v0.gz > tmp/ASTECZRHI-Ferreira.txt &
+gunzip -c $PGI_Repo/original_data/public/BMI-SNP_gwas_mc_merge_nogc.tbl.uniq.gz > tmp/BMI-Locke.txt &
+gunzip -c $PGI_Repo/original_data/public/CPD-tag.cpd.tbl.gz > tmp/CPD-Furberg.txt &
+gunzip -c $PGI_Repo/original_data/public/CigarettesPerDay.txt.gz?sequence=31 > tmp/CPD.txt.gz &
+gunzip -c $PGI_Repo/original_data/public/EVERSMOKE-tag.evrsmk.tbl.gz > tmp/EVERSMOKE-Furberg.txt &
+gunzip -c $PGI_Repo/original_data/public/SmokingInitiation.txt.gz?sequence=34 > tmp/EVERSMOKE-Liu.txt.gz
+gunzip -c $PGI_Repo/original_data/public/KP_DEPR_BETA_EAF.txt.gz > tmp/DEP-GERA.txt &
+gunzip -c $PGI_Repo/original_data/public/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.gz > tmp/DEP-PGC.txt &
+gunzip -c $PGI_Repo/original_data/public/DrinksPerWeek.txt.gz?sequence=32 > tmp/DPW-Liu.txt.gz
+gunzip -c $PGI_Repo/original_data/public/Doherty-2018-NatureComms-overall-activity.csv.gz > tmp/ACTIVITY-Doherty.txt &
+gunzip -c $PGI_Repo/original_data/public/HEIGHT-GIANT_HEIGHT_Wood_et_al_2014_publicrelease_HapMapCeuFreq.txt.gz > tmp/HEIGHT-Wood.txt &
+gunzip -c $PGI_Repo/original_data/public/Intelligence-cogent.hrc.meta.chr.bp.rsid.assoc.full.gz > tmp/CP-COGENT.txt &
+gunzip -c $PGI_Repo/original_data/public/NEBmen-NumberChildrenEverBorn_Male.txt.gz > tmp/NEBmen-Barban.txt &
+gunzip -c $PGI_Repo/original_data/public/NEBwomen-NumberChildrenEverBorn_Female.txt.gz > tmp/NEBwomen-Barban.txt &
+gunzip -c $PGI_Repo/original_data/public/RISK_GWAS_MA_Nweighted_ID15_2017_08_06.tbl.gz > tmp/RISK-Linner.txt &
+gunzip -c $PGI_Repo/original_data/public/SWB_excl_PGSrepo_ldscGC.meta.gz > tmp/SWB-Okbay.txt &
 wait
 #-----------------------------------#
 
 #-----------------------------------#
 # Copy into tmp and rename
-cp $mainDir/original_data/public/AGEFIRSTMENSES-Menarche_1KG_NatGen2017_WebsiteUpload.txt tmp/MENARCHE-Day.txt &
-cp $mainDir/original_data/public/AGEFIRSTMENSES-Menarche_Nature2014_GWASMetaResults_17122014.txt tmp/MENARCHE-Perry.txt &
-cp $mainDir/original_data/public/Kunkle_etal_Stage1_results.txt?file=1 tmp/ALZ-Kunkle.txt &
-cp $mainDir/original_data/public/EA3_excl_UKB.meta tmp/EA-LeeExclUKB.txt &
-cp $mainDir/original_data/public/EA3_PGSrepo.meta tmp/EA-LeeExclPGIrepo.txt &
-cp $mainDir/original_data/public/GPC-2.EXTRAVERSION.full.txt tmp/EXTRA-vandenBerg.txt &
-cp $mainDir/original_data/public/META_NEUROTICISM_ALLIwv_iwv_20150402_1.dat tmp/NEURO-deMoor.txt &
-cp $mainDir/original_data/public/GPC-1.NEO-OPENNESS.full.txt tmp/OPEN-deMoor.txt &
-cp $mainDir/original_data/public/CCI_discovery_MA_13_samples_07-18-2015_rs.txt.txt tmp/CANNABIS-Stringer.txt &
+cp $PGI_Repo/original_data/public/AGEFIRSTMENSES-Menarche_1KG_NatGen2017_WebsiteUpload.txt tmp/MENARCHE-Day.txt &
+cp $PGI_Repo/original_data/public/AGEFIRSTMENSES-Menarche_Nature2014_GWASMetaResults_17122014.txt tmp/MENARCHE-Perry.txt &
+cp $PGI_Repo/original_data/public/Kunkle_etal_Stage1_results.txt?file=1 tmp/ALZ-Kunkle.txt &
+cp $PGI_Repo/original_data/public/EA3_excl_UKB.meta tmp/EA-LeeExclUKB.txt &
+cp $PGI_Repo/original_data/public/EA3_PGSrepo.meta tmp/EA-LeeExclPGIrepo.txt &
+cp $PGI_Repo/original_data/public/GPC-2.EXTRAVERSION.full.txt tmp/EXTRA-vandenBerg.txt &
+cp $PGI_Repo/original_data/public/META_NEUROTICISM_ALLIwv_iwv_20150402_1.dat tmp/NEURO-deMoor.txt &
+cp $PGI_Repo/original_data/public/GPC-1.NEO-OPENNESS.full.txt tmp/OPEN-deMoor.txt &
+cp $PGI_Repo/original_data/public/CCI_discovery_MA_13_samples_07-18-2015_rs.txt.txt tmp/CANNABIS-Stringer.txt &
 wait
 #-----------------------------------#
 
@@ -57,13 +57,13 @@ wait
 # Per-chromosome files, no header (get from readme)
 # Header: SNP (rs-number, or CHR:BP position on build GRCh37 if no rs-number was available), Allele1 (effect allele), Allele2 (reference allele), MAF (minor allele frequency), Effect (beta regression coefficient from the meta-analysis), StdErr (standard error), P (p-value), Direction (direction of the effect per sample, order: ICC, [23andMe,] UKB), Chr (position on chromosome), Bp (position in basepairs), and N (sample size, depending on in how many samples this SNP was present).
 awk 'BEGIN{OFS="\t";print "SNPID","EFFECT_ALLELE","OTHER_ALLELE","MAF","BETA","SE","P","CHR","BP","N"} \
-{print $1,$2,$3,$4,$5,$6,$7,$9,$10,$11}' $mainDir/original_data/public/Pasman_cannabis/cannabis_icc_ukb_chr*.txt > tmp/CANNABIS-Pasman.txt
+{print $1,$2,$3,$4,$5,$6,$7,$9,$10,$11}' $PGI_Repo/original_data/public/Pasman_cannabis/cannabis_icc_ukb_chr*.txt > tmp/CANNABIS-Pasman.txt
 #-----------------------------------#
 
 #-----------------------------------#
 # CP-UKB
 # Tar file, per chromosome
-tar -xzf $mainDir/original_data/public/Intelligence-IQ_BOLT_LMM_UKB_v2_BGEN.tar.gz
+tar -xzf $PGI_Repo/original_data/public/Intelligence-IQ_BOLT_LMM_UKB_v2_BGEN.tar.gz
 awk -F"\t" 'NR==1{print}NR>1 && $1!="SNP"{print}' OFS="\t" IQ_BOLT_LMM_UKB_v2_BGEN_Chr* > tmp/CP-UKB.txt
 rm IQ_BOLT_LMM_UKB_v2_BGEN_Chr*
 #-----------------------------------#
@@ -296,7 +296,7 @@ mv MENARCHE-Perry.txt tmp/tmp_MENARCHE-Perry.txt
 
 ## Missing SE
 for file in MENARCHE-Day.txt MENARCHE-Perry.txt; do
-	Rscript $mainDir/code/2_Formatting/2.3.1_Add_SE.R $mainDir/derived_data/2_Formatted/public/tmp/tmp_$file $mainDir/derived_data/2_Formatted/public/$file &
+	Rscript $PGI_Repo/code/2_Formatting/2.3.1_Add_SE.R $PGI_Repo/derived_data/2_Formatted/public/tmp/tmp_$file $PGI_Repo/derived_data/2_Formatted/public/$file &
 done
 wait
 

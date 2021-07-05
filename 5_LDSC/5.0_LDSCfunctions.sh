@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $mainDir/code/paths
+source $PGI_Repo/code/paths
 
 ldsc_munge () {
     ss=$1

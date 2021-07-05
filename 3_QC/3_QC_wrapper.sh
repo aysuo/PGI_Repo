@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source $mainDir/code/paths
+source $PGI_Repo/code/paths
 
-cd $mainDir/derived_data/3_QCd
+cd $PGI_Repo/derived_data/3_QCd
 export R_LIBS=$Rlib/:$R_LIBS
 
 # EasyQC SNP filtering
@@ -23,17 +23,17 @@ easyQC(){
 		if [[ $SEfilter == 0 ]]; then
 			cutoff_SE=100
 			SDy=1
-			outDir=$mainDir/derived_data/3_QCd/$cohort
+			outDir=$PGI_Repo/derived_data/3_QCd/$cohort
 		else
-			mkdir -p $mainDir/derived_data/3_QCd/$cohort/SEfilter
+			mkdir -p $PGI_Repo/derived_data/3_QCd/$cohort/SEfilter
 			cutoff_SE=2
-			SDy=$(sed -n '/^SE_reg/p' $mainDir/derived_data/3_QCd/$cohort/QC_${pheno}_*/CLEANED.*.log  | awk '{print $2}')
-			outDir=$mainDir/derived_data/3_QCd/$cohort/SEfilter
+			SDy=$(sed -n '/^SE_reg/p' $PGI_Repo/derived_data/3_QCd/$cohort/QC_${pheno}_*/CLEANED.*.log  | awk '{print $2}')
+			outDir=$PGI_Repo/derived_data/3_QCd/$cohort/SEfilter
 		fi
 
 		rm -r -f $outDir/QC_${pheno}_*
 		
-		nohup sh $mainDir/code/3_QC/3.1_EasyQC.sh \
+		nohup sh $PGI_Repo/code/3_QC/3.1_EasyQC.sh \
 		--fileIn $file \
 		--sep TAB \
 		--miss NA \
@@ -96,15 +96,15 @@ qcPlots(){
 	while read file; do
 		pheno=$(echo $file | rev | cut -f1 -d"/" | cut -d"." -f3 | rev )
 		if [[ $SEfilter == "1" ]]; then
-			outDir=$mainDir/derived_data/3_QCd/$cohort/SEfilter/
+			outDir=$PGI_Repo/derived_data/3_QCd/$cohort/SEfilter/
 		else
-			outDir=$mainDir/derived_data/3_QCd/$cohort
+			outDir=$PGI_Repo/derived_data/3_QCd/$cohort
 		fi
 
 		file=$(echo $outDir/QC_${pheno}_* | cut -d" " -f1)
 
 		echo "Processing $pheno.."
-		Rscript $mainDir/code/3_QC/3.2_QCplots.R \
+		Rscript $PGI_Repo/code/3_QC/3.2_QCplots.R \
 		--file $file \
 		--ref $HRC_qcplotsRef \
 		--sdy 1 >> $outDir/QC_${pheno}_$(date +"%Y_%m_%d").log &
@@ -135,8 +135,8 @@ checkStatus(){
 
 	echo "Checking status.."
 	
-	rm -f $mainDir/code/3_QC/${cohort}_${analysis}_status
-	rm -f $mainDir/code/3_QC/${cohort}_${analysis}_rerun
+	rm -f $PGI_Repo/code/3_QC/${cohort}_${analysis}_status
+	rm -f $PGI_Repo/code/3_QC/${cohort}_${analysis}_rerun
 	
 	status=1
 	while read file; do
@@ -146,9 +146,9 @@ checkStatus(){
 		eval targetN='$'{targetN_${analysis}}
 
 		if [[ $SEfilter == 0 ]]; then
-			inputDir="$mainDir/derived_data/3_QCd/$cohort"
+			inputDir="$PGI_Repo/derived_data/3_QCd/$cohort"
 		else
-			inputDir="$mainDir/derived_data/3_QCd/$cohort/SEfilter"
+			inputDir="$PGI_Repo/derived_data/3_QCd/$cohort/SEfilter"
 		fi
 
 		if ls $inputDir/QC_${pheno}_*/*png 1> /dev/null 2>&1; then
@@ -158,22 +158,22 @@ checkStatus(){
 		fi
 		
 		if [[ $Nplots < $targetN ]]; then
-			grep $pheno $fileList >> $mainDir/code/3_QC/${cohort}_${analysis}_rerun
+			grep $pheno $fileList >> $PGI_Repo/code/3_QC/${cohort}_${analysis}_rerun
 			echo "$analysis for $cohort $pheno was unsuccessful."
 			status=0
 		fi
 
 	done < $fileList
 
-	if [[ -f $mainDir/code/3_QC/${cohort}_${analysis}_rerun ]]; then
-		mv $mainDir/code/3_QC/${cohort}_${analysis}_rerun ${fileList}
+	if [[ -f $PGI_Repo/code/3_QC/${cohort}_${analysis}_rerun ]]; then
+		mv $PGI_Repo/code/3_QC/${cohort}_${analysis}_rerun ${fileList}
 	fi
 }
 
 
 QC(){
 	cohort=$1
-	inputDir=$mainDir/derived_data/2_Formatted/$cohort
+	inputDir=$PGI_Repo/derived_data/2_Formatted/$cohort
 
 	echo "----------------------------------------------------------------------"
 	echo -n "QC on $cohort started at"
@@ -184,7 +184,7 @@ QC(){
 	# First run without SE filter, use those results to estimate SDy with qcPlots()
 	# Then rerun with SE filter, using estimated SDy to calculate predicted SEs
 	for SEfilter in 0 1; do
-		ls -d $mainDir/derived_data/2_Formatted/$cohort/*.gz > $mainDir/code/3_QC/${cohort}_inputFileList
+		ls -d $PGI_Repo/derived_data/2_Formatted/$cohort/*.gz > $PGI_Repo/code/3_QC/${cohort}_inputFileList
 		pass=1
 		status=0
 
@@ -192,11 +192,11 @@ QC(){
 			echo "--------------------------------------------------"
 			echo "EasyQC pass $pass.."
 
-			checkStatus $mainDir/code/3_QC/${cohort}_inputFileList $cohort easyQC $SEfilter
+			checkStatus $PGI_Repo/code/3_QC/${cohort}_inputFileList $cohort easyQC $SEfilter
 			status=$status
 
 			if [[ $status == 0 ]]; then
-				easyQC $mainDir/code/3_QC/${cohort}_inputFileList $cohort $SEfilter
+				easyQC $PGI_Repo/code/3_QC/${cohort}_inputFileList $cohort $SEfilter
 				pass=$(($pass+1))
 			fi
 
@@ -214,18 +214,18 @@ QC(){
 		echo "--------------------------------------------------"
 		echo ""
 
-		ls -d $mainDir/derived_data/2_Formatted/$cohort/*.gz > $mainDir/code/3_QC/${cohort}_inputFileList
+		ls -d $PGI_Repo/derived_data/2_Formatted/$cohort/*.gz > $PGI_Repo/code/3_QC/${cohort}_inputFileList
 		pass=1
 		status=0
 
 		while [[ $status == 0 ]]; do
 			echo "qcPlots pass $pass :"
 			
-			checkStatus $mainDir/code/3_QC/${cohort}_inputFileList $cohort qcPlots $SEfilter
+			checkStatus $PGI_Repo/code/3_QC/${cohort}_inputFileList $cohort qcPlots $SEfilter
 			status=$status
 		
 			if [[ $status == 0 ]]; then
-				qcPlots $mainDir/code/3_QC/${cohort}_inputFileList $cohort $SEfilter
+				qcPlots $PGI_Repo/code/3_QC/${cohort}_inputFileList $cohort $SEfilter
 				pass=$(($pass+1))
 			fi
 
@@ -238,25 +238,25 @@ QC(){
 			echo "qcPlots could not be completed for $cohort - SE filter=$SEfilter . Check for errors in input files."
 		fi
 
-		rm $mainDir/code/3_QC/${cohort}_inputFileList
+		rm $PGI_Repo/code/3_QC/${cohort}_inputFileList
 
 		if [[ $SEfilter == 0 ]]; then
-			outDir=$mainDir/derived_data/3_QCd/$cohort
+			outDir=$PGI_Repo/derived_data/3_QCd/$cohort
 		else
-			outDir=$mainDir/derived_data/3_QCd/$cohort/SEfilter
+			outDir=$PGI_Repo/derived_data/3_QCd/$cohort/SEfilter
 		fi
 
 		# Copy QC plots and *.rep files into Results directory 
 		rm -r -f $outDir/Results
 		mkdir $outDir/Results
-		ls -d $outDir/QC_* > $mainDir/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
+		ls -d $outDir/QC_* > $PGI_Repo/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
 		while read dir; do
 			if [[ -d $dir ]]; then
 				cat ${dir}/*.rep >> $outDir/Results/${cohort}_SE${SEfilter}_easyQC_rep.txt
 				cp ${dir}/*.png $outDir/Results
 			fi
-		done < $mainDir/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
-		rm $mainDir/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
+		done < $PGI_Repo/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
+		rm $PGI_Repo/code/3_QC/${cohort}_SE${SEfilter}_QCdirs
 
 
 	done	

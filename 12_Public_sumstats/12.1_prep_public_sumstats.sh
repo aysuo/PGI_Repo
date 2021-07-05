@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source $mainDir/code/paths
+source $PGI_Repo/code/paths
 
-cd $mainDir/derived_data/12_Public_sumstats
+cd $PGI_Repo/derived_data/12_Public_sumstats
 mkdir -p single multi public
 
 gunzip -c $HRC_EasyQC_afref > afref.tmp
@@ -45,31 +45,31 @@ clump(){
 
 ### Single-trait sumstats
 for SSversion in clump gwide LDpred; do
-    rm -f $mainDir/code/12_Public_sumstats/ss_${SSversion}_single
+    rm -f $PGI_Repo/code/12_Public_sumstats/ss_${SSversion}_single
     
     while read pheno; do
         mkdir -p single/$pheno
         if [[ $SSversion == "LDpred" ]]; then
             phenoNoNum=$(echo $pheno | sed 's/[1-9]//g')
-            if [[ -f  $mainDir/derived_data/9_Scores/single/weights/AH_${phenoNoNum}-single_weights_LDpred_p1.0000e+00.txt ]]; then
+            if [[ -f  $PGI_Repo/derived_data/9_Scores/single/weights/AH_${phenoNoNum}-single_weights_LDpred_p1.0000e+00.txt ]]; then
                 maxNsnp=0
                 for cohort in AH Dunedin ELSA ERisk Texas WLS; do
-                    Nsnp=$(wc -l $mainDir/derived_data/9_Scores/single/weights/${cohort}_${phenoNoNum}-single_weights_LDpred_p1.0000e+00.txt | cut -d" " -f1)
+                    Nsnp=$(wc -l $PGI_Repo/derived_data/9_Scores/single/weights/${cohort}_${phenoNoNum}-single_weights_LDpred_p1.0000e+00.txt | cut -d" " -f1)
                     if [[ $Nsnp > $maxNsnp ]]; then
                         maxNsnp=$Nsnp
                         maxNsnpCohort=$cohort
                     fi
                 done
-                ss="$mainDir/derived_data/9_Scores/single/weights/${maxNsnpCohort}_${phenoNoNum}-single_weights_LDpred_p1.0000e+00.txt"
+                ss="$PGI_Repo/derived_data/9_Scores/single/weights/${maxNsnpCohort}_${phenoNoNum}-single_weights_LDpred_p1.0000e+00.txt"
             else
                 ss="NA"
             fi
         elif ! [[ $pheno = *_excl_23andMe ]]; then
             trait=$(awk -F"\t" -v pheno=$pheno '$1==pheno{print $2}' ../5_LDSC/singleMTAG/ER2_table_full.txt)
-            ss="$mainDir/derived_data/4_MTAG_single/$pheno/${pheno}_trait_${trait}_formatted.txt"
+            ss="$PGI_Repo/derived_data/4_MTAG_single/$pheno/${pheno}_trait_${trait}_formatted.txt"
         else 
             trait=1
-            ss="$mainDir/derived_data/12_Public_sumstats/single/$pheno/${pheno}_trait_${trait}_formatted.txt"
+            ss="$PGI_Repo/derived_data/12_Public_sumstats/single/$pheno/${pheno}_trait_${trait}_formatted.txt"
         fi
        
         if ! [[ $SSversion == "LDpred" ]] && ! [[ -f $ss ]]; then
@@ -77,7 +77,7 @@ for SSversion in clump gwide LDpred; do
         fi
 
         # Write version & sumstats into a file to keep record 
-        echo -e "$pheno\t$ss" >> $mainDir/code/12_Public_sumstats/ss_${SSversion}_single
+        echo -e "$pheno\t$ss" >> $PGI_Repo/code/12_Public_sumstats/ss_${SSversion}_single
 
         # clumped
         if ! [[ -f single/$pheno/${pheno}_lead_SNPs_p1e-2.txt ]] && [[ $SSversion == "clump" ]]; then
@@ -106,21 +106,21 @@ for SSversion in clump gwide LDpred; do
             echo "Genome-wide sumstats for single $pheno trait $trait copied."
         
         # genome-wide, LDpred
-        elif ! [[ -f $mainDir/derived_data/12_Public_sumstats/single/${pheno}/${pheno}_single_LDpred_weights.txt.gz ]] && [[ $SSversion == "LDpred" ]]; then
+        elif ! [[ -f $PGI_Repo/derived_data/12_Public_sumstats/single/${pheno}/${pheno}_single_LDpred_weights.txt.gz ]] && [[ $SSversion == "LDpred" ]]; then
             if ! [[ $ss == "NA" ]]; then
                 echo "Copying LDpred weights for single $pheno .."
 
                 awk 'NR==FNR{a[$2]=$1; next} \
                     FNR==1{print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","LDPRED_BETA"; next} \
                     $3 in a && $3 ~ ":" {$3=a[$3]} \
-                    {gsub(/chrom_/,"",$1); print $3,$1,$2,$4,$5,$7}' OFS="\t" cptref.tmp $ss > $mainDir/derived_data/12_Public_sumstats/single/${pheno}/${pheno}_single_LDpred_weights.txt
-                gzip $mainDir/derived_data/12_Public_sumstats/single/${pheno}/${pheno}_single_LDpred_weights.txt
+                    {gsub(/chrom_/,"",$1); print $3,$1,$2,$4,$5,$7}' OFS="\t" cptref.tmp $ss > $PGI_Repo/derived_data/12_Public_sumstats/single/${pheno}/${pheno}_single_LDpred_weights.txt
+                gzip $PGI_Repo/derived_data/12_Public_sumstats/single/${pheno}/${pheno}_single_LDpred_weights.txt
 
             else
                 echo "There are no LDpred weights for single $pheno, skipping.."
             fi            
          fi
-    done < $mainDir/code/12_Public_sumstats/version_${SSversion}_single
+    done < $PGI_Repo/code/12_Public_sumstats/version_${SSversion}_single
 done    
 
 
@@ -129,25 +129,25 @@ done
 ### Multi-trait sumstats
 while read pheno; do
     mkdir -p multi/$pheno
-    ss=$(echo $mainDir/derived_data/6_MTAG_multi/$pheno/${pheno}_trait_1_formatted.txt)
+    ss=$(echo $PGI_Repo/derived_data/6_MTAG_multi/$pheno/${pheno}_trait_1_formatted.txt)
 
     if ! [[ -f multi/$pheno/${pheno}_lead_SNPs_p1e-2.txt ]]; then
         echo "Clumping $pheno - multi.."
         clump $pheno $ss multi > multi/${pheno}.log
         echo "Clumping for $pheno - multi finished."
     fi
-done < $mainDir/code/12_Public_sumstats/version_clump_multi
+done < $PGI_Repo/code/12_Public_sumstats/version_clump_multi
 
 ##############################################################################
 
 ### Public sumstats
-cat $mainDir/code/12_Public_sumstats/../9_Scores/version_public_* | sort | uniq > $mainDir/code/12_Public_sumstats/version_LDpred_public 
-rm -f $mainDir/code/12_Public_sumstats/ss_LDpred_public
+cat $PGI_Repo/code/12_Public_sumstats/../9_Scores/version_public_* | sort | uniq > $PGI_Repo/code/12_Public_sumstats/version_LDpred_public 
+rm -f $PGI_Repo/code/12_Public_sumstats/ss_LDpred_public
 
 while read pheno; do
     mkdir -p public/$pheno
     maxNsnp=0
-    for file in $mainDir/derived_data/9_Scores/public/weights/*_${pheno}_weights_LDpred_p1.0000e+00.txt; do
+    for file in $PGI_Repo/derived_data/9_Scores/public/weights/*_${pheno}_weights_LDpred_p1.0000e+00.txt; do
         Nsnp=$(wc -l $file | cut -d" " -f1)
         if [[ $Nsnp > $maxNsnp ]]; then
             maxNsnp=$Nsnp
@@ -157,16 +157,16 @@ while read pheno; do
     ss=$file
 
     # Write version & sumstats into a file to keep record 
-    echo -e "$pheno\t$ss" >> $mainDir/code/12_Public_sumstats/ss_${SSversion}_public
+    echo -e "$pheno\t$ss" >> $PGI_Repo/code/12_Public_sumstats/ss_${SSversion}_public
         
     # genome-wide, LDpred
-    if ! [[ -f $mainDir/derived_data/12_Public_sumstats/public/${pheno}/${pheno}_public_LDpred_weights.txt ]]; then
+    if ! [[ -f $PGI_Repo/derived_data/12_Public_sumstats/public/${pheno}/${pheno}_public_LDpred_weights.txt ]]; then
         echo "Copying LDpred weights for public $pheno .."
         awk 'NR==FNR{a[$2]=$1; next} \
             FNR==1{print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","LDPRED_BETA"; next} \
             $3 in a && $3 ~ ":" {$3=a[$3]} \
-            {gsub(/chrom_/,"",$1); print $3,$1,$2,$4,$5,$7}' OFS="\t" cptref.tmp $ss > $mainDir/derived_data/12_Public_sumstats/public/${pheno}/${pheno}_public_LDpred_weights.txt
+            {gsub(/chrom_/,"",$1); print $3,$1,$2,$4,$5,$7}' OFS="\t" cptref.tmp $ss > $PGI_Repo/derived_data/12_Public_sumstats/public/${pheno}/${pheno}_public_LDpred_weights.txt
     fi
-done < $mainDir/code/12_Public_sumstats/version_LDpred_public
+done < $PGI_Repo/code/12_Public_sumstats/version_LDpred_public
 
 

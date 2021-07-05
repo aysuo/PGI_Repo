@@ -1,5 +1,5 @@
 #!/bin/bash
-source $mainDir/code/paths
+source $PGI_Repo/code/paths
 
 MTAG_single(){
   pheno=$1

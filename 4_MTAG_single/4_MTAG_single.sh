@@ -1,12 +1,12 @@
 #!/bin/bash
 
-source $mainDir/code/4_MTAG_single/4.0_MTAG_single_functions.sh
+source $PGI_Repo/code/4_MTAG_single/4.0_MTAG_single_functions.sh
 
-cd $mainDir/derived_data/4_MTAG_single
+cd $PGI_Repo/derived_data/4_MTAG_single
 
 # Correct reverse-coded sumstats
 for study in SWB-23andMe Risk-23andMe; do
-  path=$(cut -f2 $mainDir/code/4_MTAG_single/singleMTAG_input_filelist.txt | awk -F"," -v study=$study '{for(i=1;i<=NF;i++) if ($i~study) print $i}'  | sort | uniq)
+  path=$(cut -f2 $PGI_Repo/code/4_MTAG_single/singleMTAG_input_filelist.txt | awk -F"," -v study=$study '{for(i=1;i<=NF;i++) if ($i~study) print $i}'  | sort | uniq)
   eval path=$path
   # Unzip and rename original file with as *_revcoded
   unzipped=$(echo $path | sed 's/\.gz//g')
@@ -21,7 +21,7 @@ done
 
 
 # Check which phenotypes aren't done
-checkStatusMTAG $mainDir/code/4_MTAG_single/singleMTAG_input_filelist.txt
+checkStatusMTAG $PGI_Repo/code/4_MTAG_single/singleMTAG_input_filelist.txt
 
 # Run MTAG for unfinished phenotypes, 20 at a time
 if [[ $status == 1 ]]; then
@@ -40,10 +40,10 @@ if [[ $status == 1 ]]; then
       wait
       i=0
     fi
-  done < $mainDir/code/4_MTAG_single/singleMTAG_input_filelist.txt.rerun
+  done < $PGI_Repo/code/4_MTAG_single/singleMTAG_input_filelist.txt.rerun
   wait
 fi
 
 # Check if everything ran successfully
-checkStatusMTAG $mainDir/code/4_MTAG_single/singleMTAG_input_filelist.txt
+checkStatusMTAG $PGI_Repo/code/4_MTAG_single/singleMTAG_input_filelist.txt
 

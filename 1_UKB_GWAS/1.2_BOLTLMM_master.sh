@@ -1,8 +1,8 @@
 #!/bin/bash
 
-source $mainDir/code/paths
+source $PGI_Repo/code/paths
 
-cd $mainDir/derived_data/1_UKB_GWAS
+cd $PGI_Repo/derived_data/1_UKB_GWAS
 mkdir -p output
 mkdir -p logs
 
