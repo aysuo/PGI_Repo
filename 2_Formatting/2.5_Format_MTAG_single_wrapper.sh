@@ -6,7 +6,7 @@ cd $PGI_Repo/derived_data/4_MTAG_single
 
 i=0
 for pheno in $PGI_Repo/derived_data/4_MTAG_single/*; do
-    format_MTAG $pheno 0 &
+    format_MTAG_SBayesR $pheno 0 &
     let i+=1
 
     # Run 10 at a time
