@@ -28,21 +28,27 @@ vcf2plink2(){
     if [[ $snpidtype == "ChrPosID" ]]; then
         for chr in {1..22}; 
         do
-            gfInChr=$(echo "$gfIn" | sed "s/\[1:22\]/${chr}/g")
-            plink2 --vcf $gfInChr \
-                --make-pgen \
-                --set-all-var-ids @:# \
-                --double-id \
-                --out ${gfOut}_chr$chr &
+            if ! [[ -f ${gfOut}_chr$chr.pgen ]]
+            then
+                gfInChr=$(echo "$gfIn" | sed "s/\[1:22\]/${chr}/g")
+                plink2 --vcf $gfInChr \
+                    --make-pgen \
+                    --set-all-var-ids @:# \
+                    --double-id \
+                    --out ${gfOut}_chr$chr &
+            fi
         done
     else
         for chr in {1..22};
         do
-            gfInChr=$(echo "$gfIn" | sed "s/\[1:22\]/${chr}/g")
-            plink2 --vcf $gfInChr \
-                --double-id \
-                --make-pgen \
-                --out ${gfOut}_chr$chr &
+            if ! [[ -f ${gfOut}_chr$chr.pgen ]]
+            then
+                gfInChr=$(echo "$gfIn" | sed "s/\[1:22\]/${chr}/g")
+                plink2 --vcf $gfInChr \
+                    --double-id \
+                    --make-pgen \
+                    --out ${gfOut}_chr$chr &
+            fi
         done
     fi
 

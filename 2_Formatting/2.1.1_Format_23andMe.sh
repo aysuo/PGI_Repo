@@ -394,7 +394,7 @@ main(){
     then
       gwas_file=$(echo ${gwas_path} | sed 's,.\+/,,g')
       preN=$(wc -l ${OUT[$i]} | cut -d" " -f1) 
-      awk 'NR==FNR{a[$1]=$1;next}{ChrPosID=$2":"$3}!(ChrPosID in a){print $0}' OFS="\t" ${1kG_flippedSNPs} ${OUT[$i]} > TMP/tmp_${gwas_file}
+      awk 'NR==FNR{a[$1]=$1;next}{ChrPosID=$2":"$3}!(ChrPosID in a){print $0}' OFS="\t" ${flippedSNPs_1kG} ${OUT[$i]} > TMP/tmp_${gwas_file}
       mv TMP/tmp_${gwas_file} ${OUT[$i]}  
       postN=$(wc -l ${OUT[$i]} | cut -d" " -f1) 
       echo "$(($preN - $postN)) flipped SNPs were dropped from ${OUT[$i]}."
