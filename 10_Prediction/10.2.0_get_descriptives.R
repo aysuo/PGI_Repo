@@ -12,18 +12,17 @@ if(length(new.packages)) install.packages(new.packages)
 lapply(packages, library, character.only = T)
 
 args=commandArgs(trailingOnly=TRUE)
-mainDir=args[1]
 
 ########################################################
 
 #### HRS2 #####
 cohort="HRS2"
-RAND_path <- paste0(mainDir,"/original_data/prediction_phenotypes/HRS/randhrs1992_2016v2.dta")
+RAND_path <-"original_data/prediction_phenotypes/HRS/randhrs1992_2016v2.dta"
 pheno_data <- read.dta(RAND_path)
 pheno_data$age <- 2021-pheno_data$rabyear
 
 # PCs
-PCs_path <- paste0(mainDir,"/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
+PCs_path <- paste0("derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
     PCs_oldnames <- paste0("V", 3:22)
     PCs_newnames <- paste0("pc", 1:20)
     PCs_data <- fread(PCs_path) %>%
@@ -31,7 +30,7 @@ PCs_path <- paste0(mainDir,"/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenv
     rename_at(vars(PCs_oldnames), ~ PCs_newnames)
 
 # Scores-phenos crosswalk
-score_pheno_crosswalk_path <- paste0(mainDir, "/original_data/prediction_phenotypes/HRS/HRS_GENOTYPEV2_XREF.dta")
+score_pheno_crosswalk_path <- "original_data/prediction_phenotypes/HRS/HRS_GENOTYPEV2_XREF.dta"
 score_pheno_crosswalk_data <- read.dta(score_pheno_crosswalk_path) %>%
     mutate(IID = as.numeric(LOCAL_ID),
     HHID = as.numeric(HHID),
@@ -51,11 +50,11 @@ describe(data)
 
 #### WLS ####
 cohort="WLS"
-pheno_data <- fread("tmp/WLS_renamed.csv")
+pheno_data <- fread("derived_data/10_Prediction/tmp/WLS_renamed.csv")
 pheno_data$yob <- 1900+pheno_data$yob
 pheno_data$age2021 <- 2021-pheno_data$yob
 
-PCs_path <- paste0(mainDir,"/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
+PCs_path <- paste0("derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
     PCs_oldnames <- paste0("V", 3:22)
     PCs_newnames <- paste0("pc", 1:20)
     PCs_data <- fread(PCs_path) %>%
@@ -72,7 +71,7 @@ describe(data)
 
 #### UKB ####
 cohort="UKB"
-pheno_data <- read.dta13("tmp/pgs_repo.dta")%>% 
+pheno_data <- read.dta13("derived_data/10_Prediction/tmp/pgs_repo.dta")%>% 
         select(c("IID","BYEAR","SEX","partition"))
 
 pheno_data$age<-2021-(pheno_data$BYEAR*10+1900)
