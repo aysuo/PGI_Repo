@@ -8,6 +8,7 @@ local pheno_data_2="`5'"
 local pheno_data_3="`6'"
 local covar_data="`7'"
 local logfile="`8'"
+local withdrawn="`9'"
 
 cd `WD'
 log using `logfile', replace
@@ -791,10 +792,20 @@ foreach partition in 1 2 3 {
     use "tmp/pgi_repo.dta"
 }
 
+********************************************************************************************************
+********* Remove individuals that withdrew consent after the first release of the Repository ***********
+***** Doing this here instead of in the beginning so that the partition assignment doesn't change ******
+********************************************************************************************************
+clear
+import delimited `withdrawn'
+ren v1 n_eid
+merge 1:1 n_eid using "tmp/pgi_repo.dta", nogen keep(using)
+save "tmp/pgi_repo.dta", replace
+
+
 ****************************************
 ********* Convert to GWAS IDs **********
 ****************************************
-
 clear 
 import delimited `crosswalk', delim(" ")
 ren (v1 v2) (IID n_eid)
