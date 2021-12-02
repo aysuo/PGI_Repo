@@ -28,13 +28,14 @@ echo "Running Stata to partition sample and obtain phenotype file for each parti
 
 stata -b do $PGI_Repo/code/1_UKB_GWAS/1.1_prep_UKB_phenos.do \
 	$PGI_Repo/derived_data/1_UKB_GWAS \
-	$UKB_crosswalk \
+	$UKBv3_crosswalk \
 	$PGI_Repo/derived_data/1_UKB_GWAS/tmp/IDs_assignPartition_ordered.txt \
 	$UKB_pheno_data_1 \
 	$UKB_pheno_data_2 \
 	$UKB_pheno_data_3 \
 	$UKB_covar_data \
-	$PGI_Repo/code/1_UKB_GWAS/1.1_prep_UKB_phenos_test.do.log
+	$PGI_Repo/code/1_UKB_GWAS/1.1_prep_UKB_phenos_v2.do.log \
+	$UKB_withdrawn
 
 # Replace missing values (.) with NA
 for file in input/*.pheno; do
