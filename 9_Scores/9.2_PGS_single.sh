@@ -1,7 +1,9 @@
 #!/bin/bash
 
-for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCTFR STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS
-do
+PGI(){
+    cohort=$1
+    method=$2
+
     rm -f $PGI_Repo/code/9_Scores/ss_single_${cohort}
     # Get list of sumstats: Pheno name on first column (e.g. SWB-Okbay), file path on second
     for pheno in $(cat $PGI_Repo/code/9_Scores/version_single_$cohort); do
@@ -10,8 +12,22 @@ do
         else 
             path="$PGI_Repo/derived_data/4_MTAG_single/$pheno/${pheno}_trait_1_formatted.txt"
         fi
-        pheno=$(echo "$pheno-single" | sed 's/[1-9]//g')
+
+        if [[ $method == "LDpred" ]]; then
+            pheno=$(echo "$pheno-single" | sed 's/[1-9]//g')
+        elif [[ $method == "SBayesR" ]]; then
+            pheno=$(echo "$pheno-single")
+            path=$(echo $path | sed 's/formatted/formatted_SBayesR/g')
+        fi
         echo $pheno $path >> $PGI_Repo/code/9_Scores/ss_single_${cohort}
     done
-    sh $PGI_Repo/code/9_Scores/9.0_PGS.sh single $cohort $PGI_Repo/derived_data/9_Scores/single
-done
+    sh $PGI_Repo/code/9_Scores/9.0_PGS.sh single $cohort $PGI_Repo/derived_data/9_Scores/single $method
+}
+
+
+#for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCTFR STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS
+#do
+#    PGI $cohort SBayesR
+#done
+
+PGI UKB3 SBayesR

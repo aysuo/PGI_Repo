@@ -5,6 +5,7 @@ source $PGI_Repo/code/paths
 score=$1
 cohort=$2
 dirOut=$3
+method=$4
 
 cd $dirOut
 
@@ -33,11 +34,25 @@ for part in 1 2 3; do
 	declare snpidtype_UKB${part}="rs"
 done
 
-##----------------------------------------------------------##
-
 P=1
 
+
 ##############################################################
+########## Define SBayesR input files and parameters #########
+##############################################################
+rm tmp/SBayesR_LDmatrices
+for chr in {1..22}; do
+	echo $SBayesR_LDmatrices | sed "s/\[1:22\]/$chr/" >> tmp/SBayesR_LDmatrices
+done
+
+pi=0.95,0.02,0.02,0.01
+gamma=0.0,0.01,0.1,1
+chainLength=10000
+burnIn=2000
+
+##############################################################
+##############################################################
+
 
 LDpred(){
 	fileList=$1
@@ -78,10 +93,63 @@ LDpred(){
 	wait
 }
 
+##############################################################
+
+
+SBayesR(){
+	fileList=$1
+	mkdir -p logs weights tmp
+
+	i=0
+	while read row; do
+		pheno=$(echo $row | cut -d" " -f1)
+		ssPath=$(echo $row | cut -d" " -f2)	
+	
+		nohup $gctb --sbayes R \
+    		--mldm tmp/SBayesR_LDmatrices \
+    		--unscale-genotype \
+        	--exclude-mhc \
+     		--seed 123 \
+     		--pi $pi \
+     		--gamma $gamma \
+     		--gwas-summary $ssPath \
+     		--chain-length $chainLength \
+     		--burn-in $burnIn \
+     		--out-freq 100 \
+     		--out tmp/${pheno}_weights_SBayesR 2>&1 | tee "logs/${pheno}_weights_SBayesR.log" &
+
+		let i+=1
+	
+		if [[ $i == 1 ]]; then
+			wait
+			i=0
+		fi
+
+	done < $fileList
+	wait
+
+	i=0
+	while read row; do
+		pheno=$(echo $row | cut -d" " -f1)
+		awk '{$12=$3":"$4;print}' OFS="\t" tmp/${pheno}_weights_SBayesR.snpRes > weights/${pheno}_weights_SBayesR.txt &
+		let i+=1
+
+		if [[ $i == 10 ]]; then
+			wait
+			i=0
+		fi
+	done < $fileList
+	wait
+}
+
+##############################################################
+
+
 checkStatusPGI(){
 	fileList=$1
 	cohort=$2
 	step=$3
+	method=$4
 
 	echo "Checking status.."
 	
@@ -90,23 +158,47 @@ checkStatusPGI(){
 	status=1
 	while read row; do
 		pheno=$(echo $row | cut -d" " -f1)
+		phenoNoNum=$(echo $pheno | sed 's/[1-9]//g')
 		
 		case $step in
-			LDpred)
-				if ! ls pickled/${cohort}_${pheno}_*.pkl.gz 1> /dev/null 2>&1; then
-					grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
-					echo "LDpred for $score $pheno score for $cohort was unsuccessful."
-					status=0
-				fi
+			weight)
+				case $method in 
+					LDpred)
+						if ! ls pickled/${cohort}_${pheno}_*.pkl.gz 1> /dev/null 2>&1; then
+							grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
+							echo "LDpred for $pheno in $cohort has not been run yet or was unsuccessful."
+							status=0
+						fi
+						;;
+					SBayesR)
+                        if ! [[ $(find weights/${pheno}_weights_SBayesR.txt -type f -size +100 2>/dev/null) ]]; then
+							grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
+							echo "SBayesR for $pheno in $cohort has not been run yet or was unsuccessful."
+							status=0
+						fi
+						;;
+				esac
 				;;
-			makePGS)
-				if ! [[ $(find scores/PGS_${cohort}_${pheno}*.txt -type f -size +100 2>/dev/null) ]]; then 
-					grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
-					echo "makePGS for $score $pheno score for $cohort was unsuccessful."
-					status=0
-				fi
+			PGI)
+				case $method in 
+					LDpred)
+						if ! [[ $(find scores/PGS_${cohort}_${pheno}*.txt -type f -size +100 2>/dev/null) ]]; then 
+							grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
+							echo "makePGS (LDpred) for $pheno in $cohort has not been run yet or was unsuccessful."
+							status=0
+						fi
+						;;
+					SBayesR)
+						if ! [[ $(find scores/PGS_SBayesR_${cohort}_${phenoNoNum}*.txt -type f -size +100 2>/dev/null) ]]; then 
+							grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
+							echo "makePGS (SBayesR) for $pheno in $cohort has not been run yet or was unsuccessful."
+							status=0
+						fi
+						;;
+				esac
 				;;
 		esac
+
 
 	done < $PGI_Repo/code/9_Scores/ss_${score}_${cohort}
 
@@ -119,25 +211,45 @@ checkStatusPGI(){
 makePGS(){
 	fileList=$1
 	cohort=$2
+	method=$3
+
+    mkdir -p scores
 	
 	eval valgf='$'valgf_${cohort}
 	eval sample='$'sample_${cohort}
+	eval snpidtype='$'snpidtype_${cohort}
 
 	i=0
 	while read row; do
+
 		pheno=$(echo $row | cut -d" " -f1)
-		for weight in weights/${cohort}_${pheno}_weights_LDpred_p*.txt; do
-			p=$(echo $weight | sed "s,weights/${cohort}_${pheno}_weights_LDpred_p,,g" | sed 's/\.txt//g')
-			bash $PGI_Repo/code/9_Scores/9.0.2_make_PGS.sh \
-				--weight=weights/${cohort}_${pheno}_weights_LDpred_p*.txt \
-				--weightCols=3,4,7 \
-				--valgf=${valgf} \
-				--sampleKeep=${sample} \
-				--out=${cohort}_${pheno}_LDpred_p$P &
-		done
+		phenoNoNum=$(echo $pheno | sed 's/[1-9]//g')
+		
+		if [[ $method == "LDpred" ]]
+		then
+			cols="3,4,7"
+			weights="weights/${cohort}_${pheno}_weights_LDpred_p*.txt"	
+		elif [[ $method == "SBayesR" ]]
+			then
+				weights="weights/${pheno}_weights_SBayesR.txt"
+				if [[ $snpidtype == "rs" ]]
+        			then
+            			cols="2,5,8"
+       				else
+            			cols="12,5,8"
+    			fi
+		fi
+
+		bash $PGI_Repo/code/9_Scores/9.0.2_make_PGS.sh \
+			--weight=${weights} \
+			--weightCols=${cols} \
+			--valgf=${valgf} \
+			--sampleKeep=${sample} \
+			--out=${cohort}_${phenoNoNum}_${method} &
+
 		let i+=1
 		
-		if [[ $i == 5 ]]; then
+		if [[ $i == 1 ]]; then
 			wait
 			i=0
 		fi
@@ -146,12 +258,13 @@ makePGS(){
 }
 
 
-PGS(){
+PGI(){
 	score=$1
 	cohort=$2
+	method=$3
 	
 	echo "----------------------------------------------------------------------"
-	echo -n "PGS on $cohort started on "
+	echo -n "PGI ($method) on $cohort started on "
 	date
 	echo ""
 	start=$(date +%s)
@@ -161,13 +274,13 @@ PGS(){
 
 	while [[ $status == 0 ]]; do
 		echo ""
-		echo "LDpred pass $pass.."
+		echo "$method weight step - pass $pass.."
 		
-		checkStatusPGI $score $cohort LDpred
+		checkStatusPGI $score $cohort weight $method
 		status=$status
 
 		if [[ $status == 0 ]]; then
-			LDpred $PGI_Repo/code/9_Scores/ss_${score}_${cohort}_LDpred $cohort
+			$method $PGI_Repo/code/9_Scores/ss_${score}_${cohort}_weight $cohort
 			pass=$(($pass+1))
 		fi
 
@@ -177,7 +290,7 @@ PGS(){
 	done
 
 	if [[ $status == 0  ]]; then
-		echo "LDpred stage cannot be completed for $cohort $score scores. Check for errors in input files."
+		echo "$method weight step cannot be completed for $cohort $score scores. Check for errors in input files."
 	fi
 
 	status=0
@@ -187,11 +300,11 @@ PGS(){
 		echo ""
 		echo "makePGS $pass.."
 		
-		checkStatusPGI $score $cohort makePGS
+		checkStatusPGI $score $cohort PGI $method
 		status=$status
 
 		if [[ $status == 0 ]]; then
-			makePGS $PGI_Repo/code/9_Scores/ss_${score}_${cohort}_makePGS $cohort
+			makePGS $PGI_Repo/code/9_Scores/ss_${score}_${cohort}_PGI $cohort $method
 			pass=$(($pass+1))
 		fi
 
@@ -201,7 +314,7 @@ PGS(){
 	done
 
 	if [[ $status == 0  ]]; then
-		echo "makePGS stage cannot be completed for $cohort $score scores. Check for errors in input files."
+		echo "$method - PGI stage cannot be completed for $cohort $score scores. Check for errors in input files."
 	fi
 
 	
@@ -223,4 +336,4 @@ PGS(){
 }
 
 
-PGS $score $cohort
+PGI $score $cohort $method
