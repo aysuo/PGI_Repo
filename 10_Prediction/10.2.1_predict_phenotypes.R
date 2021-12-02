@@ -23,14 +23,14 @@ lapply(packages, library, character.only = TRUE)
 # Parse arguments
 args=commandArgs(trailingOnly=TRUE)
 cohort=args[1]
-mainDir=args[2]
+method=args[2]
 
 ########################################################
 ###################### Data paths ######################
 ########################################################
 
 # Phenotype directory
-pheno_wd <- paste0("input/",cohort)
+pheno_wd <- paste0("derived_data/10_Prediction/input/",cohort)
 
 # Phenotype files
 pheno_files <- list.files(pheno_wd)
@@ -40,22 +40,30 @@ pheno_names <- gsub(".pheno", "", pheno_files)
 
 # Score types: Public, single-trait, multi-trait
 score_types=c("public","single","multi")
+#score_types=c("single")
 
 # Loop over score types
 for(i in score_types){
     # Set directory containing scores for the score type
-    assign(paste0(i,"_score_wd"), paste0(mainDir,"/derived_data/9_Scores/",i,"/scores/"))
+    assign(paste0(i,"_score_wd"), paste0("derived_data/9_Scores/",i,"/scores/"))
     assign(paste0(i,"_score_files"), list.files(eval(parse(text=paste0(i,"_score_wd")))))
     
     # Get list of all score files for the score type
     score_files <- eval(parse(text=paste0(i,"_score_files")))
 
     # Get list of score files for input cohort
-    assign(paste0(cohort,"_",i,"_score_files"),score_files[grep(cohort, score_files)])
+    #assign(paste0(cohort,"_",i,"_score_files"),score_files[grep(cohort, score_files)])
+    assign(paste0(cohort,"_",i,"_score_files"),grep(method, grep(cohort, score_files, value=T),value=T))
 
     # Score names for input cohort
-    assign(paste0(i,"_score_names"), gsub(paste0("PGS_",cohort,"_"), "", gsub("_LDpred_p1.txt", "", 
-        gsub("-.*", "",eval(parse(text=paste0(cohort,"_",i,"_score_files")))))))
+    #assign(paste0(i,"_score_names"), gsub(paste0("PGS_",cohort,"_"), "", gsub("_LDpred_p1.txt", "", 
+    #    gsub("-.*", "",eval(parse(text=paste0(cohort,"_",i,"_score_files")))))))
+    if (method == "LDpred") {
+        methodSuffix = "_LDpred_p1.txt"
+    } else {
+        methodSuffix = "SBayesR.txt"
+    }    
+    assign(paste0(i,"_score_names"), gsub(paste0("PGS_",cohort,"_"), "", gsub(methodSuffix, "", gsub("-.*", "",eval(parse(text=paste0(cohort,"_",i,"_score_files")))))))
 
     # Overlapping names (both pheno and score available)
     assign(paste0("predict_",i), pheno_names[pheno_names %in% eval(parse(text=paste0(i,"_score_names")))])
@@ -63,11 +71,12 @@ for(i in score_types){
 
 # List of phenotypes for which there's at least one score
 pheno_names <- union(predict_single, predict_multi)
+#pheno_names <- predict_single
 
 # If cohort is HRS, need pheno-geno crosswalk
 if ( cohort == "HRS2" ){
     # Scores-phenos crosswalk
-    score_pheno_crosswalk_path <- paste0(mainDir,"/original_data/prediction_phenotypes/HRS/HRS_GENOTYPEV2_XREF.dta")
+    score_pheno_crosswalk_path <- paste0("original_data/prediction_phenotypes/HRS/HRS_GENOTYPEV2_XREF.dta")
     score_pheno_crosswalk_data <- read.dta(score_pheno_crosswalk_path) %>%
         mutate(IID = as.numeric(LOCAL_ID),
         HHID = as.numeric(HHID),
@@ -79,7 +88,7 @@ if ( cohort == "UKB3" ){
     PCs_path <- "input/UKB3/PC_BATCHdum.txt"
     PCs_data <- fread(PCs_path)
 } else {
-    PCs_path <- paste0(mainDir,"/derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
+    PCs_path <- paste0("derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
     PCs_oldnames <- paste0("V", 3:22)
     PCs_newnames <- paste0("pc", 1:20)
     PCs_data <- fread(PCs_path) %>%
@@ -339,15 +348,13 @@ for (i in 1:length(pheno_names)){
 ########################################################
 
 # low-level bootstraps
-
-# overwrite main file
 fwrite(
   bootstrap_df,
-  paste0("output/",cohort,"_bootstraps.txt")
+  paste0("derived_data/10_Prediction/output/bootstraps/",cohort,"_",method,"_bootstraps.txt")
 )
 
-# overwrite main file
+#results
 fwrite(
   df,
-  paste0("output/",cohort,"_phenotypes_r2.txt")
+  paste0("derived_data/10_Prediction/output/",cohort,"_",method,"_r2.txt")
 )
