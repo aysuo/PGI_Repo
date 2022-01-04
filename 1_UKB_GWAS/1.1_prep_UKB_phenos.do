@@ -18,11 +18,6 @@ set more off
 set maxvar 32000
 
 use `pheno_data_1'
-merge 1:1 n_eid using `pheno_data_2', nogen keep(match)
-merge 1:1 n_eid using `pheno_data_3', nogen keep(match)
-gen IID=n_eid
-merge 1:1 IID using `covar_data', nogen keep(match) 
-
 
 keep n_50_* ///  Height 
     n_23104_* /// BMI
@@ -39,17 +34,17 @@ keep n_50_* ///  Height
     n_6152* /// Other diagnoses (Hayfever)
     s_41202_* s_41204_* /// ICD10
     n_20002_* /// Non-cancer illness
-    n_3872* /// Age at first birth single child
-    n_20403_0_0  /// Amount of alcohol drunk on a typical drinking day
-    n_20405_0_0  /// Ever had known person concerned about, or recommend reduction of, alcohol consumption
-    n_20407_0_0  /// Frequency of failure to fulfil normal expectations due to drinking alcohol in last year
-    n_20408_0_0  /// Frequency of memory loss due to drinking alcohol in last year
-    n_20409_0_0  /// Frequency of feeling guilt or remorse after drinking alcohol in last year
-    n_20411_0_0  /// Ever been injured or injured someone else through drinking alcohol
-    n_20412_0_0  /// Frequency of needing morning drink of alcohol after heavy drinking session in last year
-    n_20413_0_0  /// Frequency of inability to cease drinking in last year
-    n_20414_0_0  /// Frequency of drinking alcohol
-    n_20416_0_0  /// Frequency of consuming six or more units of alcohol
+    ///n_3872* /// Age at first birth single child
+    ///n_20403_0_0  /// Amount of alcohol drunk on a typical drinking day
+    ///n_20405_0_0  /// Ever had known person concerned about, or recommend reduction of, alcohol consumption
+    ///n_20407_0_0  /// Frequency of failure to fulfil normal expectations due to drinking alcohol in last year
+    ///n_20408_0_0  /// Frequency of memory loss due to drinking alcohol in last year
+    ///n_20409_0_0  /// Frequency of feeling guilt or remorse after drinking alcohol in last year
+    ///n_20411_0_0  /// Ever been injured or injured someone else through drinking alcohol
+    ///n_20412_0_0  /// Frequency of needing morning drink of alcohol after heavy drinking session in last year
+    ///n_20413_0_0  /// Frequency of inability to cease drinking in last year
+    ///n_20414_0_0  /// Frequency of drinking alcohol
+    ///n_20416_0_0  /// Frequency of consuming six or more units of alcohol
     n_4559_* /// Family satisfaction
     n_4570_* /// Friendship satisfaction
     n_4537_* /// Work satisfaction
@@ -78,6 +73,7 @@ keep n_50_* ///  Height
     n_1249_* /// past smoking
     n_2644_* /// light smoking
     n_6138_* /// EA
+    n_845_* /// Age left schooling
     n_20016_* /// CP touchscreen
     n_20191_* /// CP web-based
     n_2040_* /// Risk
@@ -87,6 +83,10 @@ keep n_50_* ///  Height
     n_22010_* /// // Bad genotype n_22027_0_0
     n_eid // ID
 
+gen IID=n_eid
+merge 1:1 IID using `covar_data', nogen keep(match) 
+merge 1:1 n_eid using `pheno_data_2', nogen keep(match)
+merge 1:1 n_eid using `pheno_data_3', nogen keep(match)
 
 *** DROP OBSERVATIONS ***
 // Withdrawn individuals:
@@ -391,20 +391,24 @@ egen DPW = rmean(DPW_*)
 **********************************************************
 ************************ EA ******************************
 **********************************************************
-forval i = 0/1 {
-    forval j = 0/5 {
-        g EA_`i'_`j' = 20 if n_6138_0_0 == 1
-        replace EA_`i'_`j' = 13 if n_6138_`i'_`j' == 2
-        replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 3
-        replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 4
-        replace EA_`i'_`j' = 19 if n_6138_`i'_`j' == 5
-        replace EA_`i'_`j' = 15 if n_6138_`i'_`j' == 6
-        replace EA_`i'_`j' = 7 if n_6138_`i'_`j' == -7
-        replace EA_`i'_`j' = . if n_6138_`i'_`j' == -3
-    }
+forval i = 0/2 {
+    replace n_845_`i'_0 = . if n_845_`i'_0 < 0
+	forval j = 0/5 {
+		g EA_`i'_`j' = 20 if n_6138_0_0 == 1
+		replace EA_`i'_`j' = 13 if n_6138_`i'_`j' == 2
+		replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 3
+		replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 4
+		*replace EA_`i'_`j' = 13 if n_6138_`i'_`j' == 5
+        replace EA_`i'_`j' = n_845_`i'_0-5 if n_6138_`i'_`j' == 5
+		replace EA_`i'_`j' = 15 if n_6138_`i'_`j' == 6
+		replace EA_`i'_`j' = 7 if n_6138_`i'_`j' == -7
+		replace EA_`i'_`j' = . if n_6138_`i'_`j' == -3
+	}
 }
 
+*** Take max ***
 egen EA = rmax(EA_*_*)
+replace EA = . if EA < 7
 **********************************************************
 
 
@@ -443,10 +447,10 @@ forval i = 0/16 {
 
 
 **********************************************************
-******************** EVER CANNABIS  **********************
+************************ CANNABIS  ***********************
 **********************************************************
-gen CANNABIS=0 if CANNABIS==0
-replace CANNABIS=1 if CANNABIS!=. & CANNABIS>0
+gen CANNABIS=0 if n_20453_0_0==0
+replace CANNABIS=1 if n_20453_0_0>0
 **********************************************************
 
 
@@ -717,7 +721,7 @@ forval i = 0/2 {
     predict SELFHEALTH_`i', rstandard
 }
 
-egen SELFHEALTH = rmean(SELFSELFHEALTH_*)
+egen SELFHEALTH = rmean(SELFHEALTH_*)
 **********************************************************
 
 
@@ -787,7 +791,7 @@ save "tmp/pgi_repo.dta", replace
 * Save list of individuals in each partition
 foreach partition in 1 2 3 {
     keep if partition == `partition'
-    export delimited n_eid n_eid using "paritions/UKB_part`partition'_eid.txt", noq replace 
+    export delimited n_eid n_eid using "partitions/UKB_part`partition'_eid.txt", noq delim(" ") replace 
     clear
     use "tmp/pgi_repo.dta"
 }
