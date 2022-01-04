@@ -3,7 +3,8 @@
 source $PGI_Repo/code/paths
 
 cd $PGI_Repo/derived_data/3_QCd
-export R_LIBS=$Rlib/:$R_LIBS
+#export R_LIBS=$Rlib/:$R_LIBS
+
 
 # EasyQC SNP filtering
 easyQC(){
