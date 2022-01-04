@@ -22,15 +22,15 @@ gunzip -c $PGI_Repo/original_data/public/AFBpooled-AgeFirstBirth_Pooled.txt.gz >
 gunzip -c $PGI_Repo/original_data/public/AstEczRhi-SHARE-without23andMe.LDSCORE-GC.SE-META.v0.gz > tmp/ASTECZRHI-Ferreira.txt &
 gunzip -c $PGI_Repo/original_data/public/BMI-SNP_gwas_mc_merge_nogc.tbl.uniq.gz > tmp/BMI-Locke.txt &
 gunzip -c $PGI_Repo/original_data/public/CPD-tag.cpd.tbl.gz > tmp/CPD-Furberg.txt &
-gunzip -c $PGI_Repo/original_data/public/CigarettesPerDay.txt.gz?sequence=31 > tmp/CPD.txt.gz &
+gunzip -c $PGI_Repo/original_data/public/CigarettesPerDay.txt.gz?sequence=31 > tmp/CPD-Liu.txt.gz &
 gunzip -c $PGI_Repo/original_data/public/EVERSMOKE-tag.evrsmk.tbl.gz > tmp/EVERSMOKE-Furberg.txt &
 gunzip -c $PGI_Repo/original_data/public/SmokingInitiation.txt.gz?sequence=34 > tmp/EVERSMOKE-Liu.txt.gz
 gunzip -c $PGI_Repo/original_data/public/KP_DEPR_BETA_EAF.txt.gz > tmp/DEP-GERA.txt &
-gunzip -c $PGI_Repo/original_data/public/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.gz > tmp/DEP-PGC.txt &
+gunzip -c $PGI_Repo/original_data/public/daner_pgc_mdd_meta_w2_no23andMe_rmUKBB.gz > tmp/DEP-WraySansUKB.txt &
 gunzip -c $PGI_Repo/original_data/public/DrinksPerWeek.txt.gz?sequence=32 > tmp/DPW-Liu.txt.gz
 gunzip -c $PGI_Repo/original_data/public/Doherty-2018-NatureComms-overall-activity.csv.gz > tmp/ACTIVITY-Doherty.txt &
 gunzip -c $PGI_Repo/original_data/public/HEIGHT-GIANT_HEIGHT_Wood_et_al_2014_publicrelease_HapMapCeuFreq.txt.gz > tmp/HEIGHT-Wood.txt &
-gunzip -c $PGI_Repo/original_data/public/Intelligence-cogent.hrc.meta.chr.bp.rsid.assoc.full.gz > tmp/CP-COGENT.txt &
+gunzip -c $PGI_Repo/original_data/public/Intelligence-cogent.hrc.meta.chr.bp.rsid.assoc.full.gz > tmp/CP-Trampush.txt &
 gunzip -c $PGI_Repo/original_data/public/NEBmen-NumberChildrenEverBorn_Male.txt.gz > tmp/NEBmen-Barban.txt &
 gunzip -c $PGI_Repo/original_data/public/NEBwomen-NumberChildrenEverBorn_Female.txt.gz > tmp/NEBwomen-Barban.txt &
 gunzip -c $PGI_Repo/original_data/public/RISK_GWAS_MA_Nweighted_ID15_2017_08_06.tbl.gz > tmp/RISK-Linner.txt &
@@ -43,8 +43,8 @@ wait
 cp $PGI_Repo/original_data/public/AGEFIRSTMENSES-Menarche_1KG_NatGen2017_WebsiteUpload.txt tmp/MENARCHE-Day.txt &
 cp $PGI_Repo/original_data/public/AGEFIRSTMENSES-Menarche_Nature2014_GWASMetaResults_17122014.txt tmp/MENARCHE-Perry.txt &
 cp $PGI_Repo/original_data/public/Kunkle_etal_Stage1_results.txt?file=1 tmp/ALZ-Kunkle.txt &
-cp $PGI_Repo/original_data/public/EA3_excl_UKB.meta tmp/EA-LeeExclUKB.txt &
-cp $PGI_Repo/original_data/public/EA3_PGSrepo.meta tmp/EA-LeeExclPGIrepo.txt &
+cp $PGI_Repo/original_data/public/EA4_excl_PGIrepo_2021_12_27.meta tmp/EA-OkbayExclPGIrepo.txt &
+cp $PGI_Repo/original_data/public/EA4_excl_UKB_2020_04_09.meta tmp/EA-OkbayExclUKB.txt &
 cp $PGI_Repo/original_data/public/GPC-2.EXTRAVERSION.full.txt tmp/EXTRA-vandenBerg.txt &
 cp $PGI_Repo/original_data/public/META_NEUROTICISM_ALLIwv_iwv_20150402_1.dat tmp/NEURO-deMoor.txt &
 cp $PGI_Repo/original_data/public/GPC-1.NEO-OPENNESS.full.txt tmp/OPEN-deMoor.txt &
@@ -69,9 +69,9 @@ rm IQ_BOLT_LMM_UKB_v2_BGEN_Chr*
 #-----------------------------------#
 
 #-----------------------------------#
-# ALZ-Kunkle, CANNABIS-Stringer, ASTECZRHI-Ferreira, CANNABIS-Pasman, CP-COGENT
+# ALZ-Kunkle, CANNABIS-Stringer, ASTECZRHI-Ferreira, CANNABIS-Pasman, CP-Trampush
 # Convert to tab-delimited
-sed -i 's/ /\t/g' tmp/ALZ-Kunkle.txt tmp/CANNABIS-Stringer.txt tmp/ASTECZRHI-Ferreira.txt tmp/CANNABIS-Pasman.txt tmp/CP-COGENT.txt
+sed -i 's/ /\t/g' tmp/ALZ-Kunkle.txt tmp/CANNABIS-Stringer.txt tmp/ASTECZRHI-Ferreira.txt tmp/CANNABIS-Pasman.txt tmp/CP-Trampush.txt
 sed -i 's/,/\t/g' tmp/ACTIVITY-Doherty.txt
 #-----------------------------------#
 
@@ -150,7 +150,7 @@ NR>2{N=35297;print $2,$3,$4,toupper($5),toupper($6),$7,$11,$12,$13,1,N,1,1,1,"A"
 
 # CP
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-NR>1{N=$13;print $2,$3,$4,$6,$7,$8,$10,$11,$12,$9,N,1,1,1,"A"}' tmp/CP-COGENT.txt > CP-COGENT.txt
+NR>1{N=$13;print $2,$3,$4,$6,$7,$8,$10,$11,$12,$9,N,1,1,1,"A"}' tmp/CP-Trampush.txt > CP-Trampush.txt
 
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 NR>1{N=222543;print $1,$2,$3,$5,$6,$7,$9,$10,$11,$8,N,1,1,1,"A"}' tmp/CP-UKB.txt > CP-UKB.txt
@@ -165,7 +165,7 @@ NR>1{N=38181;print $2,"NA","NA",$4,$5,$6,$9,$10,$11,$8,N,1,1,1,"A"}' tmp/CPD-Fur
 
 # Liu
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,1,$11,1,1,1,"A"}' OFS="\t" tmp/CPD-GSCAN.txt > CPD-GSCAN.txt &
+NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,1,$11,1,1,1,"A"}' OFS="\t" tmp/CPD-Liu.txt > CPD-Liu.txt &
 
 #---------------------------------------#
 
@@ -175,22 +175,22 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 {N=56368; split($2, a, ":", seps)}{if ($2~/^[1-9]/ ||  $2~/^X:/) $2=a[1]":"a[2] ; else $2=a[1]} NR>1{print $2,$1,$3,$4,$5,$14,$13,$11,$12,$8,N,1,1,1,"A"}' tmp/DEP-GERA.txt > DEP-GERA.txt &
 
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-NR>1{N=$17+$18;EAF=(($6*45396)+($7*97250))/(45396+97250); print $2,$1,$3,$4,$5,EAF,log($9),$10,$11,$8,N,1,1,1,"A"}' tmp/DEP-PGC.txt > DEP-PGC.txt &
+NR>1{N=$17+$18;EAF=(($6*45396)+($7*97250))/(45396+97250); print $2,$1,$3,$4,$5,EAF,log($9),$10,$11,$8,N,1,1,1,"A"}' tmp/DEP-WraySansUKB.txt > DEP-WraySansUKB.txt &
 
 #---------------------------------------#
 
 # DPW
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,1,$11,1,1,1,"A"}' OFS="\t" tmp/DPW-GSCAN.txt > DPW-GSCAN.txt &
+NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,1,$11,1,1,1,"A"}' OFS="\t" tmp/DPW-Liu.txt > DPW-Liu.txt &
 
 #---------------------------------------#
 
 # EA
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-NR>1{N=$10;print $1,$2,$3,$4,$5,$6,$16,$18,$12,1,$10,1,1,1,"A"}' tmp/EA-LeeExclPGSrepo.txt > EA-LeeExclPGSrepo.txt &
+NR>1{print $3,$1,$2,$5,$6,$7,$17,$18,$16,1,$11,1,1,1,"A"}' tmp/EA-OkbayExclPGIrepo.txt > EA-OkbayExclPGIrepo.txt &
 
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-NR>1{N=$10;print $1,$2,$3,$4,$5,$6,$16,$18,$12,1,$10,1,1,1,"A"}' tmp/EA-LeeExclUKB.txt > EA-LeeExclUKB.txt &
+NR>1{print $3,$1,$2,$5,$6,$7,$17,$18,$16,1,$11,1,1,1,"A"}' tmp/EA-OkbayExclUKB.txt > EA-OkbayExclUKB.txt &
 
 #---------------------------------------#
 
@@ -203,14 +203,14 @@ NR>1{N=63030;print $1,$2,$3,toupper($4),toupper($5),"NA",$6,$7,$8,1,N,1,1,1,"A"}
 
 # EVERSMOKE
 # Furberg 
-# N=74,035, 41969 cases 32066 controls‬ 
+# N=74,035, 41969 cases 32066 controls
 # chr=hg18, FRQ_A=FRQ_U (only had "freq1"), INFO=1 for all (unavailable), OR is not an OR !!! It's the linear regression beta for the continuous variables and logistic regression beta for the discrete variables. 
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 NR>1{N=41969+32066;print $2,"NA","NA",$4,$5,$6,$9,$10,$11,$8,N,1,1,1,"A"}' tmp/EVERSMOKE-Furberg.txt > tmp/tmp_EVERSMOKE-Furberg.txt &
 
 # Liu
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,1,$11,1,1,1,"A"}' OFS="\t" tmp/EVERSMOKE-GSCAN.txt > EVERSMOKE-GSCAN.txt &
+NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,1,$11,1,1,1,"A"}' OFS="\t" tmp/EVERSMOKE-Liu.txt > EVERSMOKE-Liu.txt &
 
 #---------------------------------------#
 
