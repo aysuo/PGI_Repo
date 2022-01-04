@@ -37,11 +37,11 @@ run_BOLTLMM(){
 
     nohup ${bolt}/bolt --lmm \
       --LDscoresFile=${bolt}/tables/LDSCORE.1000G_EUR.tab.gz \
-      --fam=${UKB_model_fam} \
-      --bed=${UKB_model_bed} \
-      --bim=${UKB_model_bim} \
-      --bgenFile=${UKB_bgen} \
-      --sampleFile=${UKB_bgen_sample} \
+      --fam=${UKBv3_model_fam} \
+      --bed=${UKBv3_model_bed} \
+      --bim=${UKBv3_model_bim} \
+      --bgenFile=${UKBv3_bgen} \
+      --sampleFile=${UKBv3_bgen_sample} \
       --numThreads=${num_Threads} \
       --bgenMinMAF=${bgen_MAF} \
       --bgenMinINFO=${bgen_INFO} \
