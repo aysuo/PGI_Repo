@@ -49,7 +49,7 @@ munge () {
         pheno=$(echo ${row} | cut -d" " -f1)
         ss=$(echo ${row} | cut -d" " -f2)
         eval ss=$ss
-        study=$(echo $ss | rev | cut -d"/" -f1 | rev | sed 's/CLEANED\.//g' | sed 's/_formatted\.txt//g')
+        study=$(echo $ss | rev | cut -d"/" -f1 | rev | sed 's/CLEANED\.//g' | sed 's/_formatted//g' | sed 's/_SBayesR//g' | sed 's/\.txt//g')
 
         mkdir -p $pheno/munged
         echo "Munging sumstats for ${study}.."
@@ -129,7 +129,7 @@ checkStatusLDSC () {
     
     for pheno in $phenoList; do    
         sumstats=$(grep ^$pheno[1-9] $fileList | cut -f2 | sed 's/,/\n/g' | sort | uniq)
-        studies=$(echo $sumstats | awk '{for (i=1;i<=NF;i++) {N=split($i,a,"/"); print a[N]}}' | sed 's/CLEANED\.//g'| sed 's/_formatted\.txt//g')
+        studies=$(echo $sumstats | awk '{for (i=1;i<=NF;i++) {N=split($i,a,"/"); print a[N]}}' | sed 's/CLEANED\.//g'|  sed 's/_formatted//g' | sed 's/_SBayesR//g' | sed 's/\.txt//g' )
         
         for study in $studies; do
             case $analysis in 
@@ -260,13 +260,13 @@ ER2_table() {
     phenoList=$(cut -f1 $fileList| sed 's/[1-9]//g' | sort | uniq)
 
     if [[ $single == 1 ]]; then
-        rm -f $dirCode/5_LDSC/rg_meta_filelist
+        rm -f $PGI_Repo/code/5_LDSC/rg_meta_filelist
     fi
 
     echo -e "Study\t#SNPs MTAG\tMeanChi2\t#SNPs ldsc\th2\tSE\tGWAS equivalent N\tE(R2)" > ER2_table.txt
 
     for pheno in ${phenoList}; do
-        numSumstats=$(ls $dirIn/${pheno}1/*_formatted.txt | wc -l)
+        numSumstats=$(ls $dirIn/${pheno}1/*_formatted_SBayesR.txt | wc -l)
         maxh2=0
 
         for (( i=1; i<=$numSumstats; i++ )); do        
@@ -298,7 +298,7 @@ ER2_table() {
 
         # Write the trait number with largest h^2 into a file (will use those files to estimate pairwise rg's)
         if [[ $single == 1 ]]; then
-            echo -e "${pheno}\t${study}" >> $dirCode/5_LDSC/rg_meta_filelist
+            echo -e "${pheno}\t${study}" >> $PGI_Repo/code/5_LDSC/rg_meta_filelist
         fi
     done  
 }
