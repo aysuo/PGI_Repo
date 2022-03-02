@@ -93,5 +93,6 @@ format_MTAG_SBayesR(){
      
         echo "$pheno - $i: median effN = $medianN, min effN = $minN, max effN = $maxN, GWAS-eq N = $gwasN, $(($Nsnps-$NsnpsOut)) SNPs dropped." >> $dirIn/../SBayesR_Nfiltering.txt
     done
+    rm $dirIn/effN*
     echo "Formatting for $pheno finished."
 }
