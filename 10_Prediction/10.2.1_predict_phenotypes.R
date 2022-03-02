@@ -85,7 +85,7 @@ if ( cohort == "HRS2" ){
 
 # PCs
 if ( cohort == "UKB3" ){
-    PCs_path <- "input/UKB3/PC_BATCHdum.txt"
+    PCs_path <- "derived_data/10_Prediction/input/UKB3/PC_BATCHdum.txt"
     PCs_data <- fread(PCs_path)
 } else {
     PCs_path <- paste0("derived_data/8_PCs/",cohort,"/",cohort,"_PCs.eigenvec")
