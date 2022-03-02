@@ -260,6 +260,15 @@ egen BMI = rmean(bmi_*)
 
 
 **********************************************************
+************************ CANNABIS  ***********************
+**********************************************************
+gen CANNABIS=.
+replace CANNABIS=0 if n_20453_0_0==0
+replace CANNABIS=1 if n_20453_0_0>0 & n_20453_0_0<=4
+**********************************************************
+
+
+**********************************************************
 ******************* CIGARETTES PER DAY *******************
 **********************************************************
 forval i = 0/2 {
@@ -400,20 +409,25 @@ egen DPW = rmean(DPW_*)
 **********************************************************
 ************************ EA ******************************
 **********************************************************
-forval i = 0/1 {
-    forval j = 0/5 {
-        g EA_`i'_`j' = 20 if n_6138_0_0 == 1
-        replace EA_`i'_`j' = 13 if n_6138_`i'_`j' == 2
-        replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 3
-        replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 4
-        replace EA_`i'_`j' = 19 if n_6138_`i'_`j' == 5
-        replace EA_`i'_`j' = 15 if n_6138_`i'_`j' == 6
-        replace EA_`i'_`j' = 7 if n_6138_`i'_`j' == -7
-        replace EA_`i'_`j' = . if n_6138_`i'_`j' == -3
-    }
+
+forval i = 0/2 {
+    replace n_845_`i'_0 = . if n_845_`i'_0 < 0
+	forval j = 0/5 {
+		g EA_`i'_`j' = 20 if n_6138_0_0 == 1
+		replace EA_`i'_`j' = 13 if n_6138_`i'_`j' == 2
+		replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 3
+		replace EA_`i'_`j' = 10 if n_6138_`i'_`j' == 4
+		*replace EA_`i'_`j' = 13 if n_6138_`i'_`j' == 5
+        replace EA_`i'_`j' = n_845_`i'_0-5 if n_6138_`i'_`j' == 5
+		replace EA_`i'_`j' = 15 if n_6138_`i'_`j' == 6
+		replace EA_`i'_`j' = 7 if n_6138_`i'_`j' == -7
+		replace EA_`i'_`j' = . if n_6138_`i'_`j' == -3
+	}
 }
 
+*** Take max ***
 egen EA = rmax(EA_*_*)
+replace EA = . if EA < 7
 **********************************************************
 
 
@@ -448,14 +462,6 @@ forval i = 0/15 {
 forval i = 0/16 {
     replace ECZEMA = 1 if (n_20002_2_`i' == 1452 )
 }
-**********************************************************
-
-
-**********************************************************
-******************** EVER CANNABIS  **********************
-**********************************************************
-gen CANNABIS=0 if CANNABIS==0
-replace CANNABIS=1 if CANNABIS!=. & CANNABIS>0
 **********************************************************
 
 
@@ -726,7 +732,7 @@ forval i = 0/2 {
     predict SELFHEALTH_`i', rstandard
 }
 
-egen SELFHEALTH = rmean(SELFSELFHEALTH_*)
+egen SELFHEALTH = rmean(SELFHEALTH_*)
 **********************************************************
 
 
@@ -838,9 +844,6 @@ foreach partition in 1 2 3{
 
     tabulate BATCH, generate(batch)
     export delimited FID IID PC1-PC20 batch* using "input/UKB`partition'/PC_BATCHdum.txt", noq delim(" ") replace
-
-
-    !sed -i 's/ $/ NA/g' input/UKB`partition'/\*
 
     restore
 }
