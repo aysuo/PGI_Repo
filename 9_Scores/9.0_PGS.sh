@@ -107,7 +107,6 @@ SBayesR(){
 	
 		nohup $gctb --sbayes R \
     		--mldm tmp/SBayesR_LDmatrices \
-    		--unscale-genotype \
         	--exclude-mhc \
      		--seed 123 \
      		--pi $pi \
@@ -117,7 +116,7 @@ SBayesR(){
      		--burn-in $burnIn \
      		--out-freq 100 \
      		--out tmp/${pheno}_weights_SBayesR 2>&1 | tee "logs/${pheno}_weights_SBayesR.log" &
-
+	
 		let i+=1
 	
 		if [[ $i == 1 ]]; then
@@ -189,7 +188,7 @@ checkStatusPGI(){
 						fi
 						;;
 					SBayesR)
-						if ! [[ $(find scores/PGS_SBayesR_${cohort}_${phenoNoNum}*.txt -type f -size +100 2>/dev/null) ]]; then 
+						if ! [[ $(find scores/PGS_${cohort}_${phenoNoNum}_SBayesR.txt -type f -size +20 2>/dev/null) ]]; then 
 							grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
 							echo "makePGS (SBayesR) for $pheno in $cohort has not been run yet or was unsuccessful."
 							status=0
