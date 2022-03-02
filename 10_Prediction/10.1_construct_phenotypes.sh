@@ -25,10 +25,15 @@ stata -b $PGI_Repo/code/10_Prediction/10.1.5_construct_HRS_CIDI.do \
     $PGI_Repo/original_data/prediction_phenotypes/HRS
 
 # UKB
-stata -b $PGI_Repo/code/10_Prediction/10.1.5_construct_UKB_phenotypes.do \
+stata -b $PGI_Repo/code/10_Prediction/10.1.6_construct_UKB_phenotypes.do \
     $PGI_Repo/derived_data/1_UKB_GWAS/tmp/IDs_assignPartition_ordered.txt \
     $UKB_pheno_data_1 \
-    $UKB_pheno_data_1 \
-    $UKB_pheno_data_1 \
+    $UKB_pheno_data_2 \
+    $UKB_pheno_data_3 \
     $UKB_covar_data \
-    $PGI_Repo/code/10_Prediction/10.1.5_construct_UKB_phenotypes.do.log
+    $PGI_Repo/code/10_Prediction/10.1.6_construct_UKB3_phenotypes.do.log
+
+for i in 1 2 3
+do
+    sed -i 's/ $/ NA/g' input/UKB$i/*.pheno
+done
