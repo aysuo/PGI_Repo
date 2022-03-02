@@ -7,9 +7,10 @@ PGI(){
     rm -f $PGI_Repo/code/9_Scores/ss_single_${cohort}
     # Get list of sumstats: Pheno name on first column (e.g. SWB-Okbay), file path on second
     for pheno in $(cat $PGI_Repo/code/9_Scores/version_single_$cohort); do
-        if [[ -f $PGI_Repo/derived_data/4_MTAG_single/$pheno/${pheno}_trait_formatted.txt ]]; then
+        if ls $PGI_Repo/derived_data/4_MTAG_single/$pheno/*_trait_formatted*  1> /dev/null 2>&1
+        then 
             path="$PGI_Repo/derived_data/4_MTAG_single/$pheno/${pheno}_trait_formatted.txt"
-        else 
+        else
             path="$PGI_Repo/derived_data/4_MTAG_single/$pheno/${pheno}_trait_1_formatted.txt"
         fi
 
@@ -30,4 +31,8 @@ PGI(){
 #    PGI $cohort SBayesR
 #done
 
-PGI UKB3 SBayesR
+for cohort in UKB1 UKB2 UKB3 HRS2 AH Dunedin EGCUT ELSA ERisk MCTFR STRpsych STRtwge STRyatssstage Texas WLS
+do
+    PGI $cohort SBayesR
+done
+
