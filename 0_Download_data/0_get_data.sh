@@ -29,8 +29,67 @@ wget https://www.reprogen.org/Menarche_1KG_NatGen2017_WebsiteUpload.zip
 #------------------------------------#
 
 #------------------------------------#
+# Duncan - Anorexia Nervosa (excl UKB)
+wget https://figshare.com/ndownloader/files/28169259 -O ANOREX-Duncan.txt.gz
+# ReadMe
+wget https://figshare.com/ndownloader/files/28169256 -O ANOREX-Duncan_ReadMe.pdf
+#------------------------------------#
+
+#------------------------------------#
+# Evangelou - Blood pressure
+
+# ICBP+UKB
+# Systolic
+# Data: 
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006624/Evangelou_30224653_SBP.txt.gz
+# ReadMe: 
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006624/README_Evangelou_30224653.txt
+
+# Diastolic
+# Data: 
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006630/Evangelou_30224653_DBP.txt.gz
+# ReadMe: 
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006630/README_Evangelou_30224653.txt
+
+# Pulse pressure
+# Data: 
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006629/Evangelou_30224653_PP.txt.gz
+# ReadMe: 
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006629/README_Evangelou_30224653.txt
+
+# ICBP-only sumstats obtained by email
+# ICBP_DBP_02082017.txt.gz, ICBP_PP_02082017.txt.gz, ICBP_SBP_02082017.txt.gz
+#------------------------------------#
+
+#------------------------------------#
 # Ferreira et al - Asthma/Eczema/Rhinitis
 wget https://genepi.qimr.edu.au/staff/manuelF/gwas_results/SHARE-without23andMe.LDSCORE-GC.SE-META.v0.gz
+#------------------------------------#
+
+#------------------------------------#
+# Gormley-Migraine obtained by email 
+#------------------------------------#
+
+#------------------------------------#
+# Grove - Autism
+wget https://figshare.com/ndownloader/files/28169292 -O ASD-Grove.txt.gz
+# ReadMe
+wget https://figshare.com/ndownloader/files/28169289 -O ASD-Grove_ReadMe.pdf
+#------------------------------------#
+
+#------------------------------------#
+# Hautakangas-Migraine obtained by email
+#------------------------------------#
+
+#------------------------------------#
+# Hysi - Nearsightedness
+wget ftp://twinr-ftp.kcl.ac.uk/Refractive_Error_MetaAnalysis_2020/Hysi_Choquet_Khawaja_et_al_Refracive_Error_NatGenet_2020.txt.gz
+wget ftp://twinr-ftp.kcl.ac.uk/Refractive_Error_MetaAnalysis_2020/ReadMe.txt -O NEARSIGHTED-Hysi_ReadMe.txt
+#------------------------------------#
+
+#------------------------------------#
+# Jansen - Insomnia
+wget https://ctg.cncr.nl/documents/p1651/Insomnia_sumstats_Jansenetal.txt.gz
 #------------------------------------#
 
 #------------------------------------#
@@ -41,24 +100,77 @@ wget https://www.niagads.org/system/tdf/public_docs/Kunkle_etal_Stage2_results.t
 #------------------------------------#
 
 #------------------------------------#
-# Liu et al - Cigarettes per day
+# Liu et al 
+# Age started smoking
+wget https://conservancy.umn.edu/bitstream/handle/11299/201564/AgeofInitiation.txt.gz
+# W/o UKB
+wget https://conservancy.umn.edu/bitstream/handle/11299/201564/AgeOfInitiation.WithoutUKB.txt.gz
+
+# Cigarettes per day
 wget https://conservancy.umn.edu/bitstream/handle/11299/201564/CigarettesPerDay.txt.gz?sequence=31&isAllowed=y
-#------------------------------------#
+# W/o UKB
+wget https://conservancy.umn.edu/bitstream/handle/11299/201564/CigarettesPerDay.WithoutUKB.txt.gz
 
-#------------------------------------#
-# Liu et al - Drinks per week
+# Drinks per week
 wget https://conservancy.umn.edu/bitstream/handle/11299/201564/DrinksPerWeek.txt.gz?sequence=32&isAllowed=y
+# W/o UKB
+wget https://conservancy.umn.edu/bitstream/handle/11299/201564/DrinksPerWeek.WithoutUKB.txt.gz
+
+# Ever smoker
+wget https://conservancy.umn.edu/bitstream/handle/11299/201564/SmokingInitiation.txt.gz?sequence=34&isAllowed=y
+# W/o UKB
+wget https://conservancy.umn.edu/bitstream/handle/11299/201564/SmokingInitiation.WithoutUKB.txt.gz
+
+# Smoking cessation
+wget https://conservancy.umn.edu/bitstream/handle/11299/201564/SmokingCessation.txt.gz
+# W/o UKB
+wget https://conservancy.umn.edu/bitstream/handle/11299/201564/SmokingCessation.WithoutUKB.txt.gz
 #------------------------------------#
 
 #------------------------------------#
-# Liu et al - Ever smoker
-wget https://conservancy.umn.edu/bitstream/handle/11299/201564/SmokingInitiation.txt.gz?sequence=34&isAllowed=y
+# Liu et al. - Inflammatory bowel disease
+wget ftp://ftp.sanger.ac.uk/pub/consortia/ibdgenetics/iibdgc-trans-ancestry-filtered-summary-stats.tgz
 #------------------------------------#
 
 #------------------------------------#
 # Locke et al - BMI
 # https://portals.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files
 wget https://portals.broadinstitute.org/collaboration/giant/images/1/15/SNP_gwas_mc_merge_nogc.tbl.uniq.gz
+#------------------------------------#
+
+#------------------------------------#
+# Mahajan et al. - T2D (unadjusted for BMI)
+# Download from http://www.diagram-consortium.org/downloads.html
+#------------------------------------#
+
+#------------------------------------#
+# Michailidou - Breast cancer
+# Obtained by email (database was down)
+# oncoarray_bcac_public_release_oct17.txt.gz
+#------------------------------------#
+
+#------------------------------------#
+# Mills et al 
+# Age First Birth
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90000001-GCST90001000/GCST90000050/GCST90000050_buildGRCh37.tsv.gz -O AFB-Mills.txt.gz
+
+# Age First Sex
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90000001-GCST90001000/GCST90000047/GCST90000047_buildGRCh37.tsv.gz
+#------------------------------------#
+
+#------------------------------------#
+# Mullins - Bipolar
+wget https://figshare.com/ndownloader/files/26603681 -O BIPOLAR-Mullins.txt.gz
+#------------------------------------#
+
+#------------------------------------#
+# Nelson et al - CAD
+wget http://www.cardiogramplusc4d.org/media/cardiogramplusc4d-consortium/data-downloads/UKBB.GWAS1KG.EXOME.CAD.SOFT.META.PublicRelease.300517.txt.gz
+#------------------------------------#
+
+#------------------------------------#
+# Nikpey et al. CAD
+wget http://www.cardiogramplusc4d.org/media/cardiogramplusc4d-consortium/data-downloads/cad.additive.Oct2015.pub.zip
 #------------------------------------#
 
 #------------------------------------#
@@ -70,6 +182,38 @@ wget https://www.ru.nl/publish/pages/898181/cannabis_readme_1.docx
 #------------------------------------#
 # Perry et al - Age at first menses (excludes UKB)
 wget https://www.reprogen.org/Menarche_Nature2014_GWASMetaResults_17122014.zip
+#------------------------------------#
+
+#------------------------------------#
+# PGC3 - Schizophrenia 
+wget https://figshare.com/ndownloader/files/28169757 -O SCZ-PGC3.txt.gz
+#------------------------------------#
+
+#------------------------------------#
+# Schumacher et al. - Prostate cancer
+wget http://practical.icr.ac.uk/blog/wp-content/uploads/uploadedfiles/oncoarray/MetaSummaryData/meta_v3_onco_euro_overall_ChrAll_1_release.zip
+#------------------------------------#
+
+#------------------------------------#
+# Scott et al. - T2D (unadjusted for BMI)
+# Download from http://www.diagram-consortium.org/downloads.html
+#------------------------------------#
+
+#------------------------------------#
+# Sinnott-Armstrong et al. - HDL cholesterol, LDL cholesterol, total cholesterol, tryglycerids  
+# HDL cholesterol
+wget https://nih.figshare.com/ndownloader/files/22770203 -O CHOHDL-SinnottArmstrong.txt.gz
+# LDL cholesterol
+wget https://nih.figshare.com/ndownloader/files/22770218 -O CHOLDL-SinnottArmstrong.txt.gz
+# Total cholesterol
+wget https://nih.figshare.com/ndownloader/files/22770140 -O CHOTOT-SinnottArmstrong.txt.gz
+# Tryglycerids
+wget https://nih.figshare.com/ndownloader/files/22770296 -O TRYGL-SinnottArmstrong.txt.gz
+#------------------------------------#
+
+#------------------------------------#
+# Stahl - Biploar (excl UKB)
+wget https://figshare.com/ndownloader/files/28169307 -O BIPOLAR-Stahl.txt.gz
 #------------------------------------#
 
 #------------------------------------#
@@ -89,14 +233,58 @@ wget https://www.ru.nl/publish/pages/898181/paper2_readme.docx
 #------------------------------------#
 
 #------------------------------------#
+# Tsuo - Asthma
+# EUR: 
+wget https://gbmi-sumstats.s3.amazonaws.com/Asthma_Bothsex_eur_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz  -O Asthma_Bothsex_eur_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz
+# ALL: 
+wget https://gbmi-sumstats.s3.amazonaws.com/Asthma_Bothsex_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz  -O Asthma_Bothsex_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz
+#------------------------------------#
+
+#------------------------------------#
+# Tsuo - COPD
+# EUR: 
+wget https://gbmi-sumstats.s3.amazonaws.com/COPD_Bothsex_eur_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz  -O COPD_Bothsex_eur_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz
+# ALL: 
+wget https://gbmi-sumstats.s3.amazonaws.com/COPD_Bothsex_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz  -O COPD_Bothsex_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz
+#------------------------------------#
+
+#------------------------------------#
 # Van den Berg et al - Extraversion
 wget https://www.dropbox.com/s/bk2jn41vrfl3zna/GPC-2.EXTRAVERSION.zip?dl=0
+#------------------------------------#
+
+#------------------------------------#
+# Walters - Alcohol dependence
+# ReadMe
+wget https://figshare.com/ndownloader/files/28169775 -O AUDIT-Walters_ReadMe.txt
+# Data
+wget https://figshare.com/ndownloader/files/28169778 -O AUDIT-Walters.tar.gz
+#------------------------------------#
+
+#------------------------------------#
+# Watson - Anorexia Nervosa
+wget https://figshare.com/ndownloader/files/28169271 -O ANOREX-Watson.txt.gz
+# ReadMe
+wget https://figshare.com/ndownloader/files/28169268 -O ANOREX-Watson_ReadMe.pdf
+#------------------------------------#
+
+#------------------------------------#
+# Wightman - Alzheimer
+wget https://ctg.cncr.nl/documents/p1651/PGCALZ2sumstatsExcluding23andMe.txt.gz
 #------------------------------------#
 
 #------------------------------------#
 # Wood et al - Height
 # https://portals.broadinstitute.org/collaboration/giant/index.php/GIANT_consortium_data_files
 wget https://portals.broadinstitute.org/collaboration/giant/images/0/01/GIANT_HEIGHT_Wood_et_al_2014_publicrelease_HapMapCeuFreq.txt.gz
+#------------------------------------#
+
+#------------------------------------#
+# Zhang - Breast cancer
+# Obtained by email (database was down)
+# icogs_onco_meta_intrinsic_subtypes_summary_level_statistics.txt.zip
+# icogs_onco_gwas_meta_overall_breast_cancer_summary_level_statistics.txt.zip
+# data_dictionary_summary_stats_bc_risk_2020.xlsx
 #------------------------------------#
 
 #------------------------------------#
@@ -299,6 +487,8 @@ wget https://portals.broadinstitute.org/collaboration/giant/images/c/c8/Meta-ana
 # Yengo et al - Height
 wget https://portals.broadinstitute.org/collaboration/giant/images/6/63/Meta-analysis_Wood_et_al%2BUKBiobank_2018.txt.gz
 #------------------------------------#
+
+
 
 
 
