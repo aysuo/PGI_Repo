@@ -34,7 +34,7 @@ LDSC_mtag() {
         rg $PGI_Repo/code/5_LDSC/rg_meta_filelist.rg_meta.rerun
         rg_table $PGI_Repo/code/5_LDSC/rg_meta_filelist
     fi
-  
+
 }
 
 ###############################################################################
