@@ -157,6 +157,7 @@ makePGS(){
     sampleKeep=${chr1}.psam
   fi
 
+  i=0
   for chr in {1..22}; do
     valgfChr=$(echo $valgf | sed "s/\[1:22\]/$chr/g")
     plink2 --pfile ${valgfChr} \
@@ -164,7 +165,15 @@ makePGS(){
       --rm-dup force-first \
       --score $weights $weightCols cols=fid,nallele,dosagesum,scoresums \
       --out scores/PGS_${out}_chr$chr &
+
+    let i+=1
+
+    if [[ $i == 5 ]]; then
+		  wait
+		  i=0
+	  fi
   done  
+  
   wait
 
   mergeChr $out
