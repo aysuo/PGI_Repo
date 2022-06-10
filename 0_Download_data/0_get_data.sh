@@ -324,7 +324,7 @@ cd $PGI_Repo/original_data/public_scores
 
 #------------------------------------#
 # De Moor et al - Openness
-wget https://www.dropbox.com/s/df3bifmk238ks2y/GPC-1.BigFiveNEO.zip?dl=0
+wget https://www.dropbox.com/s/df3bifmk238ks2y/GPC-1.BigFiveNEO.zip?dl=0 -O GPC-1.BigFiveNEO.zip
 #------------------------------------#
 
 #------------------------------------#
