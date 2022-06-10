@@ -11,20 +11,20 @@ mkdir tmp
 #------------------------------------------------------------------------------------------------------------#
 
 # Get openness from GPC1, remove rest 
-mv $PGI_Repo/original_data/public/GPC-1.BigFiveNEO.zip?dl=0 $PGI_Repo/original_data/public/GPC-1.BigFiveNEO.zip 
 unzip $PGI_Repo/original_data/public/GPC-1.BigFiveNEO.zip
-rm GPC-1.NEO-CONSCIENTIOUSNESS.full.txt  GPC-1.NEO-NEUROTICISM.full.txt GPC-1.NEO-AGREEABLENESS.full.txt  GPC-1.NEO-EXTRAVERSION.full.txt
+mv GPC-1.NEO-OPENNESS.full.txt tmp/OPEN-deMoor.txt
+mv ReadmeGPC-1.pdf $PGI_Repo/original_data/public/ReadMe/OPEN-deMoor_ReadMe.pdf
+rm -r __MACOSX GPC-1.NEO-CONSCIENTIOUSNESS.full.txt  GPC-1.NEO-NEUROTICISM.full.txt GPC-1.NEO-AGREEABLENESS.full.txt  GPC-1.NEO-EXTRAVERSION.full.txt
 
 # Unzip BRCA and convert to tab-delimited
 unzip $PGI_Repo/original_data/public/icogs_onco_gwas_meta_overall_breast_cancer_summary_level_statistics.txt.zip
 sed 's/ /\t/g' icogs_onco_gwas_meta_overall_breast_cancer_summary_level_statistics.txt > tmp/BRCA-Zhang.txt
 rm -r __MACOSX*
 
-# Extract IBD sumstats, keep trans-ethnic IBD file and ReadMe, remove rest (trans-ethnic file contains EUR-only results as well)
-tar -xvf $PGI_Repo/original_data/public/iibdgc-trans-ancestry-filtered-summary-stats.tgz
+# Extract  EUR IBD sumstats, and ReadMe, remove rest (trans-ethnic file contains only 157k SNPs)
+tar -xvf $PGI_Repo/original_data/public/iibdgc-trans-ancestry-filtered-summary-stats.tgz EUR.IBD.gwas_info03_filtered.assoc README
 mv README $PGI_Repo/original_data/public/ReadMe/IBD.ReadMe.txt
-gunzip -c IBD_trans_ethnic_association_summ_stats_b37.txt.gz > tmp/IBD-Liu.txt
-rm EUR.CD* EUR.UC* EUR.IBD* UC_trans* CD_trans* IBD_trans*
+mv EUR.IBD.gwas_info03_filtered.assoc tmp/IBD-Liu.txt
 
 # Extract CAD-Nikpay
 unzip $PGI_Repo/original_data/public/cad.additive.Oct2015.pub.zip 
@@ -35,7 +35,7 @@ mv cad.add.160614.website.txt tmp/CAD-Nikpay.txt
 tar -xvf $PGI_Repo/original_data/public/transfer_2674936_files_a3984b76.tar
 mv README* $PGI_Repo/original_data/public/ReadMe/
 mv migraine_ihgc2021_all_passed_variant_ids_with_cohorts3.txt.gz $PGI_Repo/original_data/public/
-gunzip -c migraine_IHGC2021_no23andMe_gwama_v2.txt.gz > tmp/MIGRAINE-Hautakangas.txt &
+gunzip -c migraine_IHGC2021_no23andMe_gwama_v2.txt.gz > tmp/MIGRAINE-Hautakangas.txt
 gunzip -c any_mig.no23andMe.gwama.out.isq75.nstud10.clean.gz > tmp/MIGRAINE-Gormley.txt &
 rm migraine* any_mig*
 
@@ -52,10 +52,10 @@ gunzip -c $PGI_Repo/original_data/public/ADHD-adhd_eur_jun2017.gz > tmp/ADHD-Dem
 gunzip -c $PGI_Repo/original_data/public/AFBpooled-AgeFirstBirth_Pooled.txt.gz > tmp/AFB-Barban.txt &
 gunzip -c $PGI_Repo/original_data/public/AFB-Mills.txt.gz > tmp/AFB-Mills.txt &
 gunzip -c $PGI_Repo/original_data/public/GCST90000047_buildGRCh37.tsv.gz > tmp/AFS-Mills.txt &
-gunzip -c $PGI_Repo/original_data/public/PGCALZ2sumstatsExcluding23andMe.txt.gz > tmp/ALZ-Wightman.txt
+gunzip -c $PGI_Repo/original_data/public/PGCALZ2sumstatsExcluding23andMe.txt.gz > tmp/ALZ-Wightman.txt &
 gunzip -c $PGI_Repo/original_data/public/ANOREX-Duncan.txt.gz > tmp/ANOREX-Duncan.txt &
 gunzip -c $PGI_Repo/original_data/public/ANOREX-Watson.txt.gz > tmp/ANOREX-Watson.txt & 
-gunzip -c $PGI_Repo/original_data/public/ASD-Grove.txt.gz > tmp/ASD-Grove.txt
+gunzip -c $PGI_Repo/original_data/public/ASD-Grove.txt.gz > tmp/ASD-Grove.txt &
 gunzip -c $PGI_Repo/original_data/public/AgeofInitiation.txt.gz > tmp/ASI-Liu.txt
 gunzip -c $PGI_Repo/original_data/public/AgeOfInitiation.WithoutUKB.txt.gz > tmp/ASI-LiuSansUKB.txt
 gunzip -c $PGI_Repo/original_data/public/AstEczRhi-SHARE-without23andMe.LDSCORE-GC.SE-META.v0.gz > tmp/ASTECZRHI-Ferreira.txt &
@@ -88,7 +88,7 @@ gunzip -c $PGI_Repo/original_data/public/SmokingInitiation.txt.gz?sequence=34 > 
 gunzip -c $PGI_Repo/original_data/public/SmokingInitiation.WithoutUKB.txt.gz > tmp/EVERSMOKE-LiuSansUKB.txt &
 gunzip -c $PGI_Repo/original_data/public/HEIGHT-GIANT_HEIGHT_Wood_et_al_2014_publicrelease_HapMapCeuFreq.txt.gz > tmp/HEIGHT-Wood.txt &
 gunzip -c $PGI_Repo/original_data/public/Insomnia_sumstats_Jansenetal.txt.gz > tmp/INSOMNIA-Jansen.txt
-gunzip -c $PGI_Repo/original_data/public/Hysi_Choquet_Khawaja_et_al_Refracive_Error_NatGenet_2020.txt.gz > tmp/NEARSIGHTED-Hysi.txt
+gunzip -c $PGI_Repo/original_data/public/Hysi_Choquet_Khawaja_et_al_Refracive_Error_NatGenet_2020.txt.gz > tmp/NEARSIGHTED-Hysi.txt &
 gunzip -c $PGI_Repo/original_data/public/NEBmen-NumberChildrenEverBorn_Male.txt.gz > tmp/NEBmen-Barban.txt &
 gunzip -c $PGI_Repo/original_data/public/NEBwomen-NumberChildrenEverBorn_Female.txt.gz > tmp/NEBwomen-Barban.txt &
 unzip $PGI_Repo/original_data/public/meta_v3_onco_euro_overall_ChrAll_1_release.zip && mv meta_v3_onco_euro_overall_ChrAll_1_release.txt tmp/PRCA-Schumacher.txt &
@@ -112,7 +112,6 @@ cp $PGI_Repo/original_data/public/EA4_excl_PGIrepo_2021_12_27.meta tmp/EA-OkbayE
 cp $PGI_Repo/original_data/public/EA4_excl_UKB_2020_04_09.meta tmp/EA-OkbayExclUKB.txt &
 cp $PGI_Repo/original_data/public/GPC-2.EXTRAVERSION.full.txt tmp/EXTRA-vandenBerg.txt &
 cp $PGI_Repo/original_data/public/META_NEUROTICISM_ALLIwv_iwv_20150402_1.dat tmp/NEURO-deMoor.txt &
-cp $PGI_Repo/original_data/public/GPC-1.NEO-OPENNESS.full.txt tmp/OPEN-deMoor.txt &
 cp $PGI_Repo/original_data/public/CCI_discovery_MA_13_samples_07-18-2015_rs.txt.txt tmp/CANNABIS-Stringer.txt &
 wait
 #-----------------------------------#
@@ -156,7 +155,7 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 # Meddens
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 	NR>1{split($1,a,":"); SE=1/sqrt(2*$8*$4*(1-$4)); BETA=$9*SE} \
-	NR>1{print $1,a[1],a[2],toupper($2),toupper($3),$4,BETA,SE,$10,1,$8,1,1,1,"A"}' tmp/ACTIVITY-Meddens.txt > ACTIVITY-Meddens.txt &
+	NR>1{print $1,a[1],a[2],toupper($2),toupper($3),$4,BETA,SE,$10,1,$8,1,1,1,"A"}' tmp/ACTIVITY-Meddens.txt > tmp/tmp_ACTIVITY-Meddens.txt &
 
 #---------------------------------------#
 
@@ -195,13 +194,13 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 	# Add EAF from HRC (below)
 	# Add Beta and SE using HRC EAF
 awk -F"\t" 'NR==1{print;next} \
-	{SE=1/sqrt(2*$11*$6*(1-$6)); BETA=$7*SE; print $1,$2,$3,$4,$5,$6,BETA,SE,$9,$10,$11,$12,$13,$14,$15}' OFS="\t" tmp/tmp_ALZ-Wightman.txt > ALZ-Wightman.txt
+	{SE=1/sqrt(2*$11*$6*(1-$6)); BETA=$7*SE; print $1,$2,$3,$4,$5,$6,BETA,SE,$9,$10,$11,$12,$13,$14,$15}' OFS="\t" tmp/tmp_ALZ-Wightman.txt > ALZ-Wightman.txt &
 #---------------------------------------#
 
 # ANOREX
 # Watson
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-	NR>1 && !/#/ {N=$12+$13;print $3,$1,$2,$4,$5,"NA",$6,$7,$8,$10,N,1,1,1,"A"}' tmp/ANOREX-Watson.txt > tmp/tmp_ANOREX-Watson.txt &
+	$1!="CHROM" && !/#/ {N=$12+$13;print $3,$1,$2,$4,$5,"NA",$6,$7,$8,$10,N,1,1,1,"A"}' tmp/ANOREX-Watson.txt > tmp/tmp_ANOREX-Watson.txt &
 
 # Duncan
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
@@ -220,6 +219,9 @@ for file in ASI-Liu.txt ASI-LiuSansUKB.txt; do
 	awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 		NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,$12/$11,$11,1,1,1,"A"}' OFS="\t" tmp/$file > $file &
 done
+
+mv ASI-LiuSansUKB.txt tmp/tmp_ASI-LiuSansUKB.txt
+# Add EAF below for ~1.5mil SNPs with missing EAF 
 
 #---------------------------------------#
 
@@ -267,12 +269,12 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 # Evangelou
 for file in BPsys-Evangelou.txt BPdia-Evangelou.txt BPpulse-Evangelou.txt; do
 	awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-		NR>1{split($1,a,":"); print a[1]":"a[2],a[1],a[2],toupper($2),toupper($3),$4,$5,$6,$7,$9/$8,$8,1,1,1,"A"}' tmp/$file > $file &
+		NR>1{split($1,a,":"); print a[1]":"a[2],a[1],a[2],toupper($2),toupper($3),$4,$5,$6,$7,$9/$8,$8,1,1,1,"A"}' tmp/$file > tmp/tmp_$file &
 done
 
 for file in BPsys-EvangelouSansUKB.txt BPdia-EvangelouSansUKB.txt BPpulse-EvangelouSansUKB.txt; do
 	awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-		NR>1{split($1,a,":"); print a[1]":"a[2],a[1],a[2],toupper($2),toupper($3),$4,$6,$7,$8,1,$15/$14,1,1,1,"A"}' tmp/$file > $file &
+		NR>1{split($1,a,":"); print a[1]":"a[2],a[1],a[2],toupper($2),toupper($3),$4,$6,$7,$8,1,$15/$14,1,1,1,"A"}' tmp/$file > tmp/tmp_$file &
 done
 
 #---------------------------------------#
@@ -285,7 +287,7 @@ done
 # Total: N_controls=133384, Ncases=113789
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 	NR>1 {N=133384+113789; EAF=((37818*$13)+(58383*$29)+(32498*$4))/(37818+58383+32498); if ($15<$31) {INFO=$15} else {INFO=$31}} \
-	NR>1 {print $9":"$10,$9,$10,$40,$41,EAF,$42,sqrt($43),$46,INFO,N,1,1,1,"A"}' tmp/BRCA-Zhang.txt > BRCA-Zhang.txt &
+	NR>1 {print $9":"$10,$9,$10,$40,$41,EAF,$42,sqrt($43),$46,INFO,N,1,1,1,"A"}' tmp/BRCA-Zhang.txt > tmp/tmp_BRCA-Zhang.txt &
 
 #---------------------------------------#
 
@@ -318,7 +320,7 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 # CHOLESTEROL AND TRYGLYCERIDS
 for pheno in CHOHDL CHOLDL CHOTOT CHOHDL TRYGL; do
 	awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-		NR>1{N=355891;print $1":"$2,$1,$2,$5,$4,$14,$6,$7,$8,$15,N,1,1,1,"A"}' tmp/$pheno-SinnottArmstrong.txt > $pheno-SinnottArmstrong.txt &
+		NR>1{N=355891;print $1":"$2,$1,$2,$5,$4,"NA",$6,$7,$8,$15,N,1,1,1,"A"}' tmp/$pheno-SinnottArmstrong.txt > tmp/tmp_$pheno-SinnottArmstrong.txt &
 done
 
 #---------------------------------------#
@@ -349,6 +351,9 @@ for file in CPD-Liu.txt CPD-LiuSansUKB.txt; do
 	awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 		NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,$12/$11,$11,1,1,1,"A"}' OFS="\t" tmp/$file > $file &
 done
+ 
+mv CPD-LiuSansUKB.txt tmp/tmp_CPD-LiuSansUKB.txt
+# Add EAF below for ~1.5mil SNPs with missing EAF 
 
 #---------------------------------------#
 
@@ -367,6 +372,9 @@ for file in DPW-Liu.txt DPW-LiuSansUKB.txt; do
 	awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 		NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,$12/$11,$11,1,1,1,"A"}' OFS="\t" tmp/$file > $file &
 done
+
+mv DPW-LiuSansUKB.txt tmp/tmp_DPW-LiuSansUKB.txt
+# Add EAF below for ~1.5mil SNPs with missing EAF 
 
 #---------------------------------------#
 
@@ -398,6 +406,9 @@ for file in EVERSMOKE-Liu.txt EVERSMOKE-LiuSansUKB.txt; do
 	awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 		NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,$12/$11,$11,1,1,1,"A"}' OFS="\t" tmp/$file > $file &
 done
+
+mv EVERSMOKE-LiuSansUKB.txt tmp/tmp_EVERSMOKE-LiuSansUKB.txt
+# Add EAF below for ~1.5mil SNPs with missing EAF 
 #---------------------------------------#
 
 # HEIGHT 
@@ -407,9 +418,9 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 #---------------------------------------#
 
 # IBD
-# N_cases_EUR=12882+25273, N_controls_EUR=21770+26715
+# N_cases_EUR=12882, N_controls_EUR=21770
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-	NR>1{N=12882+25273+21770+26715; print $1,$2,$3,$4,$5,$22,$10,$11,$12,1,N,1,1,1,"A"}' OFS="\t" tmp/IBD-Liu.txt > IBD-Liu.txt &
+	NR>1{N=12882+21770; print $2,$1,$3,$4,$5,$7,log($9),$10,$11,$8,N,1,1,1,"A"}' OFS="\t" tmp/IBD-Liu.txt > IBD-Liu.txt &
 
 #---------------------------------------#
 
@@ -446,7 +457,7 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 # NEARSIGHTED
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
 	NR>1{split($1,a,":"); SNPID=a[2]":"a[3]; SE=1/sqrt(2*$6*$4*(1-$4)); BETA=$7*SE}
-	NR>1{print SNPID,a[2],a[3],toupper($2),toupper($3),$4,BETA,SE,$8,1,$6,1,1,1,"A"}' OFS="\t" tmp/NEARSIGHTED-Hysi.txt > NEARSIGHTED-Hysi.txt &
+	NR>1{print SNPID,a[2],a[3],toupper($2),toupper($3),$4,BETA,SE,$8,1,$6,1,1,1,"A"}' OFS="\t" tmp/NEARSIGHTED-Hysi.txt > tmp/tmp_NEARSIGHTED-Hysi.txt &
 
 #---------------------------------------#
 
@@ -478,7 +489,7 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 # N_cases = 46939+32255 = 79194, N_controls = 27910+33202 = 61112
 # N_total = 140306
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-	NR>1 {N=140306;print $3,$4,$5,toupper($6),toupper($7),$8,$12,$13,$14,$16,N,1,1,1,"A"}' OFS="\t" tmp/PRCA-Schumacher.txt > PRCA-Schumacher.txt &
+	NR>1 {N=140306; if ($16!="NA") INFO=$16 ; else INFO=1; print $3,$4,$5,toupper($6),toupper($7),$8,$12,$13,$14,INFO,N,1,1,1,"A"}' OFS="\t" tmp/PRCA-Schumacher.txt > PRCA-Schumacher.txt &
 
 #---------------------------------------#
 
@@ -500,6 +511,9 @@ for file in SMCESS-Liu.txt SMCESS-LiuSansUKB.txt; do
 		NR>1{print $3,$1,$2,$5,$4,$6,$9,$10,$8,$12/$11,$11,1,1,1,"A"}' OFS="\t" tmp/$file > $file &
 done
 
+mv SMCESS-LiuSansUKB.txt tmp/tmp_SMCESS-LiuSansUKB.txt
+# Add EAF below for ~1.5mil SNPs with missing EAF 
+
 #---------------------------------------#
 
 # SWB
@@ -511,7 +525,7 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 # T2D
 # Mahajan
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
-	NR>1 {N=74124+824006;print $1,$2,$3,$4,$5,$6,$7,$8,$9,1,N,1,1,1,"A"}' tmp/T2D-Mahajan.txt > T2D-Mahajan.txt &
+	NR>1 {N=74124+824006;print $1,$2,$3,$4,$5,$6,$7,$8,$9,1,N,1,1,1,"A"}' tmp/T2D-Mahajan.txt > tmp/tmp_T2D-Mahajan.txt &
 
 # Scott
 awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"} \
@@ -526,23 +540,24 @@ wait
 #------------------------------------------------------------------------------------------------------------#
 
 ## EAF ISSUES
-
 # Files with rsID and missing EAF
-for file in ANOREX-Watson.txt ASD-Grove.txt AFB-Mills.txt AFS-Mills.txt ALZ-Kunkle.txt ADHD-Demontis.txt EXTRA-vandenBerg.txt OPEN-deMoor.txt ; do
-	awk -F"\t" 'NR==FNR{ref[$1]=$3;raf[$1]=$5;next} \
-		FNR==1{print;next} \
-		FNR>1 && $1 in ref && ref[$1]==$4{$6=raf[$1];print;next}
-		FNR>1 && $1 in ref && ref[$1]==$5{$6=1-raf[$1];print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
+for file in ASI-LiuSansUKB.txt EVERSMOKE-LiuSansUKB.txt DPW-LiuSansUKB.txt CPD-LiuSansUKB.txt SMCESS-LiuSansUKB.txt ANOREX-Watson.txt ASD-Grove.txt AFB-Mills.txt AFS-Mills.txt ALZ-Kunkle.txt ADHD-Demontis.txt EXTRA-vandenBerg.txt OPEN-deMoor.txt ; do
+	awk -F"\t" 'NR==FNR{ref[$1]=$3;alt[$1]=$4;raf[$1]=$5;next}
+	FNR==1{print;next}
+	$6=="NA" && ref[$1]==$4 && alt[$1]==$5 {$6=raf[$1];print;next}
+	$6=="NA" && ref[$1]==$5 && alt[$1]==$4 {$6=1-raf[$1];print;next}
+	{print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
 done
 wait
-mv OPEN-GPC1.txt tmp/tmp_OPEN-GPC1.txt
+mv OPEN-deMoor.txt tmp/tmp_OPEN-deMoor.txt
 
 ## Files with ChrPosID and missing EAF (also adding rsID)
-for file in AUDIT-Walters.txt ALZ-Wightman.txt ANOREX-Duncan.txt T2D-Scott.txt NEURO-deMoor.txt MENARCHE-Day.txt; do
-	awk -F"\t" 'NR==FNR{rs[$2]=$1;ref[$2]=$3;raf[$2]=$5;next} \
-	FNR==1{print;next} \
-	FNR>1 && $1 in ref && ref[$1]==$4{$6=raf[$1];$1=rs[$1];print;next}
-	FNR>1 && $1 in ref && ref[$1]==$5{$6=1-raf[$1];$1=rs[$1];print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
+for file in CHOHDL-SinnottArmstrong.txt CHOLDL-SinnottArmstrong.txt CHOTOT-SinnottArmstrong.txt CHOHDL-SinnottArmstrong.txt TRYGL-SinnottArmstrong.txt AUDIT-Walters.txt ALZ-Wightman.txt ANOREX-Duncan.txt T2D-Scott.txt NEURO-deMoor.txt MENARCHE-Day.txt; do
+	awk -F"\t" 'NR==FNR{rs[$2]=$1;ref[$2]=$3;alt[$2]=$4;raf[$2]=$5;next}
+	FNR==1{print;next}
+	$6=="NA" && ref[$1]==$4 && alt[$1]==$5 {$6=raf[$1];$1=rs[$1];print;next}
+	$6=="NA" && ref[$1]==$5 && alt[$1]==$4 {$6=1-raf[$1];$1=rs[$1];print}
+	{print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
 done 
 wait
 mv MENARCHE-Day.txt tmp/tmp_MENARCHE-Day.txt
@@ -551,11 +566,11 @@ mv AUDIT-Walters.txt tmp/tmp_AUDIT-Walters.txt
 #---------------------------------------#
 
 ## Files with ChrPosID (missing rsID)
-#for file in NEARSIGHTED-Hysi.txt BPsys-Evangelou.txt BPsys-EvangelouSansUKB.txt BPpulse-Evangelou.txt BPpulse-EvangelouSansUKB.txt BPdia-Evangelou.txt BPdia-EvangelouSansUKB.txt T2D-Mahajan.txt BRCA-Zhang.txt; do
-#	awk -F"\t" 'NR==FNR{rs[$2]=$1;next} \
-#		FNR==1{print;next} \
-#		FNR>1 && $1 in rs {$1=rs[$1];print;next} {print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
-#done
+for file in MIGRAINE-Hautakangas.txt ACTIVITY-Meddens.txt NEARSIGHTED-Hysi.txt BPsys-Evangelou.txt BPsys-EvangelouSansUKB.txt BPpulse-Evangelou.txt BPpulse-EvangelouSansUKB.txt BPdia-Evangelou.txt BPdia-EvangelouSansUKB.txt T2D-Mahajan.txt BRCA-Zhang.txt; do
+	awk -F"\t" 'NR==FNR{rs[$2]=$1;next} \
+		FNR==1{print;next} \
+		FNR>1 && $1 in rs {$1=rs[$1];print;next} {print}' OFS="\t" $HRC_raf tmp/tmp_$file > $file &
+done
 
 #---------------------------------------#
 
