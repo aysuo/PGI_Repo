@@ -10,7 +10,7 @@ format_MTAG_LDpred(){
 
     # If the input is single-trait MTAG output, will format all output files
     if [[ $multi == 0 ]]; then
-        sumstats=$(ls $dirIn/*trait*)
+        sumstats=$(ls $dirIn/*trait* | sed '/SBayesR/d')
     else
     # If it's multi-trait MTAG output, will format only the target phenotype 
         sumstats=$(ls $dirIn/*trait_1.txt)
