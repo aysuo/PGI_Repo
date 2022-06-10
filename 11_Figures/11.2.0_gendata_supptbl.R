@@ -13,7 +13,7 @@
 ########################################################
 
 # load libraries
-packages <- c("data.table", "readxl", "dplyr", "ggplot2", "gridExtra", "grid", "gtable")
+packages <- c("data.table", "readxl", "dplyr", "ggplot2", "gridExtra", "grid", "gtable", "stringr", "tidyr")
 new.packages <- packages[!(packages %in% installed.packages()[, "Package"])]
 if(length(new.packages)) install.packages(new.packages)
 lapply(packages, library, character.only = TRUE)
