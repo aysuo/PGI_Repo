@@ -22,7 +22,7 @@ PGI(){
         fi
         echo $pheno $path >> $PGI_Repo/code/9_Scores/ss_single_${cohort}
     done
-    sh $PGI_Repo/code/9_Scores/9.0_PGS.sh single $cohort $PGI_Repo/derived_data/9_Scores/single $method
+    sh $PGI_Repo/code/9_Scores/9.0_PGS.sh single $cohort $method
 }
 
 
@@ -31,8 +31,8 @@ PGI(){
 #    PGI $cohort SBayesR
 #done
 
-for cohort in UKB1 UKB2 UKB3 HRS2 AH Dunedin EGCUT ELSA ERisk MCTFR STRpsych STRtwge STRyatssstage Texas WLS
+for cohort in HRS2 WLS UKB3
 do
-    PGI $cohort SBayesR
+    PGI $cohort LDpred
 done
 

@@ -4,10 +4,9 @@ source $PGI_Repo/code/paths
 
 score=$1
 cohort=$2
-dirOut=$3
-method=$4
+method=$3
 
-cd $dirOut
+cd $PGI_Repo/derived_data/9_Scores/${score}_${method}
 
 ##############################################################
 ########## Define LDpred input files and parameters ##########
@@ -98,7 +97,7 @@ LDpred(){
 
 SBayesR(){
 	fileList=$1
-	mkdir -p logs weights tmp
+	mkdir -p logs weights tmp scores
 
 	i=0
 	while read row; do
@@ -181,7 +180,7 @@ checkStatusPGI(){
 			PGI)
 				case $method in 
 					LDpred)
-						if ! [[ $(find scores/PGS_${cohort}_${pheno}*.txt -type f -size +100 2>/dev/null) ]]; then 
+						if ! [[ $(find scores/PGS_${cohort}_${pheno}_LDpred_p*.txt -type f -size +20 2>/dev/null) ]]; then 
 							grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
 							echo "makePGS (LDpred) for $pheno in $cohort has not been run yet or was unsuccessful."
 							status=0
