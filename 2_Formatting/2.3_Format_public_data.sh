@@ -52,6 +52,7 @@ gunzip -c $PGI_Repo/original_data/public/ADHD-adhd_eur_jun2017.gz > tmp/ADHD-Dem
 gunzip -c $PGI_Repo/original_data/public/AFBpooled-AgeFirstBirth_Pooled.txt.gz > tmp/AFB-Barban.txt &
 gunzip -c $PGI_Repo/original_data/public/AFB-Mills.txt.gz > tmp/AFB-Mills.txt &
 gunzip -c $PGI_Repo/original_data/public/GCST90000047_buildGRCh37.tsv.gz > tmp/AFS-Mills.txt &
+gunzip -c $PGI_Repo/original_data/public/GCST90027158_buildGRCh38.tsv.gz > tmp/ALZ-Bellenguez.txt & 
 gunzip -c $PGI_Repo/original_data/public/PGCALZ2sumstatsExcluding23andMe.txt.gz > tmp/ALZ-Wightman.txt &
 gunzip -c $PGI_Repo/original_data/public/ANOREX-Duncan.txt.gz > tmp/ANOREX-Duncan.txt &
 gunzip -c $PGI_Repo/original_data/public/ANOREX-Watson.txt.gz > tmp/ANOREX-Watson.txt & 
@@ -195,6 +196,11 @@ awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLE
 	# Add Beta and SE using HRC EAF
 awk -F"\t" 'NR==1{print;next} \
 	{SE=1/sqrt(2*$11*$6*(1-$6)); BETA=$7*SE; print $1,$2,$3,$4,$5,$6,BETA,SE,$9,$10,$11,$12,$13,$14,$15}' OFS="\t" tmp/tmp_ALZ-Wightman.txt > ALZ-Wightman.txt &
+
+# Bellenguez
+awk -F"\t" 'BEGIN{OFS="\t"; print "SNPID","CHR","BP","EFFECT_ALLELE","OTHER_ALLELE","EAF","BETA","SE","P","INFO","N","IMPUTED","CALLRATE","HWE_PVAL","PLOIDY"}
+	NR>1{print $1,$3,$4,$5,$6,$7,$11,$12,$2,1,$13+$14,1,1,1,"A"}' tmp/ALZ-Bellenguez.txt > ALZ-Bellenguez.txt
+
 #---------------------------------------#
 
 # ANOREX
