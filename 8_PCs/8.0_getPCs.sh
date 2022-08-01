@@ -137,7 +137,7 @@ main(){
         PCs $cohort
     done
 
-    for cohort in HRS3 EGCUT AH MCTFR Texas STRyatssstage STRpsych STRtwge ELSA Dunedin ERisk; do
+    for cohort in HRS3 EGCUT AH MCS MCTFR Texas STRyatssstage STRpsych STRtwge ELSA Dunedin ERisk; do
         mkdir -p ${pc_dir}
         prune $cohort
         subset_unrelated $cohort
