@@ -844,7 +844,7 @@ foreach partition in 1 2 3{
 
     tabulate BATCH, generate(batch)
     export delimited FID IID PC1-PC20 batch* using "input/UKB`partition'/PC_BATCHdum.txt", noq delim(" ") replace
-
+    
     restore
 }
 
