@@ -14,6 +14,14 @@ wget http://ssgac.org/documents/readme_reproductivebehavior.txt
 #------------------------------------#
 
 #------------------------------------#
+# Bellenguez et al - Alzheimer's
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90027001-GCST90028000/GCST90027158/GCST90027158_buildGRCh38.tsv.gz
+# ReadMe:
+wget http://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90027001-GCST90028000/GCST90027158/README.txt
+#------------------------------------#
+
+
+#------------------------------------#
 # Day et al - Age at first menses
 wget https://www.reprogen.org/Menarche_1KG_NatGen2017_WebsiteUpload.zip
 #------------------------------------#
