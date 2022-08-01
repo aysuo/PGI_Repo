@@ -35,7 +35,7 @@ stata -b do $PGI_Repo/code/1_UKB_GWAS/1.1_prep_UKB_phenos.do \
 	$UKB_pheno_data_3 \
 	$UKB_pheno_data_4 \
 	$UKB_covar_data \
-	$PGI_Repo/code/1_UKB_GWAS/1.1_prep_UKB_phenos_v2.do.log \
+	$PGI_Repo/code/1_UKB_GWAS/1.1_prep_UKB_phenos.do.log \
 	$UKB_withdrawn
 
 # Replace missing values (.) with NA
