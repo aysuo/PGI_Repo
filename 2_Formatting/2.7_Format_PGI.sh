@@ -95,3 +95,29 @@ cp ../HRS3*.txt HRS/HRS_PGIrepo_v1.0.txt
 cp UserGuide.pdf HRS/UserGuide_v1.0.pdf
 cp SupplementaryTables.xlsx HRS/SupplementaryTables.xlsx
 zip -r HRS_PGIrepo_v1.0.zip HRS
+
+
+# v1.1 (EA4 update)
+cd v1.1
+for cohort in EGCUT STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS; do
+    mkdir $cohort
+    awk -F"\t" 'NR==FNR{EApgi[$2]=$5;next}FNR==1{print;next}($2 in EApgi){$16=EApgi[$2];print}' OFS="\t" $PGI_Repo/derived_data/9_Scores/single_SBayesR/scores/PGS_${cohort}_EA-single_SBayesR.txt ../v1.0/${cohort}/${cohort}_PGIrepo_v1.0.txt > ${cohort}/${cohort}_PGIrepo_v1.1.txt &
+done
+
+for cohort in AH Dunedin ELSA ERisk; do
+    mkdir $cohort
+    awk -F"\t" 'NR==1{print;next} \
+        {split($1,a,/_/) ; $1=a[1]; $2=a[2] ; print}' OFS="\t" $PGI_Repo/derived_data/9_Scores/single_SBayesR/scores/PGS_${cohort}_EA-single_SBayesR.txt > ${cohort}/ea4_${cohort}
+    awk -F"\t" 'NR==FNR{EApgi[$2]=$5;next}FNR==1{print;next}($2 in EApgi){$16=EApgi[$2];print}' OFS="\t" ${cohort}/ea4_${cohort} ../v1.0/${cohort}/${cohort}_PGIrepo_v1.0.txt > ${cohort}/${cohort}_PGIrepo_v1.1.txt
+    rm ${cohort}/ea4_${cohort}
+done
+
+for cohort in EGCUT STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS AH Dunedin ELSA ERisk; do
+    cp ReadMe.txt $cohort/ReadMe.txt
+    # Edit ReadMe's manually, add the N of new EA PGI, etc
+    mv $cohort/ReadMe.txt $cohort/ReadMe_${cohort}_PGIrepo_v1.1.txt
+done
+
+for cohort in EGCUT STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS AH Dunedin ELSA ERisk; do
+    zip -r ${cohort}_PGIrepo_v1.1.zip $cohort
+done
