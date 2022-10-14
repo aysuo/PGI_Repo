@@ -135,14 +135,15 @@ echo ""
 #######################################################################################################
 
 mergeChr(){
-    out=$1
+  pgiDir=$1
+  prefix=$2
 
-    paste scores/PGS_${out}_chr*.sscore > tmp/PGS_${out}
-    awk -v out=${out} 'BEGIN{OFS="\t"; print "FID","IID","ALLELE_CT","NAMED_ALLELE_DOSAGE_SUM","PGS_"out} \
-      NR>1{nallele=0;dosagesum=0;PGS=0; for(i=1;i<=NF;i++){if (i%5 == 3) nallele+=$i; if (i%5 == 4) dosagesum+=$i ; if (i%5 == 0) PGS+=$i}; print $1,$2,nallele,dosagesum,PGS/nallele}' OFS="\t" tmp/PGS_${out} > scores/PGS_${out}.txt
+  paste ${pgiDir}/tmp/${prefix}_chr*.sscore > $pgiDir/tmp/${prefix}
+    awk -v pgiHeader=${prefix} 'BEGIN{OFS="\t"; print "FID","IID","ALLELE_CT","NAMED_ALLELE_DOSAGE_SUM",pgiHeader} \
+      NR>1{nallele=0;dosagesum=0;PGI=0; for(i=1;i<=NF;i++){if (i%5 == 3) nallele+=$i; if (i%5 == 4) dosagesum+=$i ; if (i%5 == 0) PGI+=$i}; print $1,$2,nallele,dosagesum,PGI/nallele}' OFS="\t" $pgiDir/tmp/${prefix} > ${pgiDir}/${prefix}.txt
      
-    cat scores/PGS_${out}_chr*.log > logs/PGS_${out}_make_PGS.log 
-    rm tmp/PGS_${out} scores/PGS_${out}_chr*
+    cat ${pgiDir}/tmp/${prefix}_chr*.log > logs/${prefix}_make_PGS.log 
+    rm ${pgiDir}/tmp/${prefix}*
 }
 
 makePGS(){
@@ -151,6 +152,9 @@ makePGS(){
   out=$3
   weights=$4
   weightCols=$5
+
+  prefix=$(echo $out | rev | cut -d"/" -f1 | rev)
+  pgiDir=$(echo $out | sed "s/$prefix//g")
 
   if [[ $sampleKeep == "NA" ]]; then
     chr1=$(echo $valgf | sed 's/\[1:22\]/1/g')
@@ -164,7 +168,7 @@ makePGS(){
       --keep $sampleKeep \
       --rm-dup force-first \
       --score $weights $weightCols cols=fid,nallele,dosagesum,scoresums \
-      --out scores/PGS_${out}_chr$chr &
+      --out ${pgiDir}/tmp/${prefix}_chr$chr &
 
     let i+=1
 
@@ -176,7 +180,7 @@ makePGS(){
   
   wait
 
-  mergeChr $out
+  mergeChr ${pgiDir} ${prefix}
 }
 
 
