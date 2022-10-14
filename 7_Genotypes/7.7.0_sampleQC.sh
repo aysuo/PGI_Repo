@@ -1,22 +1,19 @@
 #!/bin/bash
 
-source $PGI_Repo/code/paths
-
-#---------------------------------------------------------------------------------------#
 
 PCA(){
     cohort=$1
     sampleKeep=$2
     snpid=$3
+    out=$4
 
-    eval gf_dir='$'gf_dir_${cohort}
     gf="$gf_dir/plink/HM3/${cohort}_HM3"
     
     if [[ $snpid == "rs" ]]
         then
-            gf_1000G="$gf_out_1000G/plink/HM3/1000Gph3_HM3"
+            gf_1000G="$gf_dir_1000G/plink/HM3/1000Gph3_HM3"
         else
-            gf_1000G="$gf_out_1000G/plink/HM3/1000Gph3_HM3_chrpos"
+            gf_1000G="$gf_dir_1000G/plink/HM3/1000Gph3_HM3_chrpos"
     fi
 
     mkdir -p $gf_dir/sampleQC
@@ -52,7 +49,7 @@ PCA(){
             --pca 4 \
             --pca-cluster-names 1000G \
             --out $gf_dir/sampleQC/${cohort}_1kG_HM3_PCs
-        sed -i 's/ /\t/g' $gf_dir/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec
+        sed -i 's/ /\t/g' $gf_dir/sampleQC/${out}.eigenvec
     else
         plink1.9 --bfile $gf_dir/sampleQC/${cohort}_1kG_HM3 \
             --keep $sampleKeep \
@@ -60,8 +57,8 @@ PCA(){
             --within $gf_dir/sampleQC/${cohort}_1kG_HM3.clusters \
             --pca 4 \
             --pca-cluster-names 1000G \
-            --out $gf_dir/sampleQC/${cohort}_EUR_1kG_HM3_PCs
-        sed -i 's/ /\t/g' $gf_dir/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec
+            --out $gf_dir/sampleQC/${out}
+        sed -i 's/ /\t/g' $gf_dir/sampleQC/${out}.eigenvec
     fi
 
     rm $gf_dir/sampleQC/*bed \
@@ -84,41 +81,25 @@ plotPCs(){
         !($1~"#"){print $0,cohort,cohort}' OFS="\t" $pop1000G $PCs > ${PCs}.annotated
 
     # Plot
-    Rscript $PGI_Repo/code/7_Genotypes/7.7.0_plotPCs.R "${PCs}.annotated" $out
+    Rscript $PGI_Repo/code/7_Genotypes/7.7.1_plotPCs.R "${PCs}.annotated" $out
 }
 
-extractEUR(){
+extractAncestry(){
     cohort=$1
     margin=$2
+    ancestry=$3
 
-    means=($(awk -F"\t" '$8=="EUR" && NR>1 {count++; sum1=sum1+$3; sum2=sum2+$4; sum3=sum3+$5; sum4=sum4+$6}
+    means=($(awk -F"\t" -v ancestry=$ancestry '$8==ancestry && NR>1 {count++; sum1=sum1+$3; sum2=sum2+$4; sum3=sum3+$5; sum4=sum4+$6}
             END{print sum1/count, sum2/count, sum3/count, sum4/count}' $gf_dir/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated))
-      
-    limits=($(awk -F"\t" -v k=$margin -v mean1=${means[0]} -v mean2=${means[1]} -v mean3=${means[2]} -v mean4=${means[3]} '
-            $8=="EUR" && NR>1 {count++; sum1=sum1+($3-mean1)^2;  sum2=sum2+($4-mean2)^2; sum3=sum3+($5-mean3)^2; sum4=sum4+($6-mean4)^2} 
+
+    limits=($(awk -F"\t" -v ancestry=$ancestry -v k=$margin -v mean1=${means[0]} -v mean2=${means[1]} -v mean3=${means[2]} -v mean4=${means[3]} '
+            $8==ancestry && NR>1 {count++; sum1=sum1+($3-mean1)^2;  sum2=sum2+($4-mean2)^2; sum3=sum3+($5-mean3)^2; sum4=sum4+($6-mean4)^2} 
             END{print mean1-k*sqrt(sum1/count), mean1+k*sqrt(sum1/count), mean2-k*sqrt(sum2/count), mean2+k*sqrt(sum2/count), mean3-k*sqrt(sum3/count), mean3+k*sqrt(sum3/count), mean4-k*sqrt(sum4/count), mean4+k*sqrt(sum4/count)}' $gf_dir/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated))
-   
+
     awk -F"\t" -v l1=${limits[0]} -v u1=${limits[1]} -v l2=${limits[2]} -v u2=${limits[3]} -v l3=${limits[4]} -v u3=${limits[5]} -v l4=${limits[6]} -v u4=${limits[7]}  \
-        '$1=="0" || ($3>l1 && $3<u1 && $4>l2 && $4<u2 && $5>l3 && $5<u3 && $6>l4 && $6<u4) {print $1,$2,$3,$4,$5,$6}' OFS="\t" $gf_dir/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated > $gf_dir/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec
+        '$1=="0" || ($3>l1 && $3<u1 && $4>l2 && $4<u2 && $5>l3 && $5<u3 && $6>l4 && $6<u4) {print $1,$2,$3,$4,$5,$6}' OFS="\t" $gf_dir/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec.annotated > $gf_dir/sampleQC/${cohort}_${ancestry}_1kG_HM3_PCs.eigenvec
     
-    awk -F"\t" '$1!=0{print $1,$2}' OFS="\t" $gf_dir/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec > $gf_dir/sampleQC/${cohort}_EUR_FID_IID.txt
+    awk -F"\t" '$1!=0{print $1,$2}' OFS="\t" $gf_dir/sampleQC/${cohort}_${ancestry}_1kG_HM3_PCs.eigenvec > $gf_dir/sampleQC/${cohort}_${ancestry}_FID_IID.txt
 }
 
-
-main(){
-    for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCS MCTFR NCDS Texas STRpsych STRtwge STRyatssstage WLS; do
-        if [[ $cohort == "HRS2" || $cohort == "WLS" ]]; then
-            snpidtype="rs"
-        else
-            snpidtype="chrpos"
-        fi 
-        eval gf_dir='$'gf_dir_${cohort}
-        PCA $cohort "NA" $snpidtype
-        plotPCs $cohort $gf_dir/sampleQC/${cohort}_1kG_HM3_PCs.eigenvec $gf_dir/sampleQC/${cohort}_PCA.pdf
-        extractEUR $cohort 5
-        plotPCs $cohort $gf_dir/sampleQC/${cohort}_EUR_1kG_HM3_PCs.eigenvec $gf_dir/sampleQC/${cohort}_EUR_PCA.pdf
-    done
-}
-
-main
 
