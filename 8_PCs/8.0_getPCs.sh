@@ -64,7 +64,7 @@ prune(){
     fi
     wait
 
-    rm -f  ${pc_dir}/mergelist
+    rm -f  ${pc_dir}/mergelist ${pc_dir}/${cohort}_info70.snps
 
     for chr in {1..22}; do
         gfChr=$(echo "${gf_dir}/plink2/${cohort}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
@@ -96,7 +96,7 @@ prune(){
 
         rm ${pc_dir}/*tmp*
     fi 
-    rm ${pc_dir}/${cohort}_*chr*_pruned* ${pc_dir}/*prune.* ${pc_dir}/mergelist
+    rm ${pc_dir}/${cohort}_*chr*_pruned* ${pc_dir}/*prune.* ${pc_dir}/mergelist 
 }
 
 
@@ -122,26 +122,27 @@ PCs(){
             --pca-cluster-names unrelated \
             --out ${pc_dir}/${cohort}_PCs
 
-    rm ${pc_dir}/${cohort}_EUR.clusters \
+    rm ${pc_dir}/${cohort}_EUR.clusters  \
         ${pc_dir}/${cohort}_EUR_maf01_info70_highLDexcluded_pruned.bim \
         ${pc_dir}/${cohort}_EUR_maf01_info70_highLDexcluded_pruned.bed \
-        ${pc_dir}/${cohort}_EUR_maf01_info70_highLDexcluded_pruned.fam
+        ${pc_dir}/${cohort}_EUR_maf01_info70_highLDexcluded_pruned.fam \
+        ${pc_dir}/${cohort}_EUR_maf01_info70_highLDexcluded_pruned.nosex
 }
 
 main(){
-    for cohort in HRS2 WLS; do
-        mkdir -p ${pc_dir}
-        filterInfo $cohort
-        prune $cohort
-        subset_unrelated $cohort
-        PCs $cohort
-    done
+    for cohort in HRS2 HRS3 EGCUT AH MCS MCTFR Texas STRyatssstage STRpsych STRtwge ELSA Dunedin ERisk WLS; do
+        mkdir -p ${pc_dir}/logs
 
-    for cohort in HRS3 EGCUT AH MCS MCTFR Texas STRyatssstage STRpsych STRtwge ELSA Dunedin ERisk; do
-        mkdir -p ${pc_dir}
+        if [[ $cohort == "HRS2" | $cohort == "WLS" ]]
+        then
+            filterInfo $cohort
+        fi
+
         prune $cohort
         subset_unrelated $cohort
         PCs $cohort
+
+        mv ${pc_dir}/${cohort}_EUR_* ${pc_dir}/logs/
     done
 }
 
