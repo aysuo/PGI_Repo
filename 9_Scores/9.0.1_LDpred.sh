@@ -336,12 +336,12 @@ if [ -a ./weights ]
     mkdir weights
 fi
 
-if [ -a ./scores ]
-  then
-    echo "'scores' directory already exists. Using the existing directory."
-  else
-    mkdir scores
-fi
+#if [ -a ./scores ]
+#  then
+#    echo "'scores' directory already exists. Using the existing directory."
+#  else
+#    mkdir scores
+#fi
 
 if [ -a ./logs ]
   then
