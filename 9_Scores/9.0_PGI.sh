@@ -6,13 +6,19 @@ score=$1
 cohort=$2
 method=$3
 
-cd $PGI_Repo/derived_data/9_Scores/${score}_${method}
+eval pgi_dir='$'pgi_dir_${cohort}
+mkdir -p ${pgi_dir}/${score}_${method}/tmp
+pgi_dir=${pgi_dir}/${score}_${method}
+
+cd ${PGI_Repo}/derived_data/9_Scores/${score}_${method}
+mkdir -p logs tmp weights
 
 ##############################################################
 ############## Define input files and parameters #############
 ##############################################################
 
 eval gf_dir='$'gf_dir_${cohort}
+
 case $cohort in
 	"UKB1" | "UKB2" | "UKB3")
 		valgf=$gf_plink2_UKB
@@ -65,7 +71,6 @@ burnIn=2000
 
 LDpred(){
 	fileList=$1
-	mkdir -p logs
 
 	eval LDgf='$'HRC_LDgf_${snpidtype}
 
@@ -104,7 +109,6 @@ LDpred(){
 
 SBayesR(){
 	fileList=$1
-	mkdir -p logs weights tmp scores
 
 	i=0
 	while read row; do
@@ -184,14 +188,14 @@ checkStatusPGI(){
 			PGI)
 				case $method in 
 					LDpred)
-						if ! [[ $(find scores/PGS_${cohort}_${pheno}_LDpred_p*.txt -type f -size +20 2>/dev/null) ]]; then 
+						if ! [[ $(find ${pgi_dir}/PGS_${cohort}_${pheno}_LDpred_p*.txt -type f -size +20 2>/dev/null) ]]; then 
 							grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
 							echo "makePGI (LDpred) for $pheno in $cohort has not been run yet or was unsuccessful."
 							status=0
 						fi
 						;;
 					SBayesR)
-						if ! [[ $(find scores/PGS_${cohort}_${phenoNoNum}_SBayesR.txt -type f -size +20 2>/dev/null) ]]; then 
+						if ! [[ $(find ${pgi_dir}/PGS_${cohort}_${phenoNoNum}_SBayesR.txt -type f -size +20 2>/dev/null) ]]; then 
 							grep $pheno $PGI_Repo/code/9_Scores/ss_${score}_${cohort} >> $PGI_Repo/code/9_Scores/${cohort}_${score}_${step}_rerun
 							echo "makePGI (SBayesR) for $pheno in $cohort has not been run yet or was unsuccessful."
 							status=0
@@ -212,8 +216,6 @@ checkStatusPGI(){
 
 makePGI(){
 	fileList=$1
-
-    mkdir -p scores
 
 	i=0
 	while read row; do
@@ -241,7 +243,7 @@ makePGI(){
 			--weightCols=${cols} \
 			--valgf=${valgf} \
 			--sampleKeep=${sample} \
-			--out=${cohort}_${phenoNoNum}_${method} &
+			--out=${pgi_dir}/PGS_${cohort}_${phenoNoNum}_${method} &
 
 		let i+=1
 		
@@ -276,6 +278,8 @@ main(){
 			pass=$(($pass+1))
 		fi
 
+		checkStatusPGI weight
+
 		if [[ $pass > 1 ]]; then
 			break
 		fi
@@ -299,6 +303,8 @@ main(){
 			makePGI $PGI_Repo/code/9_Scores/ss_${score}_${cohort}_PGI
 			pass=$(($pass+1))
 		fi
+
+		checkStatusPGI PGI
 
 		if [[ $pass > 3 ]]; then
 			break
