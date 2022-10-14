@@ -30,7 +30,7 @@ PGI(){
 }
 
 
-for cohort in AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCS MCTFR STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS
+for cohort in FinnGen GSOEP_mildQC AH Dunedin EGCUT ELSA ERisk HRS2 HRS3 MCS MCTFR STRpsych STRtwge STRyatssstage Texas UKB1 UKB2 UKB3 WLS
 do
     PGI $cohort SBayesR
 done
