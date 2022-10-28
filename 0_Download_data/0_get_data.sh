@@ -193,11 +193,6 @@ wget https://www.reprogen.org/Menarche_Nature2014_GWASMetaResults_17122014.zip
 #------------------------------------#
 
 #------------------------------------#
-# PGC3 - Schizophrenia 
-wget https://figshare.com/ndownloader/files/28169757 -O SCZ-PGC3.txt.gz
-#------------------------------------#
-
-#------------------------------------#
 # Schumacher et al. - Prostate cancer
 wget http://practical.icr.ac.uk/blog/wp-content/uploads/uploadedfiles/oncoarray/MetaSummaryData/meta_v3_onco_euro_overall_ChrAll_1_release.zip
 #------------------------------------#
@@ -238,6 +233,12 @@ wget https://www.ru.nl/publish/pages/898181/paper2_readme.docx
 #------------------------------------#
 # TAG - Ever smoker
 # Download from here: https://www.med.unc.edu/pgc/download-results/tag/
+#------------------------------------#
+
+#------------------------------------#
+# Trubetskoy - Schizophrenia (core: EUR+East Asian)
+wget https://figshare.com/ndownloader/files/34865091 -O SCZ-Trubetskoy_ReadMe.pdf
+wget https://figshare.com/ndownloader/files/34517807 -O SCZ-Trubetskoy.txt.gz 
 #------------------------------------#
 
 #------------------------------------#
