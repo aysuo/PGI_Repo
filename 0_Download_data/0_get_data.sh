@@ -236,6 +236,12 @@ wget https://www.ru.nl/publish/pages/898181/paper2_readme.docx
 #------------------------------------#
 
 #------------------------------------#
+# TAG - Age smoking initiation, smoking cessation
+# Got via email from Grace Danielle Lutter, graced@email.unc.edu
+# other_gwas_tag.zip
+#------------------------------------#
+
+#------------------------------------#
 # Trubetskoy - Schizophrenia (core: EUR+East Asian)
 wget https://figshare.com/ndownloader/files/34865091 -O SCZ-Trubetskoy_ReadMe.pdf
 wget https://figshare.com/ndownloader/files/34517807 -O SCZ-Trubetskoy.txt.gz 
@@ -247,6 +253,8 @@ wget https://figshare.com/ndownloader/files/34517807 -O SCZ-Trubetskoy.txt.gz
 wget https://gbmi-sumstats.s3.amazonaws.com/Asthma_Bothsex_eur_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz  -O Asthma_Bothsex_eur_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz
 # ALL: 
 wget https://gbmi-sumstats.s3.amazonaws.com/Asthma_Bothsex_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz  -O Asthma_Bothsex_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz
+# ALL excl UKB:
+wget https://gbmi-sumstats.s3.amazonaws.com/Asthma_Bothsex_leave_UKBB_inv_var_meta_GBMI_052021.txt.gz -O Asthma_Bothsex_leave_UKBB_inv_var_meta_GBMI_052021.txt.gz
 #------------------------------------#
 
 #------------------------------------#
@@ -255,6 +263,8 @@ wget https://gbmi-sumstats.s3.amazonaws.com/Asthma_Bothsex_inv_var_meta_GBMI_052
 wget https://gbmi-sumstats.s3.amazonaws.com/COPD_Bothsex_eur_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz  -O COPD_Bothsex_eur_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz
 # ALL: 
 wget https://gbmi-sumstats.s3.amazonaws.com/COPD_Bothsex_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz  -O COPD_Bothsex_inv_var_meta_GBMI_052021_nbbkgt1.txt.gz
+# ALL excl UKB:
+wget https://gbmi-sumstats.s3.amazonaws.com/COPD_Bothsex_leave_UKBB_inv_var_meta_GBMI_052021.txt.gz -O COPD_Bothsex_leave_UKBB_inv_var_meta_GBMI_052021.txt.gz &
 #------------------------------------#
 
 #------------------------------------#
