@@ -53,51 +53,73 @@ mergePGI_v2(){
     cohort=$1
     inputDir=$2
     outputDir=$3
+    ancestry=$4
+
+    echo "Merging PGIs for cohort: $cohort , ancestry: $ancestry"
     
-    echo "Merging PGIs for cohort: $cohort"
-    
-    tmp=$(ls -1 $inputDir/PGI_${cohort}*_SBayesR.txt | head -1)
+    tmp=$(ls -1 $inputDir/PGI_${cohort}_${ancestry}*_SBayesR.txt | head -1)
     cut -f1-2 $tmp > $outputDir/tmp/tmp
     
-    for file in $inputDir/PGI_${cohort}*_SBayesR.txt; do 
+    for file in $inputDir/PGI_${cohort}_${ancestry}*_SBayesR.txt; do 
         # Extract phenotype from file name
         echo "Processing file: $file"
-        pheno=$(echo $file | rev | cut -d"/" -f1 | rev | cut -d"-" -f1 | sed "s/PGI_${cohort}_//g")
-                
+        pheno=$(basename $file | cut -d"-" -f1 | sed "s/PGI_${cohort}_${ancestry}_//g")
+        echo "Phenotype: $pheno"        
         awk -v P=$pheno -F"\t" 'NR==1{$5="PGI_"P}NR==FNR{pgi[$2]=$5;next}{print $0,pgi[$2]}' OFS="\t" $file $outputDir/tmp/tmp > $outputDir/tmp/tmp2
-        mv $outputDir/tmp/tmp2 $outputDir/tmp/tmp
-        echo "Processed phenotype: $pheno"
+        mv $outputDir/tmp/tmp2 $outputDir/tmp/tmp    
     done
     mv $outputDir/tmp/tmp $outputDir/tmp/pgi.txt
+
+    # Check if all PGIs are added
+    expected_cols=$(($(ls -1 $inputDir/PGI_${cohort}_${ancestry}*_SBayesR.txt | wc -l) + 2))
+    actual_cols=$(head -1 $outputDir/tmp/pgi.txt | awk '{print NF}')
+    if [[ $actual_cols -ne $expected_cols ]]; then
+        echo "Error: Not all PGIs were added for cohort: $cohort, ancestry: $ancestry. Expected columns: $expected_cols, Actual columns: $actual_cols. Please check the input files."
+        exit 1
+    fi
 }
 
 mergePCs(){
     cohort=$1
     outputDir=$2
+    ancestry=$3
 
     eval pc_dir='$'pc_dir_${cohort}
 
     echo "Merging PCs for cohort: $cohort"
 
     # If PCs are available, merge them
-    if [[ -f $pc_dir/${cohort}_PCs.eigenvec ]]; then
+    if [[ -f $pc_dir/${cohort}_${ancestry}_PCs.eigenvec ]]; then
         awk '(NR==1){print $0,"PC1","PC2","PC3","PC4","PC5","PC6","PC7","PC8","PC9","PC10","PC11","PC12","PC13","PC14","PC15","PC16","PC17","PC18","PC19","PC20";next} \
             NR==FNR{a[$2]=$0;next} \
-            {print a[$2],$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22}' OFS="\t" $outputDir/tmp/pgi.txt $pc_dir/${cohort}_PCs.eigenvec > $outputDir/${cohort}_PGIrepo_v2.0.txt
+            {print a[$2],$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22}' OFS="\t" $outputDir/tmp/pgi.txt $pc_dir/${cohort}_${ancestry}_PCs.eigenvec > $outputDir/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt
+    elif [[ -f $pc_dir/${cohort}_${ancestry}_PCs.sscore ]]; then
+        awk '(NR==1){print $0,"PC1","PC2","PC3","PC4","PC5","PC6","PC7","PC8","PC9","PC10","PC11","PC12","PC13","PC14","PC15","PC16","PC17","PC18","PC19","PC20";next} \
+            NR==FNR{a[$2]=$0;next} \
+            FNR>1{print a[$2],$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24}' OFS="\t" $outputDir/tmp/pgi.txt $pc_dir/${cohort}_${ancestry}_PCs.sscore > $outputDir/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt
     else
         echo "No PCs available for cohort: $cohort"
-        cp $outputDir/tmp/pgi.txt $outputDir/${cohort}_PGIrepo_v2.0.txt
+        cp $outputDir/tmp/pgi.txt $outputDir/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt
+    fi
+
+    # Check if the number of columns is correct (2 + 20 PCs + number of PGIs)
+    expected_cols=$(($(head -1 $outputDir/tmp/pgi.txt  | awk '{print NF}') + 20))
+    actual_cols=$(head -1 $outputDir/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt | awk '{print NF}')
+    if [[ $actual_cols -ne $expected_cols ]]; then
+        echo "Error: The number of columns in the merged file for cohort: $cohort, ancestry: $ancestry is incorrect. Expected: $expected_cols, Actual: $actual_cols. Please check the input files."
+        exit 1
     fi
 }
 
 mergeParental(){
     cohort=$1
-    inputDir=$2
-    outputDir=$3
+    ancestry=$2
+    inputDir=$3
+    outputDir=$4
 
     echo "Merging parental PGIs for cohort: $cohort"
 
-    tmp=$(ls -1 $inputDir/PGI_${cohort}_parental_* | head -1)
+    tmp=$(ls -1 $inputDir/PGI_${cohort}_${ancestry}_parental_* | head -1)
     echo "Adding FATHER_ID and MOTHER_ID as 3rd and 4th columns to the main PGI file"
 
     awk 'NR==FNR{FATHERID[$2]=$3;MOTHERID[$2]=$4;next}
@@ -106,7 +128,7 @@ mergeParental(){
 
     echo "Adding parental PGIs to the main PGI file"
     
-    for file in $inputDir/PGI_${cohort}_parental_*; do 
+    for file in $inputDir/PGI_${cohort}_${ancestry}_parental_*; do 
         echo "Processing parental file: $file"
         pheno=$(echo $file | rev | cut -d"/" -f1 | rev | cut -d"-" -f1 | sed "s/PGI_${cohort}_parental_//g")
         
@@ -136,24 +158,25 @@ fixIDs(){
     cohort=$1
     outputDir=$2
     format=$3
+    ancestry=$4
 
     echo "Fixing FID and IID for cohort: $cohort"
 
-    if [[ $(grep "FATHER_ID" $outputDir/${cohort}_PGIrepo_v2.0.txt) ]]; then
+    if [[ $(grep "FATHER_ID" $outputDir/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt) ]]; then
         awk -F"\t" -v format=$format 'NR==1{print;next} \
             {split($1,a,/_/) ; split($3,b,/_/); split($4,c,/_/);
             if (format=="fid_iid") {$1=a[1]; $2=a[2] ; if ($3!="NA") {$3=b[2]}; if ($4!="NA") $4=c[2]};
             if (format=="x_iid_x_iid") {$1=a[1]"_"a[2]; $2=a[1]"_"a[2] ; if ($3!="NA") {$3=b[1]"_"b[2]}; if ($4!="NA") $4=c[1]"_"c[2]};
-            print}' OFS="\t"  $outputDir/${cohort}_PGIrepo_v2.0.txt > $outputDir/tmp/tmp
+            print}' OFS="\t"  $outputDir/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt > $outputDir/tmp/tmp
     else
         awk -F"\t" -v format=$format 'NR==1{print;next} \
             {split($1,a,/_/) ; 
             if (format=="fid_iid") {$1=a[1]; $2=a[2]};
             if (format=="x_iid_x_iid") {$1=a[1]"_"a[2]; $2=a[1]"_"a[2]} ; 
-            print}' OFS="\t" $outputDir/${cohort}_PGIrepo_v2.0.txt > $outputDir/tmp/tmp
+            print}' OFS="\t" $outputDir/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt > $outputDir/tmp/tmp
     fi
 
-    mv $outputDir/tmp/tmp $outputDir/${cohort}_PGIrepo_v2.0.txt
+    mv $outputDir/tmp/tmp $outputDir/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt
 }
 
 
@@ -227,89 +250,129 @@ fixIDs(){
 family_cohorts="AH ALSPAC ERisk GS GSOEP MCS MCTFR PSID STRtwge STRgsa STRpsych Texas WLS"
 fid_iid_format_cohorts="AH Dunedin ELSA ERisk GS GSOEP MIDUS WLS"
 x_iid_x_iid_format_cohorts="BCS70 MCS NCDS"
+AFRcohorts=(AH1kG HRS MCS MIDUS PSID) #UKB
+EAScohorts=(AH1kG HRS MCTFR MIDUS) #UKB
+SAScohorts=(BCS70 MCS) #UKB
+AMRcohorts=(AH1kG HRS MCTFR PSID) #UKB
+EURcohorts=(AH ALSPAC BCS70 ELSA ERisk GS GSOEP HRS MCTFR MCS MIDUS NCDS NSHD PSID STRtwge STRpsych STRgsa Texas WLS) # Dunedin UKB TwinLife EstBB FinnGen
 
 
-for cohort in AH ALSPAC BCS70 Dunedin ELSA ERisk GS GSOEP HRS MCTFR MCS MIDUS NCDS NSHD PSID STRtwge STRpsych STRgsa Texas WLS; do
+for ancestry in AFR EAS SAS AMR EUR
+do
     echo "==================================="
-    echo "Processing cohort: $cohort"
+    echo "Processing ancestry: $ancestry"
+    eval "cohorts=(\${${ancestry}cohorts[@]})"
     
-    eval pgiDir='$'pgi_dir_${cohort}
-    dirIn=$pgiDir/single_SBayesR
-    dirOut=$pgiDir/release/v2.0
-    mkdir -p $dirOut/tmp
+    for cohort in "${cohorts[@]}"
+    do
+        echo "==================================="
+        echo "Processing cohort: $cohort"
+            
+        eval pgiDir='$'pgi_dir_${cohort}
+        dirIn=$pgiDir/single_SBayesR
+        dirOut=$pgiDir/release/v2.0
+        mkdir -p $dirOut/tmp
 
-    # Merge PGI files
-    mergePGI_v2 $cohort $dirIn $dirOut
+        # Merge PGI files
+        mergePGI_v2 $cohort $dirIn $dirOut $ancestry
 
-    # Merge parental PGIs if family cohort
-    if [[ $family_cohorts == *"$cohort"* ]]; then
-        mergeParental $cohort $dirIn $dirOut
-    fi
+        # Merge parental PGIs if family cohort and EUR ancestry
+        if [[ $family_cohorts == *"$cohort"* && $ancestry == "EUR" ]]; then
+            mergeParental $cohort $ancestry $dirIn $dirOut
+        fi
     
-    # Merge PCs 
-    mergePCs $cohort $dirOut
+        # Merge PCs 
+        mergePCs $cohort $dirOut $ancestry
     
-    # Fix FID and IID if necessary
-    if [[ $fid_iid_format_cohorts == *"$cohort"* ]]; then
-        fixIDs $cohort $dirOut fid_iid
-    elif [[ $x_iid_x_iid_format_cohorts == *"$cohort"* ]]; then
-        fixIDs $cohort $dirOut x_iid_x_iid
-    fi    
+        # Fix FID and IID if necessary
+        if [[ $fid_iid_format_cohorts == *"$cohort"* ]]; then
+            fixIDs $cohort $dirOut fid_iid $ancestry
+        elif [[ $x_iid_x_iid_format_cohorts == *"$cohort"* ]]; then
+            fixIDs $cohort $dirOut x_iid_x_iid $ancestry
+        fi    
     
-    # Clean-up
-    rm -rf $dirOut/tmp
+        # Clean-up
+        rm -rf $dirOut/tmp
 
-    echo "Cohort $cohort processed successfully."
+        echo "Cohort $cohort processed successfully."
+    done
 done  
 
 ####################
 
-# Add batch to STR
-Merge STR subcohorts
+# # Add batch to STR
+# Merge STR subcohorts
 awk -F"\t" 'NR==1{print $0,"BATCH";next} 
     NR==FNR{print $0,"twingene";next}
-    FNR>1{print $0,"psych"}' OFS="\t" $pgi_dir_STRtwge/release/v2.0/STRtwge_PGIrepo_v2.0.txt $pgi_dir_STRpsych/release/v2.0/STRpsych_PGIrepo_v2.0.txt > $pgi_dir_STRpsych/release/v2.0/tmp
+    FNR>1{print $0,"psych"}' OFS="\t" $pgi_dir_STRtwge/release/v2.0/SSGAC_PGI_Repository_v2_STRtwge_EUR.txt $pgi_dir_STRpsych/release/v2.0/SSGAC_PGI_Repository_v2_STRpsych_EUR.txt > $pgi_dir_STRpsych/release/v2.0/tmp
 
 awk -F"\t" 'NR==FNR{print $0;next} 
-    FNR>1{print $0,"gsa"}' OFS="\t" $pgi_dir_STRpsych/release/v2.0/tmp $pgi_dir_STRgsa/release/v2.0/STRgsa_PGIrepo_v2.0.txt > $pgi_dir_STRpsych/release/v2.0/STR_PGIrepo_v2.0.txt
+    FNR>1{print $0,"gsa"}' OFS="\t" $pgi_dir_STRpsych/release/v2.0/tmp $pgi_dir_STRgsa/release/v2.0/SSGAC_PGI_Repository_v2_STRgsa_EUR.txt > $pgi_dir_STRpsych/release/v2.0/SSGAC_PGI_Repository_v2_STR_EUR.txt
 rm $pgi_dir_STRpsych/release/v2.0/tmp
-cp $pgi_dir_STRpsych/release/v2.0/STR_PGIrepo_v2.0.txt $pgi_dir_STRgsa/release/v2.0/STR_PGIrepo_v2.0.txt
+cp $pgi_dir_STRpsych/release/v2.0/SSGAC_PGI_Repository_v2_STR_EUR.txt $pgi_dir_STRgsa/release/v2.0/SSGAC_PGI_Repository_v2_STR_EUR.txt
 
-####################
+# ####################
 
-# Add batch to MIDUS 
-awk -F"\t" 'NR==FNR{split($1,a,/_/); $1=a[1]; b[$1]=$1; next}
-            FNR==1{print $0,"BATCH";next}
-            ($1 in b){print $0,"omni10";next}
-            {print $0, "omni11"}' OFS="\t" $gf_dir_MIDUSomni10/plink2/MIDUSomni10_chr1.nodup.psam $pgi_dir_MIDUS/release/v2.0/MIDUS_PGIrepo_v2.0.txt > $pgi_dir_MIDUS/release/v2.0/tmp
+# # Add batch to MIDUS 
+for ancestry in AFR EAS EUR
+do
+    awk -F"\t" 'NR==FNR{split($1,a,/_/); $1=a[1]; b[$1]=$1; next}
+                FNR==1{print $0,"BATCH";next}
+                ($1 in b){print $0,"omni10";next}
+                {print $0, "omni11"}' OFS="\t" $gf_dir_MIDUSomni10/plink2/MIDUSomni10_chr1.nodup.psam $pgi_dir_MIDUS/release/v2.0/SSGAC_PGI_Repository_v2_MIDUS_${ancestry}.txt > $pgi_dir_MIDUS/release/v2.0/tmp
 
-mv $pgi_dir_MIDUS/release/v2.0/tmp $pgi_dir_MIDUS/release/v2.0/MIDUS_PGIrepo_v2.0.txt
+    mv $pgi_dir_MIDUS/release/v2.0/tmp $pgi_dir_MIDUS/release/v2.0/SSGAC_PGI_Repository_v2_MIDUS_${ancestry}.txt
+done
 
-####################
+# ####################
 
-# Add batch to NCDS
+# # Add batch to NCDS
 awk 'NR==FNR{FS=","; gsub(/"/,"",$1); gsub(/"/,"",$2); a[$1]=$2; next} 
     FNR==1{FS="\t"; print $0,"BATCH";next}
-    {FS="\t"; if ($1 in a) {print $0,a[$1]}}' OFS="\t" $array_indicator_NCDS $pgi_dir_NCDS/release/v2.0/NCDS_PGIrepo_v2.0.txt > $pgi_dir_NCDS/release/v2.0/tmp
-mv $pgi_dir_NCDS/release/v2.0/tmp $pgi_dir_NCDS/release/v2.0/NCDS_PGIrepo_v2.0.txt
+    {FS="\t"; if ($1 in a) {print $0,a[$1]}}' OFS="\t" $array_indicator_NCDS $pgi_dir_NCDS/release/v2.0/SSGAC_PGI_Repository_v2_NCDS.txt > $pgi_dir_NCDS/release/v2.0/tmp
+mv $pgi_dir_NCDS/release/v2.0/tmp $pgi_dir_NCDS/release/v2.0/SSGAC_PGI_Repository_v2_NCDS_EUR.txt
 
+# ####################
+# Shuffle HRS PCs
+for ancestry in AFR EAS AMR EUR
+do
+    awk -v seed=42 -f $PGI_Repo/code/2_Formatting/2.7.1_Shuffle_HRS_PCs.awk $pgi_dir_HRS/release/v2.0/SSGAC_PGI_Repository_v2_HRS_${ancestry}.txt > $pgi_dir_HRS/release/v2.0/SSGAC_PGI_Repository_v2_HRS_${ancestry}_Shuffled.txt
+    mv $pgi_dir_HRS/release/v2.0/SSGAC_PGI_Repository_v2_HRS_${ancestry}_Shuffled.txt $pgi_dir_HRS/release/v2.0/SSGAC_PGI_Repository_v2_HRS_${ancestry}.txt
+done
 ####################
 
-# Shuffle HRS PCs
-sh $PGI_Repo/code/2_Formatting/2.7_Shuffle_HRS_PCs.sh
-
 # Check if there are NaNs in the PGI files, column count, row count
-echo -e "Cohort\tNcol\tNrow\tNaN" > $PGI_Repo/code/2_Formatting/2.7_PGI_stats.log
-for cohort in AH ALSPAC BCS70 Dunedin ELSA ERisk GS GSOEP HRS MCTFR MCS MIDUS NCDS STRtwge STRpsych STRgsa Texas UKB1 UKB2 UKB3 WLS; do
-    eval pgiDir='$'pgi_dir_${cohort}
+echo -e "Cohort\tAncestry\tNcol\tNrow\tNaN" > $PGI_Repo/code/2_Formatting/2.7_PGI_stats.log
 
-    if [[ $(grep "nan" $pgiDir/release/v2.0/${cohort}_PGIrepo_v2.0.txt) ]]; then
-        NaN=1
-    else
-        NaN=0
-    fi
-    awk -F"\t" -v C=$cohort -v NaN=$NaN 'END{print C, NF, NR, NaN}' OFS="\t" $pgiDir/release/v2.0/${cohort}_PGIrepo_v2.0.txt >> $PGI_Repo/code/2_Formatting/2.7_PGI_stats.log
+for ancestry in AFR EAS SAS AMR EUR
+do
+    eval "cohorts=(\${${ancestry}cohorts[@]})"
+    
+    for cohort in "${cohorts[@]}"
+    do
+        eval pgiDir='$'pgi_dir_${cohort}
+        
+        if [[ $cohort == "STRtwge" || $cohort == "STRpsych" || $cohort == "STRgsa" ]]; then
+            cohort="STR"
+        fi
+
+        if [[ $cohort == "Texas" ]]; then
+            cohort="TTP"
+        fi
+
+        if [[ $cohort == "GSOEP" ]]; then
+            cohort="SOEPG"
+        fi
+
+        if [[ $(grep "nan" $pgiDir/release/v2.0/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt) ]]; then
+            NaN=1
+        else
+            NaN=0
+        fi
+        awk -F"\t" -v C=$cohort -v A=$ancestry -v NaN=$NaN 'END{print C, A, NF, NR, NaN}' OFS="\t" $pgiDir/release/v2.0/SSGAC_PGI_Repository_v2_${cohort}_${ancestry}.txt >> $PGI_Repo/code/2_Formatting/2.7_PGI_stats.log
+    done
 done
+
 
 for cohort in AH ALSPAC BCS70 Dunedin ELSA ERisk GS GSOEP HRS MCTFR MCS MIDUS NCDS NSHD PSID STRtwge STRpsych STRgsa Texas WLS; do
     eval pgiDir='$'pgi_dir_${cohort}
