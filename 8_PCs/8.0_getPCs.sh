@@ -1,12 +1,14 @@
 #!/bin/bash
 
-filterInfo(){
-    cohort=$1
+source $PGI_Repo/code/7_Genotypes/7.6.0_formatConversion.sh
+
+getInfoFilteredSNPs(){
+    coh=$1
     cutoff=$2 
     infoCol=$3
     out=$4
 
-    eval info='$'info_orig_${cohort}
+    eval info='$'info_orig_${coh}
 
     rm -f ${out}
     for chr in {1..22}; do
@@ -23,7 +25,7 @@ filterInfo(){
 
 
 prune(){
-    cohort=$1
+    coh=$1
     excludeSNPs=$2
     pre_filterInfo=$3
     infoCol=$4
@@ -40,72 +42,78 @@ prune(){
 
     if [[ $excludeSNPs == "NA" ]]
         then
-            touch excludeSNPs.txt
-            excludeSNPs=excludeSNPs.txt
+            touch ${pc_dir}/excludeSNPs.txt
+            excludeSNPs=${pc_dir}/excludeSNPs.txt
     fi
 
+    if [[ $coh == "1000G" ]]; then
+        cohF="1000Gph3"
+    else 
+        cohF=$coh
+    fi
+    eval gf_dir='$'gf_dir_${coh}
+
     if [[ $pre_filterInfo == "yes" ]]; then
+        echo "Filtering SNPs based on info score from info files"
         for chr in {1..22}; do
-            gfChr=$(echo "${gf_dir}/plink2/${cohort}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
+            gfChr=$(echo "${gf_dir}/plink2/${cohF}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
             plink2 --pfile ${gfChr} \
                 --exclude bed1 ${excludeSNPs} \
                 --maf $mafCutoff \
                 --rm-dup force-first \
-                --extract ${cohort}_infofiltered.snps \
+                --set-missing-var-ids @:# \
+                --extract ${pc_dir}/${coh}_infofiltered.snps \
                 --keep ${sampleKeep} \
                 --indep-pairwise ${pruneWindow} ${pruneShift} ${pruneR2}  \
                 --out ${out}_chr${chr} 
         done
+        rm -f ${pc_dir}/${coh}_infofiltered.snps
     else
-        for chr in {1..22}; do
-            gfChr=$(echo "${gf_dir}/plink2/${cohort}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
-            plink2 --pfile $gfChr \
-                --exclude bed1 ${excludeSNPs} \
-                --maf $mafCutoff \
-                --rm-dup force-first \
-                --extract-if-info $infoCol '>'= $infoCutoff \
-                --keep ${sampleKeep} \
-                --indep-pairwise ${pruneWindow} ${pruneShift} ${pruneR2} \
-                --out ${out}_chr${chr} 
-        done
+        if [[  $infoCol == "NA" || $infoCutoff == "NA" ]]; then
+            echo "Skipping info filtering because info column or cutoff not provided"
+            for chr in {1..22}; do
+                gfChr=$(echo "${gf_dir}/plink2/${cohF}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
+                plink2 --pfile $gfChr \
+                    --exclude bed1 ${excludeSNPs} \
+                    --maf $mafCutoff \
+                    --set-missing-var-ids @:# \
+                    --rm-dup force-first \
+                    --keep ${sampleKeep} \
+                    --indep-pairwise ${pruneWindow} ${pruneShift} ${pruneR2} \
+                    --out ${out}_chr${chr} 
+            done
+        else
+            echo "Filtering SNPs based on info score from plink2 files"
+            for chr in {1..22}; do
+                gfChr=$(echo "${gf_dir}/plink2/${cohF}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
+                plink2 --pfile $gfChr \
+                    --exclude bed1 ${excludeSNPs} \
+                    --maf $mafCutoff \
+                    --set-missing-var-ids @:# \
+                    --rm-dup force-first \
+                    --extract-if-info $infoCol '>'= $infoCutoff \
+                    --keep ${sampleKeep} \
+                    --indep-pairwise ${pruneWindow} ${pruneShift} ${pruneR2} \
+                    --out ${out}_chr${chr} 
+            done
+        fi
     fi
     wait
 
-    rm -f mergelist ${cohort}_infofiltered.snps
-    echo $sampleKeep
     for chr in {1..22}; do
-        gfChr=$(echo "${gf_dir}/plink2/${cohort}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
+        gfChr=$(echo "${gf_dir}/plink2/${cohF}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
         plink2 --pfile $gfChr \
             --extract ${out}_chr${chr}.prune.in \
+            --max-alleles 2 \
             --keep ${sampleKeep} \
             --make-bed \
             --out ${out}_chr${chr}_pruned 
-
-        echo ${out}_chr${chr}_pruned >> mergelist
     done
     wait
 
-    plink1.9 --merge-list mergelist --make-bed --out ${out}_pruned
-    
-    if [[ -f ${out}_pruned-merge.missnp ]]; then
-        for chr in {1..22}; do
-            gfChr=$(echo "${gf_dir}/plink2/${cohort}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
-            plink2 --bfile ${out}_chr${chr}_pruned \
-                --exclude ${out}_pruned-merge.missnp \
-                --make-bed \
-                --out ${out}_chr${chr}_pruned.tmp 
-        done
-        wait
-
-        sed -i 's/$/\.tmp/g' mergelist
-
-        plink1.9 --merge-list mergelist --make-bed --out ${out}_pruned
-
-        rm *tmp*
-    fi 
-    rm -f ${cohort}_*chr*_pruned* *prune.* mergelist excludeSNPs.txt
-    mv *.log logs/
-    mv *.missnp logs/
+    mergePlink ${out}_chr[1:22]_pruned ${out}_pruned
+    rm -f ${out}_chr*_pruned* ${out}_*prune.* ${pc_dir}/excludeSNPs.txt
+    mv ${pc_dir}/*.log ${pc_dir}/logs/
 }
 
 
@@ -127,6 +135,7 @@ PCs(){
     gf=$1
     out=$2
 
+
     if [[ $(grep -c "other" ${gf}.clusters) -gt 100 ]]
     then
         plink1.9 --bfile ${gf} \
@@ -136,11 +145,12 @@ PCs(){
                 --make-just-bim \
                 --out ${gf}_other_mac1
         extractFlag="--extract ${gf}_other_mac1.bim"
+        cut -f2 ${gf}_other_mac1.bim | sort -u > ${gf}_other_mac1.snps
     else
         extractFlag=""
     fi
 
-    cut -f2 ${gf}_other_mac1.bim | sort -u > ${gf}_other_mac1.snps
+
 
     plink1.9 --bfile ${gf} \
             --within ${gf}.clusters \
@@ -149,12 +159,59 @@ PCs(){
             --out ${out} \
             $extractFlag
 
-    rm ${gf}.clusters  \
-        ${gf}*.bim \
+    rm  ${gf}*.bim \
         ${gf}.bed \
         ${gf}.fam \
         ${gf}*.nosex \
-        ${gf}*.snps
+        ${gf}*.snps \
+        ${gf}.clusters \
+        ${out}.nosex
 
-    mv ${gf}_* logs/
+    mv ${gf}_* ${pc_dir}/logs/
+}
+
+PC_project(){   
+    gfRef=$1      # Reference genotype data (plink format) to estimate PC weights
+    pcRefOut=$2   # PC output path for ref data
+    coh=$3     # Cohort to project onto reference panel
+    sampleKeep=$4   # List of individuals to keep in the coh (individuals of a specific ancestry)  
+    out=$5          # Output file path
+
+    cut -f2 $gfRef.bim  > ${gfRef}.snps
+    for chr in {1..22}; do
+        gfChr=$(echo "${gf_dir}/plink2/${coh}_chr[1:22]" | sed "s/\[1:22\]/$chr/g")
+        plink2 --pfile $gfChr \
+            --keep ${sampleKeep} \
+            --mac 1 \
+            --extract ${gfRef}.snps \
+            --make-bed \
+            --out ${pc_dir}/${coh}_${ancestry}_chr${chr} 
+    done
+    mergePlink ${pc_dir}/${coh}_${ancestry}_chr[1:22] ${pc_dir}/${coh}_${ancestry}
+    rm ${pc_dir}/${coh}_${ancestry}_chr*
+
+    echo "Estimating PC weights.."
+    plink2 --bfile ${gfRef} \
+        --rm-dup force-first \
+        --freq counts \
+        --pca 20 allele-wts vcols=chrom,ref,alt \
+        --out ${pcRefOut}
+    
+    awk -F"\t" 'NR==1{print;next} $6>0{print}' ${pcRefOut}.acount > ${pcRefOut}.acount.tmp
+    mv ${pcRefOut}.acount.tmp ${pcRefOut}.acount
+
+    
+    echo "Projecting coh data onto estimated weights.."
+    plink2 --bfile ${pc_dir}/${coh}_${ancestry} \
+        --read-freq ${pcRefOut}.acount \
+        --score ${pcRefOut}.eigenvec.allele 2 5 header-read no-mean-imputation variance-standardize \
+        --score-col-nums 6-25 \
+        --out ${out} 
+
+    rm ${pc_dir}/${coh}_${ancestry}.bed \
+        ${pc_dir}/${coh}_${ancestry}.bim \
+        ${pc_dir}/${coh}_${ancestry}.fam \
+        ${pc_dir}/${coh}_${ancestry}.nosex
+
+    mv ${pc_dir}/*.log ${pc_dir}/logs/
 }
