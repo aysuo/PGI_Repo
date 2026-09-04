@@ -136,18 +136,16 @@ mergePlink(){
                 --make-bed \
                 --out $gfOut.chr$chr.tmp
         done
-        #wait
 
-        rm -f ${gfOut}_mergelist
+        rm -f ${gfOut}_mergelist ${gfOut}-merge.missnp
         for chr in {1..22}; do
             echo $gfOut.chr$chr.tmp >> ${gfOut}_mergelist
         done
 
         plink1.9 --merge-list ${gfOut}_mergelist --make-bed --out ${gfOut}
 
-        rm ${gfOut}.chr*.tmp*
+        rm ${gfOut}.chr*.tmp* ${gfOut}_mergelist
     fi 
-    rm ${gfOut}_chr*
     end=$(date +%s) 
     echo "mergePlink() Done. (Time: $(( ($end - $start)/60 )) minutes)"
 }
@@ -341,6 +339,7 @@ rs2chrpos(){
 
     plink2 --bfile $gfIn \
         --set-all-var-ids @:# \
+        --rm-dup force-first \
         --make-bed \
         --out $gfOut
 }
@@ -353,23 +352,27 @@ liftOver(){
     awk '{print "chr"$1,$4-1,$4,$2}' OFS="\t" $gfIn.bim > $gfOut.lift.bed
 
     $liftover $gfOut.lift.bed $chain $gfOut.lifted.bed $gfOut.unlifted.bed
-    awk -F"\t" '{gsub(/chr/,"",$1); print $4,$1":"$3,$1,$3}' $gfOut.lifted.bed > $gfOut.update.map 
+    awk -F"\t" '{gsub(/chr/,"",$1); print $4,$1":"$3,$1,$3}' $gfOut.lifted.bed | sort | uniq > $gfOut.update.map 
     sed -i '/alt/d' $gfOut.update.map
     cut -f2 -d" " $gfOut.update.map > $gfOut.keep.snps
 
-    plink1.9 --bfile $gfIn \
+    plink2 --bfile $gfIn \
         --update-name $gfOut.update.map 2 1 \
+        --rm-dup force-first \
         --make-bed \
         --out $gfOut.tmp
 
+    cut -f2-4 -d" " $gfOut.update.map | sort | uniq > $gfOut.update.map.tmp
+
     plink1.9 --bfile $gfOut.tmp \
         --extract $gfOut.keep.snps \
-        --update-chr $gfOut.update.map 3 2 \
-        --update-map $gfOut.update.map 4 2 \
+        --allow-extra-chr \
+        --update-chr $gfOut.update.map.tmp 2 1 \
+        --update-map $gfOut.update.map.tmp 3 1 \
         --make-bed \
         --out $gfOut
         
-    rm $gfOut.tmp* $gfOut.update.map $gfOut.keep.snps $gfOut.lift.bed $gfOut.lifted.bed
+    rm $gfOut.tmp* $gfOut.update.map $gfOut.update.map.tmp $gfOut.keep.snps $gfOut.lift.bed $gfOut.lifted.bed
 }
 
 kgp2rs(){
